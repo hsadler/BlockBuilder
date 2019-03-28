@@ -46,7 +46,7 @@ public class EnvironmentGeneration : MonoBehaviour {
                 for (int k = -halfSize; k < halfSize; k++) {
                     // create block
                     Vector3 position = new Vector3(i, j, k);
-                    GameObject newBlock = Instantiate(
+                    Instantiate(
                         blockPrefab, 
                         position, 
                         transform.rotation, 
