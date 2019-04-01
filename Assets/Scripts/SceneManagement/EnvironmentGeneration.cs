@@ -30,7 +30,8 @@ public class EnvironmentGeneration : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GenerateEnvironment();
+		GenerateTestCubeEnvironment();
+        // GenerateFlatLandEnvironment();
 	}
 	
 	// Update is called once per frame
@@ -38,17 +39,36 @@ public class EnvironmentGeneration : MonoBehaviour {
 		
 	}
 
-    void GenerateEnvironment() {
+    private void GenerateTestCubeEnvironment() {
         int size = 10;
-        int halfSize = size / 2;
-        for (int i = -halfSize; i < halfSize; i++) {
-            for (int j = -halfSize; j < halfSize; j++) {
-                for (int k = -halfSize; k < halfSize; k++) {
-                    // create block
-                    Vector3 position = new Vector3(i, j, k);
+        Vector3 pos = new Vector3();
+        GenerateBlockChunk(size, size, size, pos);
+    }
+
+    private void GenerateFlatLandEnvironment() {
+        int width = 100;
+        int depth = 100;
+        int height = 1;
+        Vector3 pos = new Vector3(0, 0, 0);
+        GenerateBlockChunk(width, height, depth, pos);
+    }
+
+    private void GenerateRectangularRoomEnvironment(int width, int height, int depth) {
+        // TODO
+    }
+
+    private void GenerateBlockChunk(int width, int height, int depth, Vector3 position) {
+        int halfWidth = width / 2;
+        int halfHeight = height / 2;
+        int halfDepth = depth / 2;
+        for (int i = -halfWidth; i < halfWidth; i++) {
+            for (int j = -halfHeight; j < halfHeight; j++) {
+                for (int k = -halfDepth; k < halfDepth; k++) {
+                    // create block from prefab
+                    Vector3 blockPosition = new Vector3(i, j, k);
                     Instantiate(
                         blockPrefab, 
-                        position, 
+                        blockPosition, 
                         transform.rotation, 
                         blocks.transform
                     );
