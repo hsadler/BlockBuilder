@@ -2,6 +2,13 @@
 TODO:
 
     - placement and removal of blocks
-    - procedural generation of flat map
+    - procedural generation of flat map (for testing)
     - walking mode for player
     - flying mode for player
+    - subclassing for blocks of different types
+    - ability to save game
+    - UI:
+        - inventory for selecting block types
+        - options (save, load, exit)
+    - rendering optimizations
+    - block placement orientation
