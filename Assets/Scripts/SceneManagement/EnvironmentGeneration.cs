@@ -30,8 +30,8 @@ public class EnvironmentGeneration : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GenerateTestCubeEnvironment();
-        // GenerateFlatLandEnvironment();
+		// GenerateTestCubeEnvironment();
+        GenerateFlatLandEnvironment();
 	}
 	
 	// Update is called once per frame
@@ -41,29 +41,31 @@ public class EnvironmentGeneration : MonoBehaviour {
 
     private void GenerateTestCubeEnvironment() {
         int size = 10;
-        Vector3 pos = new Vector3();
-        GenerateBlockChunk(size, size, size, pos);
+        Vector3 dimensions = new Vector3(size, size, size);
+        Vector3 pos = new Vector3(-size/2, -size/2, -size/2);
+        GenerateBlockChunk(dimensions, pos);
     }
 
     private void GenerateFlatLandEnvironment() {
         int width = 100;
-        int depth = 100;
         int height = 1;
-        Vector3 pos = new Vector3(0, 0, 0);
-        GenerateBlockChunk(width, height, depth, pos);
+        int depth = 100;
+        Vector3 dimensions = new Vector3(width, height, depth);
+        Vector3 pos = new Vector3(-width/2, -height, -depth/2);
+        GenerateBlockChunk(dimensions, pos);
     }
 
-    private void GenerateRectangularRoomEnvironment(int width, int height, int depth) {
+    private void GenerateRectangularRoomEnvironment(Vector3 dimensions, Vector3 position) {
         // TODO
     }
 
-    private void GenerateBlockChunk(int width, int height, int depth, Vector3 position) {
-        int halfWidth = width / 2;
-        int halfHeight = height / 2;
-        int halfDepth = depth / 2;
-        for (int i = -halfWidth; i < halfWidth; i++) {
-            for (int j = -halfHeight; j < halfHeight; j++) {
-                for (int k = -halfDepth; k < halfDepth; k++) {
+    private void GenerateBlockChunk(Vector3 dimensions, Vector3 position) {
+        float width = dimensions[0];
+        float depth = dimensions[1];
+        float height = dimensions[2];
+        for (float i = position[0]; i < position[0] + width; i++) {
+            for (float j = position[1]; j < position[1] + depth; j++) {
+                for (float k = position[2]; k < position[2] + height; k++) {
                     // create block from prefab
                     Vector3 blockPosition = new Vector3(i, j, k);
                     Instantiate(
