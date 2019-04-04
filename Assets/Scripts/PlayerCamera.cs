@@ -40,9 +40,17 @@ public class PlayerCamera : MonoBehaviour {
 			if(Physics.Raycast(ray, out hit)) {
 				GameObject objectHit = hit.transform.gameObject;
 				if(Input.GetMouseButtonDown(0)) {
-					objectHit.SendMessageUpwards("PlayerLeftClickInteraction", objectHit.tag);
+					objectHit.SendMessageUpwards(
+						"PlayerLeftClickInteraction", 
+						objectHit.tag, 
+						SendMessageOptions.DontRequireReceiver
+					);
 				} else if (Input.GetMouseButtonDown(1)) {
-					objectHit.SendMessageUpwards("PlayerRightClickInteraction", objectHit.tag);
+					objectHit.SendMessageUpwards(
+						"PlayerRightClickInteraction", 
+						objectHit.tag, 
+						SendMessageOptions.DontRequireReceiver
+					);
 				}
 			}
 		}

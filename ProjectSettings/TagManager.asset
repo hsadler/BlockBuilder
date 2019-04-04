@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Block
   - TopSensor
+  - LeftSensor
+  - RightSensor
+  - FrontSensor
+  - BackSensor
+  - BottomSensor
   layers:
   - Default
   - TransparentFX
