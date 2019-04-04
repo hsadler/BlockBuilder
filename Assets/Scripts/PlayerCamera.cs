@@ -34,12 +34,16 @@ public class PlayerCamera : MonoBehaviour {
 	}
 
 	private void CheckBlockInteraction() {
-		if(Input.GetMouseButtonDown(0)) {
+		if(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) {
 			RaycastHit hit;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if(Physics.Raycast(ray, out hit)) {
 				GameObject objectHit = hit.transform.gameObject;
-				objectHit.SetActive(false);
+				if(Input.GetMouseButtonDown(0)) {
+					objectHit.SendMessageUpwards("PlayerLeftClickInteraction", objectHit.tag);
+				} else if (Input.GetMouseButtonDown(1)) {
+					objectHit.SendMessageUpwards("PlayerRightClickInteraction", objectHit.tag);
+				}
 			}
 		}
 	}
