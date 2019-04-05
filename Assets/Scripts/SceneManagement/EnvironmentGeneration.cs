@@ -70,25 +70,17 @@ public class EnvironmentGeneration : MonoBehaviour {
         for (float i = position[0]; i < position[0] + width; i++) {
             for (float j = position[1]; j < position[1] + depth; j++) {
                 for (float k = position[2]; k < position[2] + height; k++) {
-                    // create block from prefab
+                    // create block from prefab and register on block manager
                     Vector3 blockPosition = new Vector3(i, j, k);
-                    GameObject newBlock = Instantiate(
-                        blockPrefab, 
-                        blockPosition, 
-                        transform.rotation, 
-                        blocks.transform
-                    );
-
-                    // NEW: use once implemented
-                    // blockManager.SetBlock(blockPosition);
-
-                    // OLD:
-                    // add to coordinates -> block dictionary
-                    string coordsKey = blockManager.GetFormattedCoordinateFromBlock(newBlock);
-                    blockManager.coordToBlockDict.Add(coordsKey, newBlock);
-                    // add to block list
-                    blockManager.blockList.Add(newBlock);
-
+                    if(!blockManager.BlockExists(blockPosition)) {
+                        GameObject newBlock = Instantiate(
+                            blockPrefab, 
+                            blockPosition, 
+                            transform.rotation, 
+                            blocks.transform
+                        );
+                        blockManager.SetBlock(newBlock);
+                    }
                 }
             }
         }

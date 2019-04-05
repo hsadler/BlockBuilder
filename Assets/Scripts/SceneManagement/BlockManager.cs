@@ -8,7 +8,7 @@ public class BlockManager : MonoBehaviour
     // DATASTORE AND SERVICE FOR MANAGING GAME BLOCKS
 
 
-    public IDictionary<string, GameObject> coordToBlockDict = new Dictionary<string, GameObject>();
+    public IDictionary<string, GameObject> coordsToBlockDict = new Dictionary<string, GameObject>();
     public List<GameObject> blockList = new List<GameObject>();
 
 
@@ -41,37 +41,46 @@ public class BlockManager : MonoBehaviour
     }
 
     public string GetFormattedCoordinateFromBlock(GameObject block) {
-        string formattedCoordinateString = string.Format(
+        string formattedCoordinatesString = string.Format(
             "{0},{1},{2}", 
             block.transform.position.x,
             block.transform.position.y, 
             block.transform.position.z
         );
-        return formattedCoordinateString;
+        return formattedCoordinatesString;
     }
 
-    public string GetFormattedCoordinateString(Vector3 coordinate) {
-        string formattedCoordinateString = string.Format(
+    public string GetFormattedCoordinateString(Vector3 coordinates) {
+        string formattedCoordinatesString = string.Format(
             "{0},{1},{2}", 
-            coordinate[0],
-            coordinate[1],
-            coordinate[2]
+            coordinates[0],
+            coordinates[1],
+            coordinates[2]
         ); 
-        return formattedCoordinateString; 
+        return formattedCoordinatesString; 
     }
 
-    public bool SetBlock(Vector3 coordinate) {
-        // TODO
-        return false;
+    public bool BlockExists(Vector3 coordinates) {
+        string formattedCoords = GetFormattedCoordinateString(coordinates);
+        return coordsToBlockDict.ContainsKey(formattedCoords); 
     }
 
-    public GameObject GetBlock(Vector3 coordinate) {
+    public bool SetBlock(GameObject block) {
+        // add to coordinates->block dictionary
+        string coordsKey = GetFormattedCoordinateFromBlock(block);
+        coordsToBlockDict.Add(coordsKey, block);
+        // add to block list
+        blockList.Add(block);
+        return true;
+    }
+
+    public GameObject GetBlock(Vector3 coordinates) {
         GameObject block = null;
-        string formattedCoords = GetFormattedCoordinateString(coordinate);
-        if(coordToBlockDict.ContainsKey(formattedCoords)) {
-            block = coordToBlockDict[formattedCoords];
+        if(BlockExists(coordinates)) {
+            string formattedCoords = GetFormattedCoordinateString(coordinates);
+            block = coordsToBlockDict[formattedCoords];
         } else {
-            Debug.Log("block not found at coordinate x:" + coordinate[0] + " y:" + coordinate[1] + " z:" + coordinate[2]);
+            Debug.Log("block not found at coordinate x:" + coordinates[0] + " y:" + coordinates[1] + " z:" + coordinates[2]);
         }
         return block;
     }
