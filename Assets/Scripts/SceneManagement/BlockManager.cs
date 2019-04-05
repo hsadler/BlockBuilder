@@ -9,7 +9,6 @@ public class BlockManager : MonoBehaviour
 
 
     public IDictionary<string, GameObject> coordsToBlockDict = new Dictionary<string, GameObject>();
-    public List<GameObject> blockList = new List<GameObject>();
 
 
     // the static reference to the singleton instance
@@ -65,15 +64,6 @@ public class BlockManager : MonoBehaviour
         return coordsToBlockDict.ContainsKey(formattedCoords); 
     }
 
-    public bool SetBlock(GameObject block) {
-        // add to coordinates->block dictionary
-        string coordsKey = GetFormattedCoordinateFromBlock(block);
-        coordsToBlockDict.Add(coordsKey, block);
-        // add to block list
-        blockList.Add(block);
-        return true;
-    }
-
     public GameObject GetBlock(Vector3 coordinates) {
         GameObject block = null;
         if(BlockExists(coordinates)) {
@@ -84,4 +74,23 @@ public class BlockManager : MonoBehaviour
         }
         return block;
     }
+    
+    public bool SetBlock(GameObject block) {
+        // add to coordinates->block dictionary
+        string coordsKey = GetFormattedCoordinateFromBlock(block);
+        coordsToBlockDict.Add(coordsKey, block);
+        return true;
+    }
+
+    public bool UnsetBlock(GameObject block) {
+        // remove from coordinates->block dictionary if possible
+        if(!BlockExists(block.transform.position)) {
+            return false;
+        } else {
+            string formattedCoords = GetFormattedCoordinateFromBlock(block);
+            coordsToBlockDict.Remove(formattedCoords);
+            return true;
+        }
+    }
+
 }
