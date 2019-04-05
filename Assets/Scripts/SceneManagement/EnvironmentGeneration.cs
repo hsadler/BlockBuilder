@@ -10,6 +10,8 @@ public class EnvironmentGeneration : MonoBehaviour {
     public GameObject blocks;
     public GameObject blockPrefab;
 
+    private BlockManager blockManager; 
+
 
 	// the static reference to the singleton instance
     public static EnvironmentGeneration instance { get; private set; }
@@ -30,6 +32,8 @@ public class EnvironmentGeneration : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        // set references
+        blockManager = BlockManager.instance;
 		// GenerateTestCubeEnvironment();
         GenerateFlatLandEnvironment();
 	}
@@ -68,12 +72,23 @@ public class EnvironmentGeneration : MonoBehaviour {
                 for (float k = position[2]; k < position[2] + height; k++) {
                     // create block from prefab
                     Vector3 blockPosition = new Vector3(i, j, k);
-                    Instantiate(
+                    GameObject newBlock = Instantiate(
                         blockPrefab, 
                         blockPosition, 
                         transform.rotation, 
                         blocks.transform
                     );
+
+                    // NEW: use once implemented
+                    // blockManager.SetBlock(blockPosition);
+
+                    // OLD:
+                    // add to coordinates -> block dictionary
+                    string coordsKey = blockManager.GetFormattedCoordinateFromBlock(newBlock);
+                    blockManager.coordToBlockDict.Add(coordsKey, newBlock);
+                    // add to block list
+                    blockManager.blockList.Add(newBlock);
+
                 }
             }
         }
