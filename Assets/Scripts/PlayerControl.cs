@@ -13,13 +13,21 @@ public class PlayerControl : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    void Start() {}
 
     // Update is called once per frame
-    void Update() {
+    void Update() {}
+
+    /// <summary>
+    /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void FixedUpdate() {
+        CheckMoveInput();
+        CheckLookInput();
+        CheckBlockInteraction();
+    }
+
+    private void CheckMoveInput() {
         Rigidbody rb = GetComponent<Rigidbody>();
         if(Input.GetKey(KeyCode.W)) {
             rb.AddForce(transform.forward * thrust);
@@ -35,6 +43,14 @@ public class PlayerControl : MonoBehaviour
         }
         // enforce max speed
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
+    }
+
+    private void CheckLookInput() {
+        // TODO
+    }
+
+    private void CheckBlockInteraction() {
+        // TODO
     }
 
 }

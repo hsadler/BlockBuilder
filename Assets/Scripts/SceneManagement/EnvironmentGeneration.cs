@@ -19,8 +19,7 @@ public class EnvironmentGeneration : MonoBehaviour {
     /// <summary>
     /// Awake is called when the script instance is being loaded.
     /// </summary>
-    void Awake()
-    {
+    void Awake() {
         // singleton pattern
         if(instance == null) {
             instance = this;
@@ -39,9 +38,7 @@ public class EnvironmentGeneration : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
-	}
+	void Update () {}
 
     private void GenerateTestCubeEnvironment() {
         int size = 10;

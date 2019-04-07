@@ -26,9 +26,7 @@ public class Block : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
-	}
+	void Update () {}
 
 	public bool DestroyBlock() {
 		blockManager.UnsetBlock(gameObject);
