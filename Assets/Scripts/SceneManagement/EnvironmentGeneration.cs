@@ -51,9 +51,9 @@ public class EnvironmentGeneration : MonoBehaviour {
     }
 
     private void GenerateFlatLandEnvironment() {
-        int width = 100;
+        int width = 50;
         int height = 1;
-        int depth = 100;
+        int depth = 50;
         Vector3 dimensions = new Vector3(width, height, depth);
         Vector3 pos = new Vector3(-width/2, -height, -depth/2);
         GenerateBlockChunk(dimensions, pos);

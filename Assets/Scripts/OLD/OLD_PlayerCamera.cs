@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour {
 
-	public float playerSpeedSetting = 1;
-	public float cameraSensitivitySetting = 1;
+	public float playerSpeedSetting = 0.2f;
+	public float cameraSensitivitySetting = 0.5f;
 
 	// regular speed
 	private float mainSpeed = 100.0f; 
