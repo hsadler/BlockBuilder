@@ -6,10 +6,10 @@ public class PlayerControl : MonoBehaviour
 {
 
     public float thrust;
-    public float topSpeed;
+    public float maxSpeed;
     
     public float torque;
-    public float topRotationalSpeed;
+    public float maxRotationalSpeed;
 
 
     // Start is called before the first frame update
@@ -20,17 +20,21 @@ public class PlayerControl : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+        Rigidbody rb = GetComponent<Rigidbody>();
         if(Input.GetKey(KeyCode.W)) {
-            GetComponent<Rigidbody>().AddForce(transform.forward * thrust);
+            rb.AddForce(transform.forward * thrust);
         }
         if(Input.GetKey(KeyCode.S)) {
-            GetComponent<Rigidbody>().AddForce(transform.forward * -thrust);
+            rb.AddForce(transform.forward * -thrust);
         }
         if(Input.GetKey(KeyCode.D)) {
-            GetComponent<Rigidbody>().AddForce(transform.right * thrust);
+            rb.AddForce(transform.right * thrust);
         }
         if(Input.GetKey(KeyCode.A)) {
-            GetComponent<Rigidbody>().AddForce(transform.right * -thrust);
+            rb.AddForce(transform.right * -thrust);
         }
+        // enforce max speed
+        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
     }
+
 }
