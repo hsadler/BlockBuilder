@@ -12,3 +12,10 @@ TODO:
         - options (save, load, exit)
     - rendering optimizations
     - block placement orientation
+
+
+    UNITY RESOURCES:
+    https://unity3d.com/learn/tutorials/topics/scripting/introduction-saving-and-loading
+    https://unity3d.com/learn/tutorials/topics/scripting/update-and-fixedupdate
+    https://docs.unity3d.com/Manual/QuaternionAndEulerRotationsInUnity.html
+    https://docs.unity3d.com/ScriptReference/Transform.Rotate.html

@@ -8,22 +8,31 @@ public class PlayerControl : MonoBehaviour
     public float thrust;
     public float maxSpeed;
     
-    public float torque;
-    public float maxRotationalSpeed;
+    public float rotationSpeed;
+
+
+    private Transform playerHeadTransform;
+    private Transform playerCameraTransform;
+    private Camera playerCameraComponent;
 
 
     // Start is called before the first frame update
-    void Start() {}
+    void Start() {
+        playerHeadTransform = transform.Find("Head");
+        playerCameraTransform = transform.Find("Head/PlayerCamera");
+        playerCameraComponent = playerCameraTransform.GetComponent<Camera>(); 
+    }
 
     // Update is called once per frame
-    void Update() {}
+    void Update() {
+        CheckLookInput();
+    }
 
     /// <summary>
     /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
     /// </summary>
     void FixedUpdate() {
         CheckMoveInput();
-        CheckLookInput();
         CheckBlockInteraction();
     }
 
@@ -46,7 +55,20 @@ public class PlayerControl : MonoBehaviour
     }
 
     private void CheckLookInput() {
-        // TODO
+
+        // ANOTHER POSSIBLE IMPLEMENTATION:
+        // float horizontalRotation = rotationSpeed * Input.GetAxis("Mouse X");
+        // float verticalRotation = rotationSpeed * Input.GetAxis("Mouse Y");
+        // // horizontal input rotates the whole body
+        // transform.Rotate(, horizontalRotation, 0);
+        // transform.Rotate(v, h, 0);
+
+        RaycastHit hit;
+        Ray ray = playerCameraComponent.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit)) {
+            // Do something with the object that was hit by the raycast.
+            playerCameraTransform.LookAt(hit.transform.position);
+        }
     }
 
     private void CheckBlockInteraction() {

@@ -11,6 +11,7 @@ TagManager:
   - FrontSensor
   - BackSensor
   - BottomSensor
+  - PlayerCamera
   layers:
   - Default
   - TransparentFX
