@@ -18,6 +18,7 @@ public class PlayerControl : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
+        Cursor.visible = false;
         playerHeadTransform = transform.Find("Head");
         playerCameraTransform = transform.Find("Head/PlayerCamera");
         playerCameraComponent = playerCameraTransform.GetComponent<Camera>(); 
@@ -55,20 +56,11 @@ public class PlayerControl : MonoBehaviour
     }
 
     private void CheckLookInput() {
-
-        // ANOTHER POSSIBLE IMPLEMENTATION:
-        // float horizontalRotation = rotationSpeed * Input.GetAxis("Mouse X");
-        // float verticalRotation = rotationSpeed * Input.GetAxis("Mouse Y");
-        // // horizontal input rotates the whole body
-        // transform.Rotate(, horizontalRotation, 0);
-        // transform.Rotate(v, h, 0);
-
-        RaycastHit hit;
-        Ray ray = playerCameraComponent.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit)) {
-            // Do something with the object that was hit by the raycast.
-            playerCameraTransform.LookAt(hit.transform.position);
-        }
+        float horizontalRotation = rotationSpeed * Input.GetAxis("Mouse X");
+        float verticalRotation = rotationSpeed * Input.GetAxis("Mouse Y");
+        // horizontal input rotates the whole body
+        transform.Rotate(Vector3.up * horizontalRotation);
+        playerHeadTransform.Rotate(-Vector3.right * verticalRotation, Space.Self);
     }
 
     private void CheckBlockInteraction() {
