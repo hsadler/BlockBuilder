@@ -27,6 +27,7 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update() {
         CheckLookInput();
+        CheckBlockInteraction();
     }
 
     /// <summary>
@@ -34,7 +35,6 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     void FixedUpdate() {
         CheckMoveInput();
-        CheckBlockInteraction();
     }
 
     private void CheckMoveInput() {
@@ -60,11 +60,31 @@ public class PlayerControl : MonoBehaviour
         float verticalRotation = rotationSpeed * Input.GetAxis("Mouse Y");
         // horizontal input rotates the whole body
         transform.Rotate(Vector3.up * horizontalRotation);
+        // vertical input rotates the head
         playerHeadTransform.Rotate(-Vector3.right * verticalRotation, Space.Self);
     }
 
     private void CheckBlockInteraction() {
-        // TODO
+        if(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) {
+			RaycastHit hit;
+            Ray ray = playerCameraComponent.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+			if(Physics.Raycast(ray, out hit)) {
+				GameObject objectHit = hit.transform.gameObject;
+				if(Input.GetMouseButtonDown(0)) {
+					objectHit.SendMessageUpwards(
+						"PlayerLeftClickInteraction", 
+						objectHit.tag, 
+						SendMessageOptions.DontRequireReceiver
+					);
+				} else if (Input.GetMouseButtonDown(1)) {
+					objectHit.SendMessageUpwards(
+						"PlayerRightClickInteraction", 
+						objectHit.tag, 
+						SendMessageOptions.DontRequireReceiver
+					);
+				}
+			}
+		}
     }
 
 }
