@@ -35,6 +35,7 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     void FixedUpdate() {
         CheckMoveInput();
+        // CheckMoveInputAndMoveByTranslation();
     }
 
     private void CheckMoveInput() {
@@ -53,6 +54,21 @@ public class PlayerControl : MonoBehaviour
         }
         // enforce max speed
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
+    }
+
+    private void CheckMoveInputAndMoveByTranslation() {
+        if(Input.GetKey(KeyCode.W)) {
+            transform.Translate(Vector3.forward * Time.deltaTime * maxSpeed, Space.Self);
+        }
+        if(Input.GetKey(KeyCode.S)) {
+            transform.Translate(-Vector3.forward * Time.deltaTime * maxSpeed, Space.Self);
+        }
+        if(Input.GetKey(KeyCode.D)) {
+            transform.Translate(Vector3.right * Time.deltaTime * maxSpeed, Space.Self);
+        }
+        if(Input.GetKey(KeyCode.A)) {
+            transform.Translate(-Vector3.right * Time.deltaTime * maxSpeed, Space.Self);
+        }
     }
 
     private void CheckLookInput() {
