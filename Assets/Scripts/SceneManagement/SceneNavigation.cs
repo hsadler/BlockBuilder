@@ -9,7 +9,6 @@ public class SceneNavigation : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape)) {
-            Debug.Log("Quitting game..");
             Application.Quit();
         }
     }

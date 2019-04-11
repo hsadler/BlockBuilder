@@ -40,6 +40,7 @@ public class PlayerControl : MonoBehaviour
 
     private void CheckMoveInput() {
         Rigidbody rb = GetComponent<Rigidbody>();
+        // arrow keys
         if(Input.GetKey(KeyCode.W)) {
             rb.AddForce(transform.forward * thrust);
         }
@@ -51,6 +52,10 @@ public class PlayerControl : MonoBehaviour
         }
         if(Input.GetKey(KeyCode.A)) {
             rb.AddForce(transform.right * -thrust);
+        }
+        // jump pack
+        if(Input.GetKey(KeyCode.Space)) {
+            rb.AddForce(transform.up * thrust);
         }
         // enforce max speed
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
