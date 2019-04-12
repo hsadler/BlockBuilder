@@ -35,7 +35,6 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     void FixedUpdate() {
         CheckMoveInput();
-        // CheckMoveInputAndMoveByTranslation();
     }
 
     private void CheckMoveInput() {
@@ -62,6 +61,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     private void CheckMoveInputAndMoveByTranslation() {
+        // NOT USED
         if(Input.GetKey(KeyCode.W)) {
             transform.Translate(Vector3.forward * Time.deltaTime * maxSpeed, Space.Self);
         }

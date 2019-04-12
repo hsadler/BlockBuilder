@@ -13,6 +13,13 @@ TODO:
     - rendering optimizations
     - block placement orientation
 
+CLEANUP/FIXES:
+
+    - fix jumping
+    - fix slowdown of player when not moving
+    - fix camera pan jittering while moving
+
+
 
     UNITY RESOURCES:
     https://unity3d.com/learn/tutorials/topics/scripting/introduction-saving-and-loading
