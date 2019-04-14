@@ -8,7 +8,8 @@ public class EnvironmentGeneration : MonoBehaviour {
 
 
     public GameObject blocks;
-    public GameObject blockPrefab;
+    public GameObject baseBlockPrefab;
+    public GameObject block1Prefab;
 
     private BlockManager blockManager; 
 
@@ -60,7 +61,7 @@ public class EnvironmentGeneration : MonoBehaviour {
         // TODO
     }
 
-    public GameObject CreateBlock(Vector3 position) {
+    public GameObject CreateBlock(GameObject blockPrefab, Vector3 position) {
         // create block from prefab and register on block manager
         if(!blockManager.BlockExists(position)) {
             GameObject newBlock = Instantiate(
@@ -83,7 +84,7 @@ public class EnvironmentGeneration : MonoBehaviour {
             for (float j = position[1]; j < position[1] + depth; j++) {
                 for (float k = position[2]; k < position[2] + height; k++) {
                     Vector3 blockPosition = new Vector3(i, j, k);
-                    CreateBlock(blockPosition);
+                    CreateBlock(baseBlockPrefab, blockPosition);
                 }
             }
         }

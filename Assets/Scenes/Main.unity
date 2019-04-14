@@ -572,7 +572,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blocks: {fileID: 766046176}
-  blockPrefab: {fileID: 1807976097469716, guid: 124a69f65ca9b6c44b43da30daba8403,
+  baseBlockPrefab: {fileID: 1807976097469716, guid: 124a69f65ca9b6c44b43da30daba8403,
+    type: 3}
+  block1Prefab: {fileID: 1807976097469716, guid: 9f2c69a50557514409a95e881fcc4898,
     type: 3}
 --- !u!1001 &1335417051
 PrefabInstance:

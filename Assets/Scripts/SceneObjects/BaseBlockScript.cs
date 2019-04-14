@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BaseBlockScript : MonoBehaviour {
 
-	private EnvironmentGeneration environmentGeneration;
-	private BlockManager blockManager;
+	protected EnvironmentGeneration environmentGeneration;
+	protected BlockManager blockManager;
 
-	public IDictionary<string, Vector3> sensorTagToDirectionVector3 = new Dictionary<string, Vector3>()
+	protected IDictionary<string, Vector3> sensorTagToDirectionVector3 = new Dictionary<string, Vector3>()
 	{
 		{ "TopSensor", new Vector3(0, 1, 0) },
 		{ "LeftSensor", new Vector3(-1, 0, 0) },
@@ -19,14 +19,14 @@ public class BaseBlockScript : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
+	public void Start () {
 		// set references
 		environmentGeneration = EnvironmentGeneration.instance;
         blockManager = BlockManager.instance;
 	}
 	
 	// Update is called once per frame
-	void Update () {}
+	public void Update () {}
 
 	public bool DestroyBlock() {
 		blockManager.UnsetBlock(gameObject);
@@ -38,7 +38,7 @@ public class BaseBlockScript : MonoBehaviour {
 		// TODO: this method probably shouldn't be here, not the responsibility of the Block class
 		Vector3 direction = sensorTagToDirectionVector3[hitTag];
 		Vector3 newBlockPosition = transform.position + direction;
-		return environmentGeneration.CreateBlock(newBlockPosition);
+		return environmentGeneration.CreateBlock(environmentGeneration.block1Prefab, newBlockPosition);
 	}
 
 	public void PlayerLeftClickInteraction(string hitTag) {
