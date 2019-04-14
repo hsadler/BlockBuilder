@@ -1,21 +1,36 @@
 
-TODO:
+GAMEPLAY TODO:
 
     X procedural generation of flat map (for testing)
     X placement and removal of blocks
     X walking mode for player
-    - blocks of different types
-    - flying mode for player
-    - ability to save game
+    X blocks of different types
+    - block orientation
+        - ghost placement showing orientation
+        - contols for altering orientation
+    - block interaction with key 'F'
+    - block movement
+        - move discrete spaces
+        - rotate
     - UI:
         - inventory for selecting block types
-        - options (save, load, exit)
+        - start menu (new game, load save, exit) 
+        - in-game options (save, load, exit)
+    - ability to save game
+    - flying mode for player
+    - player sprint mode
     - rendering optimizations
-    - block placement orientation
+
+
+SYSTEMS TODO:
+
+    - block types registry
+    - player inventory (blocks available to player)
+
 
 CLEANUP/FIXES:
 
-    - fix jumping
+    - fix jumping when in grounded mode
     - fix slowdown of player when not moving
     - fix camera pan jittering while moving
 
