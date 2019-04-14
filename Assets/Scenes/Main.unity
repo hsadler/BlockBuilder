@@ -185,7 +185,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 196392609}
-  m_CullTransparentMesh: 0
+  m_CullTransparentMesh: 1
 --- !u!1 &253703700
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 311751310}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1737dcefa0a7135438480b4cd55cf451, type: 3}
+  m_Script: {fileID: 11500000, guid: 02af08e98b42df04fa29e58f4f072bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2048273469}
@@ -364,7 +364,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 766046177}
-  - component: {fileID: 766046178}
   m_Layer: 0
   m_Name: Blocks
   m_TagString: Untagged
@@ -384,20 +383,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &766046178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 766046176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fe95811a44ad414ca7b740e03d166f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &809731068
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,7 +624,7 @@ PrefabInstance:
     - target: {fileID: 8526445491964121408, guid: 2b5100fe949138649b7319dc96c34eec,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8526445491964121408, guid: 2b5100fe949138649b7319dc96c34eec,
         type: 3}

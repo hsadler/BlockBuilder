@@ -4,7 +4,7 @@ TODO:
     X procedural generation of flat map (for testing)
     X placement and removal of blocks
     X walking mode for player
-    - subclassing for blocks of different types
+    - blocks of different types
     - flying mode for player
     - ability to save game
     - UI:

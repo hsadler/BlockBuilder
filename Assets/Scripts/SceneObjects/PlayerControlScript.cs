@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControl : MonoBehaviour
+public class PlayerControlScript : MonoBehaviour
 {
 
     public float thrust;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Block : MonoBehaviour {
+public class BaseBlockScript : MonoBehaviour {
 
 	private EnvironmentGeneration environmentGeneration;
 	private BlockManager blockManager;
@@ -42,20 +42,20 @@ public class Block : MonoBehaviour {
 	}
 
 	public void PlayerLeftClickInteraction(string hitTag) {
-		Debug.LogFormat(
-			"game object tag: {0} was left clicked with child object tag: {1}",
-			gameObject.tag,
-			hitTag
-		);
+		// Debug.LogFormat(
+		// 	"game object tag: {0} was left clicked with child object tag: {1}",
+		// 	gameObject.tag,
+		// 	hitTag
+		// );
 		DestroyBlock();
 	}
 
 	public void PlayerRightClickInteraction(string hitTag) {
-		Debug.LogFormat(
-			"game object tag: {0} was right clicked with child object tag: {1}",
-			gameObject.tag,
-			hitTag
-		);
+		// Debug.LogFormat(
+		// 	"game object tag: {0} was right clicked with child object tag: {1}",
+		// 	gameObject.tag,
+		// 	hitTag
+		// );
 		AddNewBlockAsNeighbor(hitTag);
 	}
 
