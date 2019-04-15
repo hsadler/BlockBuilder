@@ -5,13 +5,18 @@ GAMEPLAY TODO:
     X placement and removal of blocks
     X walking mode for player
     X blocks of different types
-    - block orientation
+    - block orientation:
         - ghost placement showing orientation
         - contols for altering orientation
+        - change orientation of existing block
     - block interaction with key 'F'
-    - block movement
+    - behavior for different block types:
         - move discrete spaces
         - rotate
+        - on/off light
+    - block-to-block interaction:
+        - power block turns on light block
+        - conveyor block moves block
     - UI:
         - inventory for selecting block types
         - start menu (new game, load save, exit) 

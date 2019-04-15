@@ -26,12 +26,6 @@ public class BlockManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
-    // Start is called before the first frame update
-    void Start() {}
-
-    // Update is called once per frame
-    void Update() {}
 
     public string GetFormattedCoordinateFromBlock(GameObject block) {
         string formattedCoordinatesString = string.Format(

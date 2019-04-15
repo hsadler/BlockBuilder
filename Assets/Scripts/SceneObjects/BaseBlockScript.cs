@@ -35,7 +35,7 @@ public class BaseBlockScript : MonoBehaviour {
 	}
 
 	public GameObject AddNewBlockAsNeighbor(string hitTag) {
-		// TODO: this method probably shouldn't be here, not the responsibility of the Block class
+		// TODO: this method probably shouldn't be here, not the responsibility of the block
 		Vector3 direction = sensorTagToDirectionVector3[hitTag];
 		Vector3 newBlockPosition = transform.position + direction;
 		return environmentGeneration.CreateBlock(environmentGeneration.block1Prefab, newBlockPosition);

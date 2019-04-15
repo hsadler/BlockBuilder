@@ -7,7 +7,7 @@ public class EnvironmentGeneration : MonoBehaviour {
 	// RESPONSIBLE FOR PROCEDURAL ENVIRONMENT GENERATION
 
 
-    public GameObject blocks;
+    public GameObject blocksContainer;
     public GameObject baseBlockPrefab;
     public GameObject block1Prefab;
 
@@ -38,9 +38,6 @@ public class EnvironmentGeneration : MonoBehaviour {
         GenerateFlatLandEnvironment();
 	}
 	
-	// Update is called once per frame
-	void Update () {}
-
     private void GenerateTestCubeEnvironment() {
         int size = 10;
         Vector3 dimensions = new Vector3(size, size, size);
@@ -68,7 +65,7 @@ public class EnvironmentGeneration : MonoBehaviour {
                 blockPrefab, 
                 position, 
                 transform.rotation, 
-                blocks.transform
+                blocksContainer.transform
             );
             blockManager.SetBlock(newBlock);
             return newBlock;

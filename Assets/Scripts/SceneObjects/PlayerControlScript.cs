@@ -14,14 +14,20 @@ public class PlayerControlScript : MonoBehaviour
     private Transform playerHeadTransform;
     private Transform playerCameraTransform;
     private Camera playerCameraComponent;
+    private PlayerInventoryScript playerInventoryScript;
 
 
     // Start is called before the first frame update
     void Start() {
+        // hide cursor on screen
         Cursor.visible = false;
+        // set references to body parts for movement
         playerHeadTransform = transform.Find("Head");
         playerCameraTransform = transform.Find("Head/PlayerCamera");
-        playerCameraComponent = playerCameraTransform.GetComponent<Camera>(); 
+        playerCameraComponent = playerCameraTransform.GetComponent<Camera>();
+        // set reference for inventory
+        // TODO BUG: inventoryScript reference setting to null
+        playerInventoryScript = GetComponent<PlayerInventoryScript>();
     }
 
     // Update is called once per frame
