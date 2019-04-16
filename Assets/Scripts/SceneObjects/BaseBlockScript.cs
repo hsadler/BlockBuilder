@@ -34,14 +34,12 @@ public class BaseBlockScript : MonoBehaviour {
 		return true;
 	}
 
-	public GameObject AddNewBlockAsNeighbor(string hitTag) {
-		// TODO: this method probably shouldn't be here, not the responsibility of the block
-		Vector3 direction = sensorTagToDirectionVector3[hitTag];
+	public GameObject AddNewBlockAsNeighbor(GameObject blockPrefab, Vector3 direction) {
 		Vector3 newBlockPosition = transform.position + direction;
-		return environmentGeneration.CreateBlock(environmentGeneration.block1Prefab, newBlockPosition);
+		return environmentGeneration.CreateBlock(blockPrefab, newBlockPosition);
 	}
 
-	public void PlayerLeftClickInteraction(string hitTag) {
+	public void PlayerLeftClickInteraction(PlayerToBlockMessage message) {
 		// Debug.LogFormat(
 		// 	"game object tag: {0} was left clicked with child object tag: {1}",
 		// 	gameObject.tag,
@@ -50,13 +48,21 @@ public class BaseBlockScript : MonoBehaviour {
 		DestroyBlock();
 	}
 
-	public void PlayerRightClickInteraction(string hitTag) {
+	public void PlayerRightClickInteraction(PlayerToBlockMessage message) {
 		// Debug.LogFormat(
 		// 	"game object tag: {0} was right clicked with child object tag: {1}",
 		// 	gameObject.tag,
 		// 	hitTag
 		// );
-		AddNewBlockAsNeighbor(hitTag);
+		// get player data 
+		GameObject player = message.player;
+		GameObject blockPrefab = player.GetComponent<PlayerInventoryScript>().currentSelected;
+		// get object hit data
+		GameObject objectHit = message.objectHit;
+		if(sensorTagToDirectionVector3.ContainsKey(objectHit.tag)) {
+			Vector3 direction = sensorTagToDirectionVector3[objectHit.tag];
+			AddNewBlockAsNeighbor(blockPrefab, direction);
+		}
 	}
 
 }

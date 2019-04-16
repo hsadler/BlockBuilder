@@ -5,16 +5,16 @@ using UnityEngine;
 public class PlayerInventoryScript : MonoBehaviour
 {
     
-    private BlockTypesRegistry blockTypesRegistry;
+    private BlockTypes blockTypes;
 
-    private GameObject currentSelected;
+    public GameObject currentSelected;
     
     // Start is called before the first frame update
     void Start() {
         // set references
-        blockTypesRegistry = BlockTypesRegistry.instance;
+        blockTypes = BlockTypes.instance;
         // set default block selection
-        currentSelected = blockTypesRegistry.GetByName("Block1");
+        currentSelected = blockTypes.block1;
     }
 
     // Update is called once per frame
@@ -24,7 +24,9 @@ public class PlayerInventoryScript : MonoBehaviour
 
     private void CheckInventorySelection() {
         if(Input.GetKey(KeyCode.Alpha1)) {
-            currentSelected = blockTypesRegistry.GetByName("Block1");
+            currentSelected = blockTypes.block1;
+        } else if(Input.GetKey(KeyCode.Alpha2)) {
+            currentSelected = blockTypes.block2;
         }
     }
 

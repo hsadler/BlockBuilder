@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControlScript : MonoBehaviour
-{
+public class PlayerControlScript : MonoBehaviour {
 
     public float thrust;
     public float maxSpeed;
@@ -25,9 +24,6 @@ public class PlayerControlScript : MonoBehaviour
         playerHeadTransform = transform.Find("Head");
         playerCameraTransform = transform.Find("Head/PlayerCamera");
         playerCameraComponent = playerCameraTransform.GetComponent<Camera>();
-        // set reference for inventory
-        // TODO BUG: inventoryScript reference setting to null
-        playerInventoryScript = GetComponent<PlayerInventoryScript>();
     }
 
     // Update is called once per frame
@@ -97,16 +93,17 @@ public class PlayerControlScript : MonoBehaviour
             Ray ray = playerCameraComponent.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
 			if(Physics.Raycast(ray, out hit)) {
 				GameObject objectHit = hit.transform.gameObject;
+                PlayerToBlockMessage payload = new PlayerToBlockMessage(gameObject, objectHit);
 				if(Input.GetMouseButtonDown(0)) {
 					objectHit.SendMessageUpwards(
 						"PlayerLeftClickInteraction", 
-						objectHit.tag, 
+						payload, 
 						SendMessageOptions.DontRequireReceiver
 					);
 				} else if (Input.GetMouseButtonDown(1)) {
 					objectHit.SendMessageUpwards(
 						"PlayerRightClickInteraction", 
-						objectHit.tag, 
+						payload, 
 						SendMessageOptions.DontRequireReceiver
 					);
 				}
