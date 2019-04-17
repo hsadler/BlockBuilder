@@ -5,6 +5,7 @@ GAMEPLAY TODO:
     X placement and removal of blocks
     X walking mode for player
     X blocks of different types
+    X player current selected block switching
     - block orientation:
         - ghost placement showing orientation
         - contols for altering orientation

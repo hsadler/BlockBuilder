@@ -88,27 +88,31 @@ public class PlayerControlScript : MonoBehaviour {
     }
 
     private void CheckBlockInteraction() {
-        if(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) {
-			RaycastHit hit;
-            Ray ray = playerCameraComponent.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
-			if(Physics.Raycast(ray, out hit)) {
-				GameObject objectHit = hit.transform.gameObject;
-                PlayerToBlockMessage payload = new PlayerToBlockMessage(gameObject, objectHit);
-				if(Input.GetMouseButtonDown(0)) {
-					objectHit.SendMessageUpwards(
-						"PlayerLeftClickInteraction", 
-						payload, 
-						SendMessageOptions.DontRequireReceiver
-					);
-				} else if (Input.GetMouseButtonDown(1)) {
-					objectHit.SendMessageUpwards(
-						"PlayerRightClickInteraction", 
-						payload, 
-						SendMessageOptions.DontRequireReceiver
-					);
-				}
-			}
-		}
+        RaycastHit hit;
+        Ray ray = playerCameraComponent.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+        if(Physics.Raycast(ray, out hit)) {
+            GameObject objectHit = hit.transform.gameObject;
+            PlayerToBlockMessage payload = new PlayerToBlockMessage(gameObject, objectHit);
+            // send standard ray hit message
+            objectHit.SendMessageUpwards(
+                "PlayerRayHitInteraction", 
+                payload, 
+                SendMessageOptions.DontRequireReceiver
+            );
+            if(Input.GetMouseButtonDown(0)) {
+                objectHit.SendMessageUpwards(
+                    "PlayerLeftClickInteraction", 
+                    payload, 
+                    SendMessageOptions.DontRequireReceiver
+                );
+            } else if (Input.GetMouseButtonDown(1)) {
+                objectHit.SendMessageUpwards(
+                    "PlayerRightClickInteraction", 
+                    payload, 
+                    SendMessageOptions.DontRequireReceiver
+                );
+            }
+        }
     }
 
 }

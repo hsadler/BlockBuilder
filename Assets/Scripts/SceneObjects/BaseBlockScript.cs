@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BaseBlockScript : MonoBehaviour {
 
+    // scene management references
 	protected EnvironmentGeneration environmentGeneration;
 	protected BlockManager blockManager;
 
@@ -37,6 +38,10 @@ public class BaseBlockScript : MonoBehaviour {
 	public GameObject AddNewBlockAsNeighbor(GameObject blockPrefab, Vector3 direction) {
 		Vector3 newBlockPosition = transform.position + direction;
 		return environmentGeneration.CreateBlock(blockPrefab, newBlockPosition);
+	}
+
+	public void PlayerRayHitInteraction(PlayerToBlockMessage message) {
+
 	}
 
 	public void PlayerLeftClickInteraction(PlayerToBlockMessage message) {

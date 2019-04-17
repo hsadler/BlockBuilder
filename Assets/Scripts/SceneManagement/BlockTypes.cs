@@ -9,6 +9,7 @@ public class BlockTypes : MonoBehaviour
 
 
     public GameObject baseBlock;
+    public GameObject ghostBlock;
     public GameObject block1;
     public GameObject block2;
 

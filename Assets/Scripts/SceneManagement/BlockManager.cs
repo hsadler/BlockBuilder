@@ -9,6 +9,7 @@ public class BlockManager : MonoBehaviour
 
 
     public IDictionary<string, GameObject> coordsToBlockDict = new Dictionary<string, GameObject>();
+    public GameObject ghostBlock;
 
 
     // the static reference to the singleton instance

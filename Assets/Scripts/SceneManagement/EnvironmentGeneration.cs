@@ -8,10 +8,9 @@ public class EnvironmentGeneration : MonoBehaviour {
 
 
     public GameObject blocksContainer;
-    public GameObject baseBlockPrefab;
-    public GameObject block1Prefab;
 
-    private BlockManager blockManager; 
+    private BlockTypes blockTypes;
+    private BlockManager blockManager;
 
 
 	// the static reference to the singleton instance
@@ -33,16 +32,18 @@ public class EnvironmentGeneration : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         // set references
+        blockTypes = BlockTypes.instance;
         blockManager = BlockManager.instance;
 		// GenerateTestCubeEnvironment();
         GenerateFlatLandEnvironment();
+        CreateGhostBlock();
 	}
 	
     private void GenerateTestCubeEnvironment() {
         int size = 10;
         Vector3 dimensions = new Vector3(size, size, size);
         Vector3 pos = new Vector3(-size/2, -size/2, -size/2);
-        GenerateBlockChunk(dimensions, pos);
+        GenerateBlockChunk(blockTypes.baseBlock, dimensions, pos);
     }
 
     private void GenerateFlatLandEnvironment() {
@@ -51,7 +52,7 @@ public class EnvironmentGeneration : MonoBehaviour {
         int depth = 50;
         Vector3 dimensions = new Vector3(width, height, depth);
         Vector3 pos = new Vector3(-width/2, -height, -depth/2);
-        GenerateBlockChunk(dimensions, pos);
+        GenerateBlockChunk(blockTypes.baseBlock, dimensions, pos);
     }
 
     private void GenerateRectangularRoomEnvironment(Vector3 dimensions, Vector3 position) {
@@ -73,7 +74,20 @@ public class EnvironmentGeneration : MonoBehaviour {
         return null;
     }
 
-    private void GenerateBlockChunk(Vector3 dimensions, Vector3 position) {
+    private GameObject CreateGhostBlock() {
+        blockManager.ghostBlock = Instantiate(
+            blockTypes.ghostBlock, 
+            Vector3.zero, 
+            transform.rotation,
+            blocksContainer.transform
+        );
+        Color c = blockManager.ghostBlock.GetComponent<MeshRenderer>().material.color;
+        c.a = 0.5f;
+        blockManager.ghostBlock.GetComponent<MeshRenderer>().material.color = c;
+        return null;
+    }
+
+    private void GenerateBlockChunk(GameObject blockPrefab, Vector3 dimensions, Vector3 position) {
         float width = dimensions[0];
         float depth = dimensions[1];
         float height = dimensions[2];
@@ -81,7 +95,7 @@ public class EnvironmentGeneration : MonoBehaviour {
             for (float j = position[1]; j < position[1] + depth; j++) {
                 for (float k = position[2]; k < position[2] + height; k++) {
                     Vector3 blockPosition = new Vector3(i, j, k);
-                    CreateBlock(baseBlockPrefab, blockPosition);
+                    CreateBlock(blockPrefab, blockPosition);
                 }
             }
         }
