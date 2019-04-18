@@ -40,25 +40,28 @@ public class BaseBlockScript : MonoBehaviour {
 		return environmentGeneration.CreateBlock(blockPrefab, newBlockPosition);
 	}
 
-	public void PlayerRayHitInteraction(PlayerToBlockMessage message) {
+	private void SetGhostBlockAsNeighbor(GameObject blockPrefab, Vector3 direction) {
+		Vector3 ghostBlockPosition = transform.position + direction;
+		blockManager.UpdateGhostBlock(blockPrefab, ghostBlockPosition);
+	}
 
+	public void PlayerRayHitInteraction(PlayerToBlockMessage message) {
+		// get player data 
+		GameObject player = message.player;
+		GameObject blockPrefab = player.GetComponent<PlayerInventoryScript>().currentSelected;
+		// get object hit data
+		GameObject objectHit = message.objectHit;
+		if(sensorTagToDirectionVector3.ContainsKey(objectHit.tag)) {
+			Vector3 direction = sensorTagToDirectionVector3[objectHit.tag];
+			SetGhostBlockAsNeighbor(blockPrefab, direction);
+		}
 	}
 
 	public void PlayerLeftClickInteraction(PlayerToBlockMessage message) {
-		// Debug.LogFormat(
-		// 	"game object tag: {0} was left clicked with child object tag: {1}",
-		// 	gameObject.tag,
-		// 	hitTag
-		// );
 		DestroyBlock();
 	}
 
 	public void PlayerRightClickInteraction(PlayerToBlockMessage message) {
-		// Debug.LogFormat(
-		// 	"game object tag: {0} was right clicked with child object tag: {1}",
-		// 	gameObject.tag,
-		// 	hitTag
-		// );
 		// get player data 
 		GameObject player = message.player;
 		GameObject blockPrefab = player.GetComponent<PlayerInventoryScript>().currentSelected;

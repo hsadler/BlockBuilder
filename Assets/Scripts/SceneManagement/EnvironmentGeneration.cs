@@ -7,8 +7,6 @@ public class EnvironmentGeneration : MonoBehaviour {
 	// RESPONSIBLE FOR PROCEDURAL ENVIRONMENT GENERATION
 
 
-    public GameObject blocksContainer;
-
     private BlockTypes blockTypes;
     private BlockManager blockManager;
 
@@ -36,7 +34,6 @@ public class EnvironmentGeneration : MonoBehaviour {
         blockManager = BlockManager.instance;
 		// GenerateTestCubeEnvironment();
         GenerateFlatLandEnvironment();
-        CreateGhostBlock();
 	}
 	
     private void GenerateTestCubeEnvironment() {
@@ -66,24 +63,11 @@ public class EnvironmentGeneration : MonoBehaviour {
                 blockPrefab, 
                 position, 
                 transform.rotation, 
-                blocksContainer.transform
+                blockManager.blocksContainer.transform
             );
             blockManager.SetBlock(newBlock);
             return newBlock;
         }
-        return null;
-    }
-
-    private GameObject CreateGhostBlock() {
-        blockManager.ghostBlock = Instantiate(
-            blockTypes.ghostBlock, 
-            Vector3.zero, 
-            transform.rotation,
-            blocksContainer.transform
-        );
-        Color c = blockManager.ghostBlock.GetComponent<MeshRenderer>().material.color;
-        c.a = 0.5f;
-        blockManager.ghostBlock.GetComponent<MeshRenderer>().material.color = c;
         return null;
     }
 

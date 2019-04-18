@@ -6,14 +6,11 @@ public class PlayerControlScript : MonoBehaviour {
 
     public float thrust;
     public float maxSpeed;
-    
     public float rotationSpeed;
-
 
     private Transform playerHeadTransform;
     private Transform playerCameraTransform;
     private Camera playerCameraComponent;
-    private PlayerInventoryScript playerInventoryScript;
 
 
     // Start is called before the first frame update
@@ -112,6 +109,8 @@ public class PlayerControlScript : MonoBehaviour {
                     SendMessageOptions.DontRequireReceiver
                 );
             }
+        } else {
+            BlockManager.instance.ghostBlock.SetActive(false);
         }
     }
 
