@@ -7,7 +7,7 @@ GAMEPLAY TODO:
     X blocks of different types
     X player current selected block switching
     - block orientation:
-        - ghost placement showing orientation
+        X ghost placement
         - contols for altering orientation
         - change orientation of existing block
     - block interaction with key 'F'
