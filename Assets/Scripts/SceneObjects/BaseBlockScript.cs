@@ -40,12 +40,13 @@ public class BaseBlockScript : MonoBehaviour {
 		return environmentGeneration.CreateBlock(blockPrefab, newBlockPosition);
 	}
 
-	private void SetGhostBlockAsNeighbor(GameObject blockPrefab, Vector3 direction) {
+	private void SetGhostBlockAsNeighbor(Vector3 direction) {
 		Vector3 ghostBlockPosition = transform.position + direction;
-		blockManager.UpdateGhostBlock_V2(blockPrefab, ghostBlockPosition);
+		blockManager.UpdateGhostBlockPosition(ghostBlockPosition);
+		blockManager.ActivateGhostBlock();
 	}
 
-	public void MakeGhostBlock() {
+	public void TransformToGhostBlock() {
 		foreach (Collider col in GetComponentsInChildren<Collider>()) {
 			col.enabled = false;
 		}
@@ -57,14 +58,11 @@ public class BaseBlockScript : MonoBehaviour {
 	}
 
 	public void PlayerRayHitInteraction(PlayerToBlockMessage message) {
-		// get player data 
-		GameObject player = message.player;
-		GameObject blockPrefab = player.GetComponent<PlayerInventoryScript>().currentSelected;
 		// get object hit data
 		GameObject objectHit = message.objectHit;
 		if(sensorTagToDirectionVector3.ContainsKey(objectHit.tag)) {
 			Vector3 direction = sensorTagToDirectionVector3[objectHit.tag];
-			SetGhostBlockAsNeighbor(blockPrefab, direction);
+			SetGhostBlockAsNeighbor(direction);
 		}
 	}
 

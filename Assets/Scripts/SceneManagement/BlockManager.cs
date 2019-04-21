@@ -28,14 +28,6 @@ public class BlockManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before
-    /// any of the Update methods is called the first time.
-    /// </summary>
-    void Start() {
-        InitGhostBlock();
-    }
-
     public string GetFormattedCoordinateFromBlock(GameObject block) {
         string formattedCoordinatesString = string.Format(
             "{0},{1},{2}", 
@@ -90,33 +82,9 @@ public class BlockManager : MonoBehaviour
         }
     }
 
-    private GameObject InitGhostBlock() {
-        ghostBlock = Instantiate(
-            BlockTypes.instance.ghostBlock, 
-            Vector3.zero, 
-            transform.rotation,
-            blocksContainer.transform
-        );
-        Color c = ghostBlock.GetComponent<MeshRenderer>().material.color;
-        c.a = 0.5f;
-        ghostBlock.GetComponent<MeshRenderer>().material.color = c;
-        ghostBlock.SetActive(false);
-        return null;
-    }
+    // GHOST BLOCK METHODS
 
-    public bool UpdateGhostBlock(GameObject blockPrefab, Vector3 position) {
-        Material copyMat = blockPrefab.GetComponent<Renderer>().sharedMaterial;
-        MeshRenderer ghostBlockMR = ghostBlock.GetComponent<MeshRenderer>();
-        ghostBlockMR.material.CopyPropertiesFromMaterial(copyMat);
-        Color c = ghostBlockMR.material.color;
-        c.a = 0.5f;
-        ghostBlockMR.material.color = c;
-        ghostBlock.transform.position = position;
-        ghostBlock.SetActive(true);
-        return true;
-    }
-
-    public bool UpdateGhostBlock_V2(GameObject blockPrefab, Vector3 position) {
+    public void UpdateGhostBlockType(GameObject blockPrefab) {
         Destroy(ghostBlock);
         ghostBlock = Instantiate(
             blockPrefab,
@@ -124,9 +92,19 @@ public class BlockManager : MonoBehaviour
             transform.rotation,
             blocksContainer.transform
         );
-        ghostBlock.GetComponent<BaseBlockScript>().MakeGhostBlock();
+        ghostBlock.GetComponent<BaseBlockScript>().TransformToGhostBlock();
+    }
+
+    public void UpdateGhostBlockPosition(Vector3 position) {
         ghostBlock.transform.position = position;
-        return true;
+    }
+
+    public void ActivateGhostBlock() {
+        ghostBlock.SetActive(true);
+    }
+
+    public void DeactivateGhostBlock() {
+        ghostBlock.SetActive(false);
     }
 
 }

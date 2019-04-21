@@ -110,7 +110,7 @@ public class PlayerControlScript : MonoBehaviour {
                 );
             }
         } else {
-            BlockManager.instance.ghostBlock.SetActive(false);
+            BlockManager.instance.DeactivateGhostBlock();
         }
     }
 
