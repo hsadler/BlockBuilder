@@ -99,6 +99,30 @@ public class BlockManager : MonoBehaviour
         ghostBlock.transform.position = position;
     }
 
+    public void RotateGhostBlock(Vector3 direction) {
+        // TODO: rotates based on initial orientation, so not intuitive
+        // rotation should be done where origin is current orientation
+        if(ghostBlock.activeSelf) {
+            
+            // Debug.Log("rotating ghost block...");
+            Vector3 addRotation = direction * 90.0f;
+
+            // TODO: figure out Lerp later with coroutine
+            // float rotationSpeed = 1;
+            // ghostBlock.transform.rotation = Quaternion.Lerp(
+            //     ghostBlock.transform.rotation,
+            //     Quaternion.Euler(newRotation),
+            //     Time.time * rotationSpeed
+            // );
+
+            // NAIVE SOLUTION: snap to new rotation
+            Quaternion gr = ghostBlock.transform.rotation;
+            // ghostBlock.transform.Rotate(gr.eulerAngles + addRotation, Space.Self);
+            ghostBlock.transform.Rotate(addRotation, Space.Self); 
+
+        }
+    }
+
     public void ActivateGhostBlock() {
         ghostBlock.SetActive(true);
     }

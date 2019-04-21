@@ -25,9 +25,8 @@ public class BaseBlockScript : MonoBehaviour {
 		environmentGeneration = EnvironmentGeneration.instance;
         blockManager = BlockManager.instance;
 	}
-	
-	// Update is called once per frame
-	public void Update () {}
+
+	// MOVEMENT METHODS
 
 	public bool DestroyBlock() {
 		blockManager.UnsetBlock(gameObject);
@@ -39,6 +38,8 @@ public class BaseBlockScript : MonoBehaviour {
 		Vector3 newBlockPosition = transform.position + direction;
 		return environmentGeneration.CreateBlock(blockPrefab, newBlockPosition);
 	}
+
+	// GHOST BLOCK METHODS
 
 	private void SetGhostBlockAsNeighbor(Vector3 direction) {
 		Vector3 ghostBlockPosition = transform.position + direction;
@@ -56,6 +57,8 @@ public class BaseBlockScript : MonoBehaviour {
 			mr.material.color = c;
 		}
 	}
+
+	// PLAYER INTERACTION METHODS
 
 	public void PlayerRayHitInteraction(PlayerToBlockMessage message) {
 		// get object hit data

@@ -27,6 +27,7 @@ public class PlayerControlScript : MonoBehaviour {
     void Update() {
         CheckLookInput();
         CheckBlockInteraction();
+        CheckGhostBlockInput();
     }
 
     /// <summary>
@@ -59,8 +60,8 @@ public class PlayerControlScript : MonoBehaviour {
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
     }
 
+    // NOT USED
     private void CheckMoveInputAndMoveByTranslation() {
-        // NOT USED
         if(Input.GetKey(KeyCode.W)) {
             transform.Translate(Vector3.forward * Time.deltaTime * maxSpeed, Space.Self);
         }
@@ -111,6 +112,25 @@ public class PlayerControlScript : MonoBehaviour {
             }
         } else {
             BlockManager.instance.DeactivateGhostBlock();
+        }
+    }
+
+    private void CheckGhostBlockInput() {
+        Vector3 direction = Vector3.zero;
+        if(Input.GetKeyDown(KeyCode.UpArrow)) {
+            direction = Vector3.right;
+        }
+        if(Input.GetKeyDown(KeyCode.DownArrow)) {
+            direction = Vector3.left;
+        }
+        if(Input.GetKeyDown(KeyCode.LeftArrow)) {
+            direction = Vector3.down;
+        }
+        if(Input.GetKeyDown(KeyCode.RightArrow)) {
+            direction = Vector3.up;
+        }
+        if(direction != Vector3.zero) {
+            BlockManager.instance.RotateGhostBlock(direction);
         }
     }
 
