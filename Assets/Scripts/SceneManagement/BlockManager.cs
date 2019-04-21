@@ -116,4 +116,17 @@ public class BlockManager : MonoBehaviour
         return true;
     }
 
+    public bool UpdateGhostBlock_V2(GameObject blockPrefab, Vector3 position) {
+        Destroy(ghostBlock);
+        ghostBlock = Instantiate(
+            blockPrefab,
+            Vector3.zero,
+            transform.rotation,
+            blocksContainer.transform
+        );
+        ghostBlock.GetComponent<BaseBlockScript>().MakeGhostBlock();
+        ghostBlock.transform.position = position;
+        return true;
+    }
+
 }

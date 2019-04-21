@@ -42,7 +42,18 @@ public class BaseBlockScript : MonoBehaviour {
 
 	private void SetGhostBlockAsNeighbor(GameObject blockPrefab, Vector3 direction) {
 		Vector3 ghostBlockPosition = transform.position + direction;
-		blockManager.UpdateGhostBlock(blockPrefab, ghostBlockPosition);
+		blockManager.UpdateGhostBlock_V2(blockPrefab, ghostBlockPosition);
+	}
+
+	public void MakeGhostBlock() {
+		foreach (Collider col in GetComponentsInChildren<Collider>()) {
+			col.enabled = false;
+		}
+		foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>()) {
+			Color c = mr.material.color;
+			c.a = 0.5f;
+			mr.material.color = c;
+		}
 	}
 
 	public void PlayerRayHitInteraction(PlayerToBlockMessage message) {
