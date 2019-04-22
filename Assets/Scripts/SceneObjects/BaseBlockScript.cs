@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class BaseBlockScript : MonoBehaviour {
 
-    // scene management references
-	protected EnvironmentGeneration environmentGeneration;
-	protected BlockManager blockManager;
-
+	
 	protected IDictionary<string, Vector3> sensorTagToDirectionVector3 = new Dictionary<string, Vector3>()
 	{
 		{ "TopSensor", new Vector3(0, 1, 0) },
@@ -19,25 +16,18 @@ public class BaseBlockScript : MonoBehaviour {
 	};
 
 
-	// Use this for initialization
-	public void Start () {
-		// set references
-		environmentGeneration = EnvironmentGeneration.instance;
-        blockManager = BlockManager.instance;
-	}
-
-	// MOVEMENT METHODS
+	protected void Start() {}
 
 	public void DestroyBlock() {
-		blockManager.UnsetBlock(gameObject);
+		BlockManager.instance.UnsetBlock(gameObject);
 		Destroy(gameObject);
 	}
 
 	public void AddNewBlockAsNeighbor(GameObject blockPrefab) {
-		environmentGeneration.CreateBlock(
+		EnvironmentGeneration.instance.CreateBlock(
 			blockPrefab, 
-			blockManager.ghostBlock.transform.position,
-			blockManager.ghostBlock.transform.rotation
+			BlockManager.instance.ghostBlock.transform.position,
+			BlockManager.instance.ghostBlock.transform.rotation
 		);
 	}
 
@@ -45,8 +35,8 @@ public class BaseBlockScript : MonoBehaviour {
 
 	private void SetGhostBlockAsNeighbor(Vector3 direction) {
 		Vector3 ghostBlockPosition = transform.position + direction;
-		blockManager.UpdateGhostBlockPosition(ghostBlockPosition);
-		blockManager.ActivateGhostBlock();
+		BlockManager.instance.UpdateGhostBlockPosition(ghostBlockPosition);
+		BlockManager.instance.ActivateGhostBlock();
 	}
 
 	public void TransformToGhostBlock() {
@@ -66,7 +56,8 @@ public class BaseBlockScript : MonoBehaviour {
 		// get object hit data
 		GameObject objectHit = message.objectHit;
 		if(sensorTagToDirectionVector3.ContainsKey(objectHit.tag)) {
-			Vector3 direction = sensorTagToDirectionVector3[objectHit.tag];
+			// CODE EXAMPLE: get sensor direction vector offset by rotation
+			Vector3 direction = transform.rotation * sensorTagToDirectionVector3[objectHit.tag];
 			SetGhostBlockAsNeighbor(direction);
 		}
 	}

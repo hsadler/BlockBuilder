@@ -7,6 +7,7 @@ public class BlockManager : MonoBehaviour
     
     // DATASTORE AND SERVICE FOR MANAGING GAME BLOCKS
 
+
     public IDictionary<string, GameObject> coordsToBlockDict = new Dictionary<string, GameObject>();
     public GameObject blocksContainer;
     public GameObject ghostBlock;
@@ -15,9 +16,6 @@ public class BlockManager : MonoBehaviour
     // the static reference to the singleton instance
     public static BlockManager instance { get; private set; }
 
-    /// <summary>
-    /// Awake is called when the script instance is being loaded.
-    /// </summary>
     void Awake() {
         // singleton pattern
         if(instance == null) {

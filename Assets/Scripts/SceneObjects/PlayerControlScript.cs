@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerControlScript : MonoBehaviour {
 
+    // RESPONSIBLE FOR PLAYER CONTROL FROM USER INPUT
+
+
     public float thrust;
     public float maxSpeed;
     public float rotationSpeed;

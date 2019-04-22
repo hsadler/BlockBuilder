@@ -7,16 +7,9 @@ public class EnvironmentGeneration : MonoBehaviour {
 	// RESPONSIBLE FOR PROCEDURAL ENVIRONMENT GENERATION
 
 
-    private BlockTypes blockTypes;
-    private BlockManager blockManager;
-
-
 	// the static reference to the singleton instance
     public static EnvironmentGeneration instance { get; private set; }
 
-    /// <summary>
-    /// Awake is called when the script instance is being loaded.
-    /// </summary>
     void Awake() {
         // singleton pattern
         if(instance == null) {
@@ -29,9 +22,6 @@ public class EnvironmentGeneration : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        // set references
-        blockTypes = BlockTypes.instance;
-        blockManager = BlockManager.instance;
 		// GenerateTestCubeEnvironment();
         GenerateFlatLandEnvironment();
 	}
@@ -40,7 +30,7 @@ public class EnvironmentGeneration : MonoBehaviour {
         int size = 10;
         Vector3 dimensions = new Vector3(size, size, size);
         Vector3 pos = new Vector3(-size/2, -size/2, -size/2);
-        GenerateBlockChunk(blockTypes.baseBlock, dimensions, pos);
+        GenerateBlockChunk(BlockTypes.instance.baseBlock, dimensions, pos);
     }
 
     private void GenerateFlatLandEnvironment() {
@@ -49,7 +39,7 @@ public class EnvironmentGeneration : MonoBehaviour {
         int depth = 50;
         Vector3 dimensions = new Vector3(width, height, depth);
         Vector3 pos = new Vector3(-width/2, -height, -depth/2);
-        GenerateBlockChunk(blockTypes.baseBlock, dimensions, pos);
+        GenerateBlockChunk(BlockTypes.instance.baseBlock, dimensions, pos);
     }
 
     private void GenerateRectangularRoomEnvironment(Vector3 dimensions, Vector3 position) {
@@ -58,14 +48,14 @@ public class EnvironmentGeneration : MonoBehaviour {
 
     public GameObject CreateBlock(GameObject blockPrefab, Vector3 position, Quaternion rotation) {
         // create block from prefab and register on block manager
-        if(!blockManager.BlockExists(position)) {
+        if(!BlockManager.instance.BlockExists(position)) {
             GameObject newBlock = Instantiate(
                 blockPrefab, 
                 position, 
                 rotation,
-                blockManager.blocksContainer.transform
+                BlockManager.instance.blocksContainer.transform
             );
-            blockManager.SetBlock(newBlock);
+            BlockManager.instance.SetBlock(newBlock);
             return newBlock;
         }
         return null;

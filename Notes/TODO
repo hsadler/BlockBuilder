@@ -6,11 +6,11 @@ GAMEPLAY TODO:
     X walking mode for player
     X blocks of different types
     X player current selected block switching
-    - block orientation:
+    X block orientation:
         X ghost placement
         X contols for altering orientation of ghost block
         X place real block as same orientation as ghost block
-        - fix block sensor system to work with new block rotations
+        X fix block sensor system to work with new block rotations
     - block interaction with key 'F'
     - behavior for different block types:
         - move discrete spaces
