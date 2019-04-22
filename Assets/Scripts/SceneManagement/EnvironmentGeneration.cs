@@ -56,13 +56,13 @@ public class EnvironmentGeneration : MonoBehaviour {
         // TODO
     }
 
-    public GameObject CreateBlock(GameObject blockPrefab, Vector3 position) {
+    public GameObject CreateBlock(GameObject blockPrefab, Vector3 position, Quaternion rotation) {
         // create block from prefab and register on block manager
         if(!blockManager.BlockExists(position)) {
             GameObject newBlock = Instantiate(
                 blockPrefab, 
                 position, 
-                transform.rotation, 
+                rotation,
                 blockManager.blocksContainer.transform
             );
             blockManager.SetBlock(newBlock);
@@ -79,7 +79,7 @@ public class EnvironmentGeneration : MonoBehaviour {
             for (float j = position[1]; j < position[1] + depth; j++) {
                 for (float k = position[2]; k < position[2] + height; k++) {
                     Vector3 blockPosition = new Vector3(i, j, k);
-                    CreateBlock(blockPrefab, blockPosition);
+                    CreateBlock(blockPrefab, blockPosition, Quaternion.Euler(Vector3.zero));
                 }
             }
         }

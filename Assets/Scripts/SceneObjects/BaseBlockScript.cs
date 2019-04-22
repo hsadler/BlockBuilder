@@ -28,15 +28,17 @@ public class BaseBlockScript : MonoBehaviour {
 
 	// MOVEMENT METHODS
 
-	public bool DestroyBlock() {
+	public void DestroyBlock() {
 		blockManager.UnsetBlock(gameObject);
 		Destroy(gameObject);
-		return true;
 	}
 
-	public GameObject AddNewBlockAsNeighbor(GameObject blockPrefab, Vector3 direction) {
-		Vector3 newBlockPosition = transform.position + direction;
-		return environmentGeneration.CreateBlock(blockPrefab, newBlockPosition);
+	public void AddNewBlockAsNeighbor(GameObject blockPrefab) {
+		environmentGeneration.CreateBlock(
+			blockPrefab, 
+			blockManager.ghostBlock.transform.position,
+			blockManager.ghostBlock.transform.rotation
+		);
 	}
 
 	// GHOST BLOCK METHODS
@@ -77,12 +79,7 @@ public class BaseBlockScript : MonoBehaviour {
 		// get player data 
 		GameObject player = message.player;
 		GameObject blockPrefab = player.GetComponent<PlayerInventoryScript>().currentSelected;
-		// get object hit data
-		GameObject objectHit = message.objectHit;
-		if(sensorTagToDirectionVector3.ContainsKey(objectHit.tag)) {
-			Vector3 direction = sensorTagToDirectionVector3[objectHit.tag];
-			AddNewBlockAsNeighbor(blockPrefab, direction);
-		}
+		AddNewBlockAsNeighbor(blockPrefab);
 	}
 
 }

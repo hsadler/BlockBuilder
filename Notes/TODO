@@ -8,8 +8,9 @@ GAMEPLAY TODO:
     X player current selected block switching
     - block orientation:
         X ghost placement
-        - contols for altering orientation
-        - change orientation of existing block
+        X contols for altering orientation of ghost block
+        X place real block as same orientation as ghost block
+        - fix block sensor system to work with new block rotations
     - block interaction with key 'F'
     - behavior for different block types:
         - move discrete spaces
@@ -30,8 +31,14 @@ GAMEPLAY TODO:
 
 SYSTEMS TODO:
 
-    - block types registry
-    - player inventory (blocks available to player)
+    X block types registry
+    X player inventory (blocks available to player)
+
+
+REFACTORS TODO:
+
+    - (maybe) move ghost block instance inside player instance instead of global block manager
+    - (maybe) move EnvironmentGeneration.CreateBlock() method to BlockManager
 
 
 CLEANUP/FIXES:
@@ -39,6 +46,7 @@ CLEANUP/FIXES:
     - fix jumping when in grounded mode
     - fix slowdown of player when not moving
     - fix camera pan jittering while moving
+    - fix ghost block orientation control
 
 
 
