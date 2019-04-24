@@ -90,9 +90,15 @@ public class PlayerControlScript : MonoBehaviour {
                     payload, 
                     SendMessageOptions.DontRequireReceiver
                 );
-            } else if (Input.GetMouseButtonDown(1)) {
+            } else if(Input.GetMouseButtonDown(1)) {
                 objectHit.SendMessageUpwards(
                     "PlayerRightClickInteraction", 
+                    payload, 
+                    SendMessageOptions.DontRequireReceiver
+                );
+            } else if(Input.GetKeyDown(KeyCode.F)) {
+                objectHit.SendMessageUpwards(
+                    "PlayerFKeyInteraction", 
                     payload, 
                     SendMessageOptions.DontRequireReceiver
                 );

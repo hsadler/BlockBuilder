@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BaseBlockScript : MonoBehaviour {
 
+
+	public float ghostBlockColorAlpha = 0.5f;
+
 	
 	protected IDictionary<string, Vector3> sensorTagToDirectionVector3 = new Dictionary<string, Vector3>()
 	{
@@ -23,6 +26,14 @@ public class BaseBlockScript : MonoBehaviour {
 		Destroy(gameObject);
 	}
 
+	public void DisableInteractions() {
+		DisableAllColliders();
+	}
+
+	public void EnableInteractions() {
+		EnableAllColliders();
+	}
+	
 	public void AddNewBlockAsNeighbor(GameObject blockPrefab) {
 		EnvironmentGeneration.instance.CreateBlock(
 			blockPrefab, 
@@ -40,14 +51,8 @@ public class BaseBlockScript : MonoBehaviour {
 	}
 
 	public void TransformToGhostBlock() {
-		foreach (Collider col in GetComponentsInChildren<Collider>()) {
-			col.enabled = false;
-		}
-		foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>()) {
-			Color c = mr.material.color;
-			c.a = 0.5f;
-			mr.material.color = c;
-		}
+		DisableAllColliders();
+		SetAllMaterialColorAlphas(ghostBlockColorAlpha);
 	}
 
 	// PLAYER INTERACTION METHODS
@@ -71,6 +76,32 @@ public class BaseBlockScript : MonoBehaviour {
 		GameObject player = message.player;
 		GameObject blockPrefab = player.GetComponent<PlayerInventoryScript>().currentSelected;
 		AddNewBlockAsNeighbor(blockPrefab);
+	}
+
+	public void PlayerFKeyInteraction(PlayerToBlockMessage message) {
+		Debug.Log("Player hit action key 'F' for block");
+	}
+
+	// IMPLEMENTATION METHODS
+
+	private void DisableAllColliders() {
+		foreach (Collider col in GetComponentsInChildren<Collider>()) {
+			col.enabled = false;
+		}
+	}
+
+	private void EnableAllColliders() {
+		foreach (Collider col in GetComponentsInChildren<Collider>()) {
+			col.enabled = true;
+		}
+	}
+
+	private void SetAllMaterialColorAlphas(float colorAlpha) {
+		foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>()) {
+			Color c = mr.material.color;
+			c.a = 0.5f;
+			mr.material.color = c;
+		}
 	}
 
 }

@@ -10,8 +10,9 @@ public class BlockTypes : MonoBehaviour
 
     public GameObject baseBlock;
     public GameObject ghostBlock;
-    public GameObject block1;
-    public GameObject block2;
+    public GameObject testBlock;
+    public GameObject plainBlock;
+    public GameObject moverBlock;
 
 
     // the static reference to the singleton instance

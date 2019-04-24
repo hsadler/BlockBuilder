@@ -11,7 +11,7 @@ GAMEPLAY TODO:
         X contols for altering orientation of ghost block
         X place real block as same orientation as ghost block
         X fix block sensor system to work with new block rotations
-    - block interaction with key 'F'
+    X block interaction with key 'F'
     - behavior for different block types:
         - move discrete spaces
         - rotate
