@@ -13,8 +13,8 @@ public class BaseBlockScript : MonoBehaviour {
 		{ "TopSensor", new Vector3(0, 1, 0) },
 		{ "LeftSensor", new Vector3(-1, 0, 0) },
 		{ "RightSensor", new Vector3(1, 0, 0) },
-		{ "FrontSensor", new Vector3(0, 0, -1) },
-		{ "BackSensor", new Vector3(0, 0, 1) },
+		{ "FrontSensor", new Vector3(0, 0, 1) },
+		{ "BackSensor", new Vector3(0, 0, -1) },
 		{ "BottomSensor", new Vector3(0, -1, 0) }
 	};
 
