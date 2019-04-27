@@ -13,7 +13,7 @@ GAMEPLAY TODO:
         X fix block sensor system to work with new block rotations
     X block interaction with key 'F'
     - behavior for different block types:
-        - move discrete spaces
+        X move discrete spaces
         - rotate
         - on/off light
     - block-to-block interaction:

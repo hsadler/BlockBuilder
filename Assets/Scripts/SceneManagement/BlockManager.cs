@@ -26,6 +26,10 @@ public class BlockManager : MonoBehaviour
         }
     }
 
+    void Start() {
+                
+    }
+
     public string GetFormattedCoordinateFromBlock(GameObject block) {
         string formattedCoordinatesString = string.Format(
             "{0},{1},{2}", 

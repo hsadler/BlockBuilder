@@ -21,6 +21,8 @@ public class BaseBlockScript : MonoBehaviour {
 
 	protected void Start() {}
 
+	protected void EvaluateAtTick() {}
+
 	public void DestroyBlock() {
 		BlockManager.instance.UnsetBlock(gameObject);
 		Destroy(gameObject);
