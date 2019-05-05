@@ -115,7 +115,6 @@ public class BlockManager : MonoBehaviour
         // rotation should be done where origin is current orientation
         if(ghostBlock.activeSelf) {
             
-            // Debug.Log("rotating ghost block...");
             Vector3 addRotation = direction * 90.0f;
 
             // TODO: figure out Lerp later with coroutine
@@ -127,8 +126,6 @@ public class BlockManager : MonoBehaviour
             // );
 
             // NAIVE SOLUTION: snap to new rotation
-            Quaternion gr = ghostBlock.transform.rotation;
-            // ghostBlock.transform.Rotate(gr.eulerAngles + addRotation, Space.Self);
             ghostBlock.transform.Rotate(addRotation, Space.Self); 
 
         }

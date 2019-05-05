@@ -13,6 +13,7 @@ public class BlockTypes : MonoBehaviour
     public GameObject testBlock;
     public GameObject plainBlock;
     public GameObject moverBlock;
+    public GameObject rotatorBlock;
 
 
     // the static reference to the singleton instance

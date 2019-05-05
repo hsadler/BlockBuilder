@@ -36,6 +36,8 @@ public class PlayerInventoryScript : MonoBehaviour
             currentSelected = BlockTypes.instance.plainBlock;
         } else if(Input.GetKey(KeyCode.Alpha3)) {
             currentSelected = BlockTypes.instance.moverBlock;
+        } else if(Input.GetKey(KeyCode.Alpha4)) {
+            currentSelected = BlockTypes.instance.rotatorBlock;
         }
         // if inventory item was changed, update the current ghost block type
         if(oldSelected != currentSelected) {

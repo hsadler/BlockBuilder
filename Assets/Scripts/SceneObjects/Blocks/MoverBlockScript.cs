@@ -9,13 +9,11 @@ public class MoverBlockScript : BaseBlockScript {
     }
 
 	public override void EvaluateAtTick() {
-        // Debug.Log("Evaluating Mover Block");
         MoveBlockForward();
     }
 
     public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {
 		base.PlayerFKeyInteraction(message);
-        // MoveBlockForward();
 	}
 
     // IMPLEMENTATION METHODS
