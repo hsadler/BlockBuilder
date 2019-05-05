@@ -8,7 +8,7 @@ public class SceneConfig : MonoBehaviour
     // REGISTRY FOR GENERAL SCENE VARIABLES
 
 
-    public float tickDuration = 1.0f;
+    public float tickDurationSeconds = 1.0f;
 
 
     // the static reference to the singleton instance

@@ -19,9 +19,10 @@ public class BaseBlockScript : MonoBehaviour {
 	};
 
 
-	protected void Start() {}
+	public void Start() {}
 
-	protected void EvaluateAtTick() {}
+	// meant to be overwritten by subclasses
+	public virtual void EvaluateAtTick() {}
 
 	public void DestroyBlock() {
 		BlockManager.instance.UnsetBlock(gameObject);
@@ -80,9 +81,7 @@ public class BaseBlockScript : MonoBehaviour {
 		AddNewBlockAsNeighbor(blockPrefab);
 	}
 
-	public void PlayerFKeyInteraction(PlayerToBlockMessage message) {
-		Debug.Log("Player hit action key 'F' for block");
-	}
+	public virtual void PlayerFKeyInteraction(PlayerToBlockMessage message) {}
 
 	// IMPLEMENTATION METHODS
 

@@ -27,7 +27,7 @@ public class BlockManager : MonoBehaviour
     }
 
     void Start() {
-                
+        InvokeRepeating("evaluateBlocks", 0, SceneConfig.instance.tickDurationSeconds);
     }
 
     public string GetFormattedCoordinateFromBlock(GameObject block) {
@@ -81,6 +81,15 @@ public class BlockManager : MonoBehaviour
             string formattedCoords = GetFormattedCoordinateFromBlock(block);
             coordsToBlockDict.Remove(formattedCoords);
             return true;
+        }
+    }
+
+    // BLOCK EVALUATION METHODS
+
+    private void evaluateBlocks() {
+        List<GameObject> gos = new List<GameObject>(coordsToBlockDict.Values);
+        foreach (GameObject go in gos) {
+            go.GetComponent<BaseBlockScript>().EvaluateAtTick();
         }
     }
 

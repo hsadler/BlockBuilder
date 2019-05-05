@@ -33,6 +33,8 @@ SYSTEMS TODO:
 
     X block types registry
     X player inventory (blocks available to player)
+    X scene config
+    X evaluations-per-tick (for block evaluations)
 
 
 REFACTORS TODO:

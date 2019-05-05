@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoverBlockScript : BaseBlockScript
-{
+public class MoverBlockScript : BaseBlockScript {
     
     public new void Start() {
         base.Start();
     }
 
-    public new void PlayerFKeyInteraction(PlayerToBlockMessage message) {
-		base.PlayerFKeyInteraction(message);
+	public override void EvaluateAtTick() {
+        // Debug.Log("Evaluating Mover Block");
         MoveBlockForward();
+    }
+
+    public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {
+		base.PlayerFKeyInteraction(message);
+        // MoveBlockForward();
 	}
 
     // IMPLEMENTATION METHODS
