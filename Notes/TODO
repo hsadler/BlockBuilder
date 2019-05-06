@@ -15,7 +15,7 @@ GAMEPLAY TODO:
     - behavior for different block types:
         X move discrete spaces
         X rotate
-        - on/off light
+        X on/off light
     - block-to-block interaction:
         - power block turns on light block
         - conveyor block moves block
@@ -39,7 +39,7 @@ SYSTEMS TODO:
 
 REFACTORS TODO:
 
-    - (maybe) move ghost block instance inside player instance instead of global block manager
+    - (maybe) move ghost block instance inside player instance instead of global block manager or its own manager
     - (maybe) move EnvironmentGeneration.CreateBlock() method to BlockManager
 
 

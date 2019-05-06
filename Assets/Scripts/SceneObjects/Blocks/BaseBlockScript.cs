@@ -21,7 +21,8 @@ public class BaseBlockScript : MonoBehaviour {
 
 	public void Start() {}
 
-	// meant to be overwritten by subclasses
+	// overwritten by subclasses
+	public virtual void OnPlacement() {}
 	public virtual void EvaluateAtTick() {}
 
 	public void DestroyBlock() {
@@ -85,22 +86,22 @@ public class BaseBlockScript : MonoBehaviour {
 
 	// IMPLEMENTATION METHODS
 
-	private void DisableAllColliders() {
+	protected void DisableAllColliders() {
 		foreach (Collider col in GetComponentsInChildren<Collider>()) {
 			col.enabled = false;
 		}
 	}
 
-	private void EnableAllColliders() {
+	protected void EnableAllColliders() {
 		foreach (Collider col in GetComponentsInChildren<Collider>()) {
 			col.enabled = true;
 		}
 	}
 
-	private void SetAllMaterialColorAlphas(float colorAlpha) {
+	protected void SetAllMaterialColorAlphas(float colorAlpha) {
 		foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>()) {
 			Color c = mr.material.color;
-			c.a = 0.5f;
+			c.a = colorAlpha;
 			mr.material.color = c;
 		}
 	}

@@ -56,6 +56,7 @@ public class EnvironmentGeneration : MonoBehaviour {
                 BlockManager.instance.blocksContainer.transform
             );
             BlockManager.instance.SetBlock(newBlock);
+            newBlock.GetComponent<BaseBlockScript>().OnPlacement();
             return newBlock;
         }
         return null;

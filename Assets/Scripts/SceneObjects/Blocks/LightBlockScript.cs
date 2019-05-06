@@ -3,9 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LightBlockScript : BaseBlockScript {
+
     
+    public bool lightOn = false;
+    public float colorAlpha = 0.7f;
+
+
+    private Light blockLight;
+    
+
     public new void Start() {
         base.Start();
+        blockLight = GetComponentInChildren<Light>();
+    }
+
+    public override void OnPlacement() {
+        SetAllMaterialColorAlphas(colorAlpha);
     }
 
 	public override void EvaluateAtTick() {
@@ -19,7 +32,8 @@ public class LightBlockScript : BaseBlockScript {
     // IMPLEMENTATION METHODS
 
     private void ToggleBlockLight() {
-        // TODO: implement
+        lightOn = !lightOn;
+        blockLight.enabled = lightOn;
     }
 
 }
