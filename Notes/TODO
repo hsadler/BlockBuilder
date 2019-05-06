@@ -14,7 +14,7 @@ GAMEPLAY TODO:
     X block interaction with key 'F'
     - behavior for different block types:
         X move discrete spaces
-        - rotate
+        X rotate
         - on/off light
     - block-to-block interaction:
         - power block turns on light block
