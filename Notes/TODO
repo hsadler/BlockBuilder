@@ -49,6 +49,7 @@ CLEANUP/FIXES:
     - fix slowdown of player when not moving
     - fix camera pan jittering while moving
     - fix ghost block orientation control
+    - update block snaps per update to
 
 
 
