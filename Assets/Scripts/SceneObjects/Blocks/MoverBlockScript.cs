@@ -9,7 +9,7 @@ public class MoverBlockScript : BaseBlockScript {
     }
 
 	public override void EvaluateAtTick() {
-        MoveBlockForward();
+        MoveBlock(Vector3.forward);
     }
 
     public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {
@@ -17,20 +17,5 @@ public class MoverBlockScript : BaseBlockScript {
 	}
 
     // IMPLEMENTATION METHODS
-
-    private void MoveBlockForward() {
-        BlockManager bm = BlockManager.instance;
-        // check for block where about to move
-        Vector3 amountToMove = transform.rotation * Vector3.forward;
-        Vector3 positionToMove = transform.position + amountToMove;
-        if(!bm.BlockExists(positionToMove)) {
-            // unset on manager
-            bm.UnsetBlock(gameObject);
-            // move with transform
-            transform.Translate(amountToMove, Space.World);
-            // set on manager
-            bm.SetBlock(gameObject);
-        }
-    }
 
 }

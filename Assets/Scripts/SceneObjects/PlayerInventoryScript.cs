@@ -17,7 +17,7 @@ public class PlayerInventoryScript : MonoBehaviour
     }
 
     void Update() {
-        CheckInventorySelection();    
+        CheckInventorySelection();
     }
 
     private void InitInventorySelection() {
@@ -41,6 +41,14 @@ public class PlayerInventoryScript : MonoBehaviour
         } else if(Input.GetKey(KeyCode.Alpha5)) {
             currentSelected = BlockTypes.instance.lightBlock;
         } else if(Input.GetKey(KeyCode.Alpha6)) {
+            currentSelected = BlockTypes.instance.conveyorBlock;
+        } else if(Input.GetKey(KeyCode.Alpha7)) {
+            currentSelected = BlockTypes.instance.conveyorBlock;
+        } else if(Input.GetKey(KeyCode.Alpha8)) {
+            currentSelected = BlockTypes.instance.conveyorBlock;
+        } else if(Input.GetKey(KeyCode.Alpha9)) {
+            currentSelected = BlockTypes.instance.conveyorBlock;
+        } else if(Input.GetKey(KeyCode.Alpha0)) {
             currentSelected = BlockTypes.instance.conveyorBlock;
         }
         // if inventory item was changed, update the current ghost block type

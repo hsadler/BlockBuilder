@@ -25,6 +25,26 @@ public class BaseBlockScript : MonoBehaviour {
 	public virtual void OnPlacement() {}
 	public virtual void EvaluateAtTick() {}
 
+	public void MoveBlock(Vector3 direction, bool relativeToRotation=true) {
+		BlockManager bm = BlockManager.instance;
+        // check for block where about to move
+		Vector3 amountToMove;
+		if(relativeToRotation) {
+        	amountToMove = transform.rotation * direction;
+		} else {
+        	amountToMove = direction;
+		}
+        Vector3 positionToMove = transform.position + amountToMove;
+        if(!bm.BlockExists(positionToMove)) {
+            // unset on manager
+            bm.UnsetBlock(gameObject);
+            // move with transform
+            transform.Translate(amountToMove, Space.World);
+            // set on manager
+            bm.SetBlock(gameObject);
+		}
+	}
+
 	public void DestroyBlock() {
 		BlockManager.instance.UnsetBlock(gameObject);
 		Destroy(gameObject);

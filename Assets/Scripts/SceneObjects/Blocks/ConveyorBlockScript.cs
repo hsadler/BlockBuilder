@@ -8,7 +8,9 @@ public class ConveyorBlockScript : BaseBlockScript {
         base.Start();
     }
 
-	public override void EvaluateAtTick() {}
+	public override void EvaluateAtTick() {
+        MoveNeighbor(Vector3.up, Vector3.forward);
+    }
 
     public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {
 		base.PlayerFKeyInteraction(message);
@@ -16,8 +18,13 @@ public class ConveyorBlockScript : BaseBlockScript {
 
     // IMPLEMENTATION METHODS
 
-    private void MoveNeighbor() {
-        // TODO: stub
+    private void MoveNeighbor(Vector3 neighborDirection, Vector3 moveDirection) {
+        Vector3 neighborCoords = transform.position + (transform.rotation * neighborDirection);
+        if(BlockManager.instance.BlockExists(neighborCoords)) {
+            GameObject neighborBlock = BlockManager.instance.GetBlock(neighborCoords);
+            moveDirection = transform.rotation * moveDirection;
+            neighborBlock.GetComponent<BaseBlockScript>().MoveBlock(moveDirection, false);
+        }
     }
 
 }
