@@ -16,6 +16,7 @@ public class BlockTypes : MonoBehaviour
     public GameObject rotatorBlock;
     public GameObject lightBlock;
     public GameObject conveyorBlock;
+    public GameObject powerBlock;
 
 
     // the static reference to the singleton instance

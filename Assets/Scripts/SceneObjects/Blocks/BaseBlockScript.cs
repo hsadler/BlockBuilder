@@ -5,6 +5,9 @@ using UnityEngine;
 public class BaseBlockScript : MonoBehaviour {
 
 
+	private bool acceptsPower = false; 
+	public virtual bool AcceptsPower { get { return acceptsPower; } } 
+
 	public float ghostBlockColorAlpha = 0.5f;
 
 	
@@ -23,7 +26,10 @@ public class BaseBlockScript : MonoBehaviour {
 
 	// overwritten by subclasses
 	public virtual void OnPlacement() {}
+	public virtual void BeforeEvaluateAtTick() {}
 	public virtual void EvaluateAtTick() {}
+	public virtual void AfterEvaluateAtTick() {}
+	public virtual void PowerOn() {}
 
 	public void MoveBlock(Vector3 direction, bool relativeToRotation=true) {
 		BlockManager bm = BlockManager.instance;

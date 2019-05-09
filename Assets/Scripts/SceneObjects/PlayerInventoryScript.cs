@@ -43,7 +43,7 @@ public class PlayerInventoryScript : MonoBehaviour
         } else if(Input.GetKey(KeyCode.Alpha6)) {
             currentSelected = BlockTypes.instance.conveyorBlock;
         } else if(Input.GetKey(KeyCode.Alpha7)) {
-            currentSelected = BlockTypes.instance.conveyorBlock;
+            currentSelected = BlockTypes.instance.powerBlock;
         } else if(Input.GetKey(KeyCode.Alpha8)) {
             currentSelected = BlockTypes.instance.conveyorBlock;
         } else if(Input.GetKey(KeyCode.Alpha9)) {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MoverBlockScript : BaseBlockScript {
-    
+
     public new void Start() {
         base.Start();
     }

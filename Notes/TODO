@@ -18,7 +18,7 @@ GAMEPLAY TODO:
         X on/off light
     - block-to-block interaction:
         - power block turns on light block
-        - conveyor block moves block
+        X conveyor block moves block
     - UI:
         - inventory for selecting block types
         - start menu (new game, load save, exit) 
@@ -49,7 +49,8 @@ CLEANUP/FIXES:
     - fix slowdown of player when not moving
     - fix camera pan jittering while moving
     - fix ghost block orientation control
-    - update block snaps per update to
+    - update block snaps per update to lerps
+    - fix updates per tick to preserve before-tick states so that block evaluations are consistent
 
 
 

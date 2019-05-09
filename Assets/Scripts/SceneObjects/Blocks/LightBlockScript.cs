@@ -5,6 +5,8 @@ using UnityEngine;
 public class LightBlockScript : BaseBlockScript {
 
     
+    private bool acceptsPower = true;
+	public override bool AcceptsPower { get { return acceptsPower; } } 
     public bool lightOn = false;
     public float colorAlpha = 0.7f;
 
@@ -15,25 +17,42 @@ public class LightBlockScript : BaseBlockScript {
     public new void Start() {
         base.Start();
         blockLight = GetComponentInChildren<Light>();
+        TurnOffBlockLight();
     }
 
     public override void OnPlacement() {
         SetAllMaterialColorAlphas(colorAlpha);
     }
 
-	public override void EvaluateAtTick() {
-        ToggleBlockLight();
-    }
+	public override void EvaluateAtTick() {}
 
     public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {
 		base.PlayerFKeyInteraction(message);
 	}
 
-    // IMPLEMENTATION METHODS
+    public override void PowerOn() {
+        TurnOnBlockLight();
+    }
 
-    private void ToggleBlockLight() {
+    public bool GetBlockLightStatus() {
+        return lightOn;
+    }
+
+    public void TurnOnBlockLight() {
+        lightOn = true;
+        blockLight.enabled = true;
+    }
+
+    public void TurnOffBlockLight() {
+        lightOn = false;
+        blockLight.enabled = false;
+    }
+
+    public void ToggleBlockLight() {
         lightOn = !lightOn;
         blockLight.enabled = lightOn;
     }
+
+    // IMPLEMENTATION METHODS
 
 }
