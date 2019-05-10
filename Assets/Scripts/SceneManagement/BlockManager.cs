@@ -89,7 +89,10 @@ public class BlockManager : MonoBehaviour
     private void evaluateBlocks() {
         List<GameObject> gos = new List<GameObject>(coordsToBlockDict.Values);
         foreach (GameObject go in gos) {
-            go.GetComponent<BaseBlockScript>().EvaluateAtTick();
+            BaseBlockScript bbs = go.GetComponent<BaseBlockScript>();
+            bbs.BeforeEvaluateAtTick();
+            bbs.EvaluateAtTick();
+            bbs.AfterEvaluateAtTick();
         }
     }
 

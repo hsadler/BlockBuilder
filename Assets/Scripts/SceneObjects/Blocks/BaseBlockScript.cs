@@ -5,6 +5,7 @@ using UnityEngine;
 public class BaseBlockScript : MonoBehaviour {
 
 
+	// CODE EXAMPLE: how to handle instance variable overrides (fields exposed via properties)
 	private bool acceptsPower = false; 
 	public virtual bool AcceptsPower { get { return acceptsPower; } } 
 
