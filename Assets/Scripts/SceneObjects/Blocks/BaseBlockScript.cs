@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class BaseBlockScript : MonoBehaviour {
 
-
-	// CODE EXAMPLE: how to handle instance variable overrides (fields exposed via properties)
-	private bool acceptsPower = false; 
-	public virtual bool AcceptsPower { get { return acceptsPower; } } 
-
+	
 	public float ghostBlockColorAlpha = 0.5f;
 
+
+	// CODE EXAMPLE: how to handle instance variable overrides (fields exposed via properties)
+	// overridden by subclasses
+	private bool acceptsPower = false; 
+	public virtual bool AcceptsPower { get { return acceptsPower; } } 
+	
 	
 	protected IDictionary<string, Vector3> sensorTagToDirectionVector3 = new Dictionary<string, Vector3>()
 	{
@@ -25,7 +27,7 @@ public class BaseBlockScript : MonoBehaviour {
 
 	public void Start() {}
 
-	// overwritten by subclasses
+	// overridden by subclasses
 	public virtual void OnPlacement() {}
 	public virtual void BeforeEvaluateAtTick() {}
 	public virtual void EvaluateAtTick() {}

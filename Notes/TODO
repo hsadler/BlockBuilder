@@ -12,12 +12,12 @@ GAMEPLAY TODO:
         X place real block as same orientation as ghost block
         X fix block sensor system to work with new block rotations
     X block interaction with key 'F'
-    - behavior for different block types:
+    X behavior for different block types:
         X move discrete spaces
         X rotate
         X on/off light
-    - block-to-block interaction:
-        - power block turns on light block
+    X block-to-block interaction:
+        X power block turns on light block
         X conveyor block moves block
     - UI:
         - inventory for selecting block types
