@@ -1,4 +1,12 @@
 
+
+TODO NEXT:
+
+    - update block snaps per tick to lerps
+    - fix updates per tick to preserve before-tick states so that block evaluations are consistent
+    - ability to save game
+
+
 GAMEPLAY TODO:
 
     X procedural generation of flat map (for testing)
@@ -20,7 +28,6 @@ GAMEPLAY TODO:
         X power block turns on light block
         X conveyor block moves block
     - UI:
-        - inventory for selecting block types
         - start menu (new game, load save, exit) 
         - in-game options (save, load, exit)
     - ability to save game
@@ -35,6 +42,7 @@ SYSTEMS TODO:
     X player inventory (blocks available to player)
     X scene config
     X evaluations-per-tick (for block evaluations)
+    - game save
 
 
 REFACTORS TODO:
@@ -49,13 +57,21 @@ CLEANUP/FIXES:
     - fix slowdown of player when not moving
     - fix camera pan jittering while moving
     - fix ghost block orientation control
-    - update block snaps per update to lerps
+    - update block snaps per tick to lerps
     - fix updates per tick to preserve before-tick states so that block evaluations are consistent
 
 
+DEFER:
+    
+    - UI: inventory for selecting block types
 
-    UNITY RESOURCES:
+
+UNITY RESOURCES:
+   
     https://unity3d.com/learn/tutorials/topics/scripting/introduction-saving-and-loading
     https://unity3d.com/learn/tutorials/topics/scripting/update-and-fixedupdate
     https://docs.unity3d.com/Manual/QuaternionAndEulerRotationsInUnity.html
     https://docs.unity3d.com/ScriptReference/Transform.Rotate.html
+
+
+    
