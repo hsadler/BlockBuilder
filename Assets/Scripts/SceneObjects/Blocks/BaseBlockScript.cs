@@ -11,7 +11,10 @@ public class BaseBlockScript : MonoBehaviour {
 	// CODE EXAMPLE: how to handle instance variable overrides (fields exposed via properties)
 	// overridden by subclasses
 	private bool acceptsPower = false; 
-	public virtual bool AcceptsPower { get { return acceptsPower; } } 
+	public virtual bool AcceptsPower { get { return acceptsPower; } }
+
+	
+	private bool isMoving = false;
 	
 	
 	protected IDictionary<string, Vector3> sensorTagToDirectionVector3 = new Dictionary<string, Vector3>()
@@ -47,11 +50,39 @@ public class BaseBlockScript : MonoBehaviour {
         if(!bm.BlockExists(positionToMove)) {
             // unset on manager
             bm.UnsetBlock(gameObject);
-            // move with transform
-            transform.Translate(amountToMove, Space.World);
+            
+			// move with transform
+
+			// OLD:
+            // transform.Translate(amountToMove, Space.World);
+
+			// NEW:
+			StartCoroutine(
+				TranslateBlockOverTime(
+					positionToMove,
+					SceneConfig.instance.tickDurationSeconds
+				)
+			);
+
             // set on manager
             bm.SetBlock(gameObject);
 		}
+	}
+
+	private IEnumerator TranslateBlockOverTime(Vector3 toPosition, float duration) {
+		// short-circuit if still moving
+		if(isMoving) {
+			yield break;
+		}
+		// set to true at first execution of coroutine
+		isMoving = true;
+		float counter = 0;
+		while(counter < duration) {
+			counter += Time.deltaTime;
+			transform.position = Vector3.Lerp(transform.position, toPosition, counter / duration);
+			yield return null;
+		}		
+		isMoving = false;
 	}
 
 	public void DestroyBlock() {

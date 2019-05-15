@@ -4,6 +4,8 @@ TODO NEXT:
 
     - update block snaps per tick to lerps
     - fix updates per tick to preserve before-tick states so that block evaluations are consistent
+    - start menu (new game, load save, exit) 
+    - in-game options (save, load, exit)
     - ability to save game
 
 
