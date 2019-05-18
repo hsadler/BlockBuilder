@@ -14,7 +14,10 @@ public class BaseBlockScript : MonoBehaviour {
 	public virtual bool AcceptsPower { get { return acceptsPower; } }
 
 	
+	private Coroutine moveCoroutine;
 	private bool isMoving = false;
+	// private Vector3 oldPosition;
+	private Vector3 newPosition;
 	
 	
 	protected IDictionary<string, Vector3> sensorTagToDirectionVector3 = new Dictionary<string, Vector3>()
@@ -28,7 +31,9 @@ public class BaseBlockScript : MonoBehaviour {
 	};
 
 
-	public void Start() {}
+	public void Start() {
+		newPosition = transform.position;
+	}
 
 	// overridden by subclasses
 	public virtual void OnPlacement() {}
@@ -37,49 +42,54 @@ public class BaseBlockScript : MonoBehaviour {
 	public virtual void AfterEvaluateAtTick() {}
 	public virtual void PowerOn() {}
 
-	public void MoveBlock(Vector3 direction, bool relativeToRotation=true) {
+	public void MoveBlock(Vector3 direction, float distance, bool relativeToRotation=true) {
 		BlockManager bm = BlockManager.instance;
         // check for block where about to move
-		Vector3 amountToMove;
+		Vector3 vectorToMove;
 		if(relativeToRotation) {
-        	amountToMove = transform.rotation * direction;
+        	vectorToMove = (transform.rotation * direction) * distance;
 		} else {
-        	amountToMove = direction;
+        	vectorToMove = direction * distance;
 		}
-        Vector3 positionToMove = transform.position + amountToMove;
-        if(!bm.BlockExists(positionToMove)) {
+		// stop old coroutine
+		if(moveCoroutine != null) {
+			StopCoroutine(moveCoroutine);
+			isMoving = false;
+		}
+		transform.position = newPosition;
+		// make sure we start where we're supposed to
+        newPosition = transform.position + vectorToMove;
+
+		print("curr Pos: " + transform.position.ToString());
+		print("new Pos: " + newPosition.ToString());
+
+        if(!bm.BlockExists(newPosition)) {
             // unset on manager
             bm.UnsetBlock(gameObject);
-            
-			// move with transform
-
-			// OLD:
-            // transform.Translate(amountToMove, Space.World);
-
-			// NEW:
-			StartCoroutine(
+			// move with new coroutine
+			moveCoroutine = StartCoroutine(
 				TranslateBlockOverTime(
-					positionToMove,
+					transform.position,
+					newPosition,
 					SceneConfig.instance.tickDurationSeconds
 				)
 			);
-
             // set on manager
             bm.SetBlock(gameObject);
 		}
 	}
 
-	private IEnumerator TranslateBlockOverTime(Vector3 toPosition, float duration) {
+	private IEnumerator TranslateBlockOverTime(Vector3 startPostion, Vector3 endPosition, float duration) {
 		// short-circuit if still moving
 		if(isMoving) {
 			yield break;
 		}
 		// set to true at first execution of coroutine
 		isMoving = true;
-		float counter = 0;
-		while(counter < duration) {
-			counter += Time.deltaTime;
-			transform.position = Vector3.Lerp(transform.position, toPosition, counter / duration);
+		float timeCounter = 0;
+		while(timeCounter < duration) {
+			timeCounter += Time.deltaTime;
+			transform.position = Vector3.Lerp(startPostion, endPosition, timeCounter / duration);
 			yield return null;
 		}		
 		isMoving = false;

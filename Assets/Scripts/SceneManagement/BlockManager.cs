@@ -28,6 +28,11 @@ public class BlockManager : MonoBehaviour
 
     void Start() {
         InvokeRepeating("evaluateBlocks", 0, SceneConfig.instance.tickDurationSeconds);
+        // StartBlockEvaluation();
+    }
+
+    void Update() {
+        // print("time: " + Time.time);
     }
 
     public string GetFormattedCoordinateFromBlock(GameObject block) {

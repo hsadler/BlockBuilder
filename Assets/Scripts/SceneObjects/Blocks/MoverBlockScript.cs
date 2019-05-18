@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class MoverBlockScript : BaseBlockScript {
 
+    public float moveSpeed = 1.0f;
+
     public new void Start() {
         base.Start();
     }
 
 	public override void EvaluateAtTick() {
-        MoveBlock(Vector3.forward);
+        MoveBlock(Vector3.forward, moveSpeed);
     }
 
     public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {
