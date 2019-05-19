@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RotatorBlockScript : BaseBlockScript {
-    
+
+
+    public float rotationPerTick = 90.0f;
+
+
     public new void Start() {
         base.Start();
     }
 
 	public override void EvaluateAtTick() {
-        RotateBlock();
+        RotateBlock(Vector3.up, rotationPerTick);
     }
 
     public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {
@@ -17,14 +21,5 @@ public class RotatorBlockScript : BaseBlockScript {
 	}
 
     // IMPLEMENTATION METHODS
-
-    private void RotateBlock() {
-         Vector3 addRotation = Vector3.up * 90.0f;
-
-        // TODO: figure out Lerp later with coroutine
-
-        // NAIVE SOLUTION: snap to new rotation
-        transform.Rotate(addRotation, Space.Self); 
-    }
 
 }

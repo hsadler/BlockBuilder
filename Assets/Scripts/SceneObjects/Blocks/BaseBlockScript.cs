@@ -16,6 +16,7 @@ public class BaseBlockScript : MonoBehaviour {
 
 	
 	private Coroutine moveCoroutine;
+	private Coroutine rotateCoroutine;
 	
 
 	protected IDictionary<string, Vector3> sensorTagToDirectionVector3 = new Dictionary<string, Vector3>()
@@ -30,8 +31,7 @@ public class BaseBlockScript : MonoBehaviour {
 
 
 	public void Awake() {
-		blockState = new BlockState(transform.position);
-		// print("block position at Start(): " + transform.position.ToString());
+		blockState = new BlockState(transform.position, transform.rotation);
 	}
 	
 	public void Start() {}
@@ -55,7 +55,7 @@ public class BaseBlockScript : MonoBehaviour {
 		// make sure we start at discrete position
 		transform.position = blockState.position;
 		// calculate what position to move to
-        Vector3 newPosition = transform.position + vectorToMove;
+        Vector3 newPosition = blockState.position + vectorToMove;
 		// print("curr Pos: " + transform.position.ToString());
 		// print("new Pos: " + newPosition.ToString());
         if(!bm.BlockExists(newPosition)) {
@@ -84,13 +84,53 @@ public class BaseBlockScript : MonoBehaviour {
 	}
 
 	private IEnumerator MoveBlockOverTime(Vector3 startPostion, Vector3 endPosition, float duration) {
-		// set to true at first execution of coroutine
 		float timeCounter = 0;
+		// while still time left
 		while(timeCounter < duration) {
 			timeCounter += Time.deltaTime;
 			Vector3 newLerpPos = Vector3.Lerp(startPostion, endPosition, timeCounter / duration);
 			// print("setting new lerp position: " + newLerpPos.ToString());
 			transform.position = newLerpPos;
+			yield return null;
+		}		
+	}
+
+	public void RotateBlock(Vector3 axis, float degrees) {
+		Vector3 addRotation = axis * degrees;
+		// make sure we start at discrete rotation
+		transform.rotation = blockState.rotation;
+		// calculate what rotation to rotate to
+        Quaternion newRotation = blockState.rotation * Quaternion.Euler(addRotation);
+		// print("curr Rotation: " + transform.rotation.eulerAngles.ToString());
+		// print("new Rotation: " + newRotation.eulerAngles.ToString());
+		// TODO: this may have a condition in the future if rotation not possible
+		if(true) {
+			blockState.rotation = newRotation;
+			if(rotateCoroutine != null) {
+				StopCoroutine(rotateCoroutine);
+			}
+			rotateCoroutine = StartCoroutine(
+				RotateBlockOverTime(
+					transform.rotation, 
+					newRotation, 
+					SceneConfig.instance.tickDurationSeconds
+				)
+			);
+		}
+	}
+
+	private IEnumerator RotateBlockOverTime(Quaternion startRotation, Quaternion endRotation, float duration) {
+		float timeCounter = 0;
+		// while still time left
+		while(timeCounter < duration) {
+			timeCounter += Time.deltaTime;
+			Quaternion newLerpQuaternion = Quaternion.Lerp(
+				startRotation, 
+				endRotation, 
+				timeCounter / duration
+			);
+			print("setting new lerp rotation: " + newLerpQuaternion.eulerAngles.ToString());
+			transform.rotation = newLerpQuaternion;
 			yield return null;
 		}		
 	}
