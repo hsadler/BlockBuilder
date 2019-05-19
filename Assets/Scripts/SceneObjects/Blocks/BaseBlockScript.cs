@@ -43,7 +43,7 @@ public class BaseBlockScript : MonoBehaviour {
 	public virtual void AfterEvaluateAtTick() {}
 	public virtual void PowerOn() {}
 
-	public void MoveBlock(Vector3 direction, float distance, bool relativeToRotation=true) {
+	public void MoveBlock(Vector3 direction, float distance, float duration, bool relativeToRotation=true) {
 		BlockManager bm = BlockManager.instance;
 		// calculate vector to add
 		Vector3 vectorToMove;
@@ -74,7 +74,7 @@ public class BaseBlockScript : MonoBehaviour {
 					MoveBlockOverTime(
 						transform.position,
 						newPosition,
-						SceneConfig.instance.tickDurationSeconds
+						duration
 					)
 				);
 			} else {
@@ -95,7 +95,7 @@ public class BaseBlockScript : MonoBehaviour {
 		}		
 	}
 
-	public void RotateBlock(Vector3 axis, float degrees) {
+	public void RotateBlock(Vector3 axis, float degrees, float duration) {
 		Vector3 addRotation = axis * degrees;
 		// make sure we start at discrete rotation
 		transform.rotation = blockState.rotation;
@@ -113,7 +113,7 @@ public class BaseBlockScript : MonoBehaviour {
 				RotateBlockOverTime(
 					transform.rotation, 
 					newRotation, 
-					SceneConfig.instance.tickDurationSeconds
+					duration
 				)
 			);
 		}

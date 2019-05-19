@@ -2,7 +2,7 @@
 
 TODO NEXT:
 
-    - update block snaps per tick to lerps
+    X update block snaps per tick to lerps
     - fix updates per tick to preserve before-tick states so that block evaluations are consistent
     - start menu (new game, load save, exit) 
     - in-game options (save, load, exit)
@@ -55,12 +55,13 @@ REFACTORS TODO:
 
 CLEANUP/FIXES:
 
+    X update block snaps per tick to lerps
     - fix jumping when in grounded mode
     - fix slowdown of player when not moving
     - fix camera pan jittering while moving
-    - fix ghost block orientation control
-    - update block snaps per tick to lerps
+    - fix ghost block orientation control to be more intuitive
     - fix updates per tick to preserve before-tick states so that block evaluations are consistent
+    - fix block placement against blocks that are tranlating or rotating (prob require rearchitecture of side colliders)
 
 
 DEFER:

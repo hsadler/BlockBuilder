@@ -13,7 +13,7 @@ public class MoverBlockScript : BaseBlockScript {
     }
 
 	public override void EvaluateAtTick() {
-        MoveBlock(Vector3.forward, movePerTick);
+        MoveBlock(Vector3.forward, movePerTick, SceneConfig.instance.tickDurationSeconds);
     }
 
     public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {

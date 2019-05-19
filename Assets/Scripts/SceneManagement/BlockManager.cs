@@ -11,6 +11,7 @@ public class BlockManager : MonoBehaviour
     public IDictionary<string, GameObject> coordsToBlockDict = new Dictionary<string, GameObject>();
     public GameObject blocksContainer;
     public GameObject ghostBlock;
+    public float ghostBlockRotateDuration = 0.25f;
 
 
     // the static reference to the singleton instance
@@ -126,20 +127,8 @@ public class BlockManager : MonoBehaviour
         // TODO: rotates based on initial orientation, so not intuitive
         // rotation should be done where origin is current orientation
         if(ghostBlock.activeSelf) {
-            
-            Vector3 addRotation = direction * 90.0f;
-
-            // TODO: figure out Lerp later with coroutine
-            // float rotationSpeed = 1;
-            // ghostBlock.transform.rotation = Quaternion.Lerp(
-            //     ghostBlock.transform.rotation,
-            //     Quaternion.Euler(newRotation),
-            //     Time.time * rotationSpeed
-            // );
-
-            // NAIVE SOLUTION: snap to new rotation
-            ghostBlock.transform.Rotate(addRotation, Space.Self); 
-
+            BaseBlockScript bs = ghostBlock.GetComponent<BaseBlockScript>();
+            bs.RotateBlock(direction, 90.0f, ghostBlockRotateDuration);
         }
     }
 

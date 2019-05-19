@@ -13,7 +13,7 @@ public class RotatorBlockScript : BaseBlockScript {
     }
 
 	public override void EvaluateAtTick() {
-        RotateBlock(Vector3.up, rotationPerTick);
+        RotateBlock(Vector3.up, rotationPerTick, SceneConfig.instance.tickDurationSeconds);
     }
 
     public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {
