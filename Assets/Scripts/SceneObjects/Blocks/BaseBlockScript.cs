@@ -5,6 +5,7 @@ using UnityEngine;
 public class BaseBlockScript : MonoBehaviour {
 
 	
+	public BlockState blockState;
 	public float ghostBlockColorAlpha = 0.5f;
 
 
@@ -15,11 +16,8 @@ public class BaseBlockScript : MonoBehaviour {
 
 	
 	private Coroutine moveCoroutine;
-	private bool isMoving = false;
-	// private Vector3 oldPosition;
-	private Vector3 newPosition;
 	
-	
+
 	protected IDictionary<string, Vector3> sensorTagToDirectionVector3 = new Dictionary<string, Vector3>()
 	{
 		{ "TopSensor", new Vector3(0, 1, 0) },
@@ -31,9 +29,12 @@ public class BaseBlockScript : MonoBehaviour {
 	};
 
 
-	public void Start() {
-		newPosition = transform.position;
+	public void Awake() {
+		blockState = new BlockState(transform.position);
+		// print("block position at Start(): " + transform.position.ToString());
 	}
+	
+	public void Start() {}
 
 	// overridden by subclasses
 	public virtual void OnPlacement() {}
@@ -44,55 +45,54 @@ public class BaseBlockScript : MonoBehaviour {
 
 	public void MoveBlock(Vector3 direction, float distance, bool relativeToRotation=true) {
 		BlockManager bm = BlockManager.instance;
-        // check for block where about to move
+		// calculate vector to add
 		Vector3 vectorToMove;
 		if(relativeToRotation) {
         	vectorToMove = (transform.rotation * direction) * distance;
 		} else {
         	vectorToMove = direction * distance;
 		}
-		// stop old coroutine
-		if(moveCoroutine != null) {
-			StopCoroutine(moveCoroutine);
-			isMoving = false;
-		}
-		transform.position = newPosition;
-		// make sure we start where we're supposed to
-        newPosition = transform.position + vectorToMove;
-
-		print("curr Pos: " + transform.position.ToString());
-		print("new Pos: " + newPosition.ToString());
-
+		// make sure we start at discrete position
+		transform.position = blockState.position;
+		// calculate what position to move to
+        Vector3 newPosition = transform.position + vectorToMove;
+		// print("curr Pos: " + transform.position.ToString());
+		// print("new Pos: " + newPosition.ToString());
         if(!bm.BlockExists(newPosition)) {
-            // unset on manager
-            bm.UnsetBlock(gameObject);
-			// move with new coroutine
-			moveCoroutine = StartCoroutine(
-				TranslateBlockOverTime(
-					transform.position,
-					newPosition,
-					SceneConfig.instance.tickDurationSeconds
-				)
-			);
-            // set on manager
-            bm.SetBlock(gameObject);
+            // attempt to unset block on manager
+            bool unsetStatus = bm.UnsetBlock(gameObject);
+			if(unsetStatus) {
+				blockState.position = newPosition;
+				// set block on manager
+				bm.SetBlock(gameObject);
+				// stop previous coroutine
+				if(moveCoroutine != null) {
+					StopCoroutine(moveCoroutine);
+				}
+				// lerp move with new coroutine
+				moveCoroutine = StartCoroutine(
+					MoveBlockOverTime(
+						transform.position,
+						newPosition,
+						SceneConfig.instance.tickDurationSeconds
+					)
+				);
+			} else {
+				Debug.Log("unable to unset block at position: " + blockState.position.ToString());
+			}
 		}
 	}
 
-	private IEnumerator TranslateBlockOverTime(Vector3 startPostion, Vector3 endPosition, float duration) {
-		// short-circuit if still moving
-		if(isMoving) {
-			yield break;
-		}
+	private IEnumerator MoveBlockOverTime(Vector3 startPostion, Vector3 endPosition, float duration) {
 		// set to true at first execution of coroutine
-		isMoving = true;
 		float timeCounter = 0;
 		while(timeCounter < duration) {
 			timeCounter += Time.deltaTime;
-			transform.position = Vector3.Lerp(startPostion, endPosition, timeCounter / duration);
+			Vector3 newLerpPos = Vector3.Lerp(startPostion, endPosition, timeCounter / duration);
+			// print("setting new lerp position: " + newLerpPos.ToString());
+			transform.position = newLerpPos;
 			yield return null;
 		}		
-		isMoving = false;
 	}
 
 	public void DestroyBlock() {

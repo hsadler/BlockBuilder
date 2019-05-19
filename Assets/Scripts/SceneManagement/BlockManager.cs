@@ -28,19 +28,16 @@ public class BlockManager : MonoBehaviour
 
     void Start() {
         InvokeRepeating("evaluateBlocks", 0, SceneConfig.instance.tickDurationSeconds);
-        // StartBlockEvaluation();
     }
 
-    void Update() {
-        // print("time: " + Time.time);
-    }
+    void Update() {}
 
-    public string GetFormattedCoordinateFromBlock(GameObject block) {
+    public string GetFormattedCoordinateFromBlockState(BlockState blockState) {
         string formattedCoordinatesString = string.Format(
             "{0},{1},{2}", 
-            block.transform.position.x,
-            block.transform.position.y, 
-            block.transform.position.z
+            blockState.position.x,
+            blockState.position.y, 
+            blockState.position.z
         );
         return formattedCoordinatesString;
     }
@@ -73,19 +70,26 @@ public class BlockManager : MonoBehaviour
     
     public bool SetBlock(GameObject block) {
         // add to coordinates->block dictionary
-        string coordsKey = GetFormattedCoordinateFromBlock(block);
+        BlockState bs = block.GetComponent<BaseBlockScript>().blockState;
+        string coordsKey = GetFormattedCoordinateFromBlockState(bs);
+        // print("setting block at coordsKey: " + coordsKey);
         coordsToBlockDict.Add(coordsKey, block);
         return true;
     }
 
     public bool UnsetBlock(GameObject block) {
         // remove from coordinates->block dictionary if possible
-        if(!BlockExists(block.transform.position)) {
-            return false;
-        } else {
-            string formattedCoords = GetFormattedCoordinateFromBlock(block);
+        BlockState bs = block.GetComponent<BaseBlockScript>().blockState;
+        // print("Attempting to unset block on block manager at position: " + bs.position.ToString());
+        if(BlockExists(bs.position)) {
+            string formattedCoords = GetFormattedCoordinateFromBlockState(bs);
             coordsToBlockDict.Remove(formattedCoords);
             return true;
+        } else {
+            string formattedCoords = GetFormattedCoordinateFromBlockState(bs);
+            Debug.Log("Unable to unset block at formatted coordinates: " + formattedCoords);
+            Debug.Log("CoordsToBlockDict: " + coordsToBlockDict.ToString());
+            return false;
         }
     }
 
@@ -94,10 +98,10 @@ public class BlockManager : MonoBehaviour
     private void evaluateBlocks() {
         List<GameObject> gos = new List<GameObject>(coordsToBlockDict.Values);
         foreach (GameObject go in gos) {
-            BaseBlockScript bbs = go.GetComponent<BaseBlockScript>();
-            bbs.BeforeEvaluateAtTick();
-            bbs.EvaluateAtTick();
-            bbs.AfterEvaluateAtTick();
+            BaseBlockScript bs = go.GetComponent<BaseBlockScript>();
+            bs.BeforeEvaluateAtTick();
+            bs.EvaluateAtTick();
+            bs.AfterEvaluateAtTick();
         }
     }
 
