@@ -150,7 +150,8 @@ public class BaseBlockScript : MonoBehaviour
 				endRotation,
 				timeCounter / duration
 			);
-			// print("setting new lerp rotation: " + newLerpQuaternion.eulerAngles.ToString());
+			// print("setting new lerp rotation: " +
+			// 	newLerpQuaternion.eulerAngles.ToString());
 			transform.rotation = newLerpQuaternion;
 			yield return null;
 		}

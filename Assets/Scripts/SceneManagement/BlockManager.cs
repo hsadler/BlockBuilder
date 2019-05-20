@@ -29,7 +29,7 @@ public class BlockManager : MonoBehaviour
     }
 
     void Start() {
-        InvokeRepeating("evaluateBlocks", 0, SceneConfig.instance.tickDurationSeconds);
+        InvokeRepeating("EvaluateBlocks", 0, SceneConfig.instance.tickDurationSeconds);
     }
 
     void Update() {}
@@ -99,7 +99,7 @@ public class BlockManager : MonoBehaviour
 
     // BLOCK EVALUATION METHODS
 
-    private void evaluateBlocks() {
+    private void EvaluateBlocks() {
         List<GameObject> gos = new List<GameObject>(coordsToBlockDict.Values);
         foreach (GameObject go in gos) {
             BaseBlockScript bs = go.GetComponent<BaseBlockScript>();

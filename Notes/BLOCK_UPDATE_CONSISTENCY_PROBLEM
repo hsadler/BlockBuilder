@@ -1,0 +1,15 @@
+
+BLOCK UPDATE CONSISTENCY PROBLEM
+
+problem:
+	- block mutations happen during evaluation loop
+	- if blocks mutate other blocks this can cause inconsistencies (already seen
+		with position mutations)
+
+solution:
+	- use a block mutation struct to gather all block mutations
+	- do a second "commit mutation" loop after each evalutation loop
+
+possible problems:
+	- a system for reserving block spaces may need to be implemented to prevent
+		collisions of more than one block attempting to enter a vacant space

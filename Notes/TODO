@@ -3,8 +3,11 @@
 TODO NEXT:
 
     X update block snaps per tick to lerps
-    - fix updates per tick to preserve before-tick states so that block evaluations are consistent
-    - start menu (new game, load save, exit) 
+    - fix updates per tick to preserve before-tick states so that block
+        evaluations are consistent
+    - fix block placement against blocks that are tranlating or rotating (prob
+        require rearchitecture of side colliders)
+    - start menu (new game, load save, exit)
     - in-game options (save, load, exit)
     - ability to save game
 
@@ -30,7 +33,7 @@ GAMEPLAY TODO:
         X power block turns on light block
         X conveyor block moves block
     - UI:
-        - start menu (new game, load save, exit) 
+        - start menu (new game, load save, exit)
         - in-game options (save, load, exit)
     - ability to save game
     - flying mode for player
@@ -49,7 +52,8 @@ SYSTEMS TODO:
 
 REFACTORS TODO:
 
-    - (maybe) move ghost block instance inside player instance instead of global block manager or its own manager
+    - (maybe) move ghost block instance inside player instance instead of global
+        block manager or its own manager
     - (maybe) move EnvironmentGeneration.CreateBlock() method to BlockManager
 
 
@@ -60,21 +64,22 @@ CLEANUP/FIXES:
     - fix slowdown of player when not moving
     - fix camera pan jittering while moving
     - fix ghost block orientation control to be more intuitive
-    - fix updates per tick to preserve before-tick states so that block evaluations are consistent
-    - fix block placement against blocks that are tranlating or rotating (prob require rearchitecture of side colliders)
+    - fix updates per tick to preserve before-tick states so that block
+        evaluations are consistent
+    - fix block placement against blocks that are tranlating or rotating (prob
+        require rearchitecture of side colliders)
 
 
 DEFER:
-    
+
     - UI: inventory for selecting block types
 
 
 UNITY RESOURCES:
-   
+
     https://unity3d.com/learn/tutorials/topics/scripting/introduction-saving-and-loading
     https://unity3d.com/learn/tutorials/topics/scripting/update-and-fixedupdate
     https://docs.unity3d.com/Manual/QuaternionAndEulerRotationsInUnity.html
     https://docs.unity3d.com/ScriptReference/Transform.Rotate.html
 
 
-    

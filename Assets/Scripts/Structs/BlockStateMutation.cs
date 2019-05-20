@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct BlockState
+public struct BlockStateMutation
 {
 
 
@@ -10,7 +10,7 @@ public struct BlockState
     public Quaternion rotation;
 
 
-    public BlockState(Vector3 position, Quaternion rotation) {
+    public BlockStateMutation(Vector3 position, Quaternion rotation) {
         this.position = position;
         this.rotation = rotation;
     }
