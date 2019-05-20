@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotatorBlockScript : BaseBlockScript {
+public class RotatorBlockScript : BaseBlockScript
+{
 
 
     public float rotationPerTick = 90.0f;
@@ -13,7 +14,11 @@ public class RotatorBlockScript : BaseBlockScript {
     }
 
 	public override void EvaluateAtTick() {
-        RotateBlock(Vector3.up, rotationPerTick, SceneConfig.instance.tickDurationSeconds);
+        RotateBlock(
+            Vector3.up,
+            rotationPerTick,
+            SceneConfig.instance.tickDurationSeconds
+        );
     }
 
     public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {

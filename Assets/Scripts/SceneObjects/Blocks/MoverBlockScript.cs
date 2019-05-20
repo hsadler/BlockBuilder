@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoverBlockScript : BaseBlockScript {
+public class MoverBlockScript : BaseBlockScript
+{
 
 
-    public float movePerTick = 1.0f;
+    public float distancePerTick = 1.0f;
 
 
     public new void Start() {
@@ -13,7 +14,11 @@ public class MoverBlockScript : BaseBlockScript {
     }
 
 	public override void EvaluateAtTick() {
-        MoveBlock(Vector3.forward, movePerTick, SceneConfig.instance.tickDurationSeconds);
+        MoveBlock(
+            Vector3.forward,
+            distancePerTick,
+            SceneConfig.instance.tickDurationSeconds
+        );
     }
 
     public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {

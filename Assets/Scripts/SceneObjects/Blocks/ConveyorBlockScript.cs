@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConveyorBlockScript : BaseBlockScript {
+public class ConveyorBlockScript : BaseBlockScript
+{
 
-    
+
     public float conveyorSpeed = 1.0f;
 
-    
+
     public new void Start() {
         base.Start();
     }
@@ -28,9 +29,9 @@ public class ConveyorBlockScript : BaseBlockScript {
             GameObject neighborBlock = BlockManager.instance.GetBlock(neighborCoords);
             moveDirection = transform.rotation * moveDirection;
             neighborBlock.GetComponent<BaseBlockScript>().MoveBlock(
-                moveDirection, 
+                moveDirection,
                 conveyorSpeed,
-                SceneConfig.instance.tickDurationSeconds, 
+                SceneConfig.instance.tickDurationSeconds,
                 false
             );
         }

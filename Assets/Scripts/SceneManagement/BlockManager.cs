@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class BlockManager : MonoBehaviour
 {
-    
+
     // DATASTORE AND SERVICE FOR MANAGING GAME BLOCKS
 
 
-    public IDictionary<string, GameObject> coordsToBlockDict = new Dictionary<string, GameObject>();
+    public IDictionary<string, GameObject> coordsToBlockDict =
+        new Dictionary<string, GameObject>();
     public GameObject blocksContainer;
     public GameObject ghostBlock;
     public float ghostBlockRotateDuration = 0.25f;
@@ -35,9 +36,9 @@ public class BlockManager : MonoBehaviour
 
     public string GetFormattedCoordinateFromBlockState(BlockState blockState) {
         string formattedCoordinatesString = string.Format(
-            "{0},{1},{2}", 
+            "{0},{1},{2}",
             blockState.position.x,
-            blockState.position.y, 
+            blockState.position.y,
             blockState.position.z
         );
         return formattedCoordinatesString;
@@ -45,17 +46,17 @@ public class BlockManager : MonoBehaviour
 
     public string GetFormattedCoordinateString(Vector3 coordinates) {
         string formattedCoordinatesString = string.Format(
-            "{0},{1},{2}", 
+            "{0},{1},{2}",
             coordinates[0],
             coordinates[1],
             coordinates[2]
-        ); 
-        return formattedCoordinatesString; 
+        );
+        return formattedCoordinatesString;
     }
 
     public bool BlockExists(Vector3 coordinates) {
         string formattedCoords = GetFormattedCoordinateString(coordinates);
-        return coordsToBlockDict.ContainsKey(formattedCoords); 
+        return coordsToBlockDict.ContainsKey(formattedCoords);
     }
 
     public GameObject GetBlock(Vector3 coordinates) {
@@ -64,11 +65,12 @@ public class BlockManager : MonoBehaviour
             string formattedCoords = GetFormattedCoordinateString(coordinates);
             block = coordsToBlockDict[formattedCoords];
         } else {
-            Debug.Log("block not found at coordinate x:" + coordinates[0] + " y:" + coordinates[1] + " z:" + coordinates[2]);
+            Debug.Log("block not found at coordinate x:" +
+                coordinates[0] + " y:" + coordinates[1] + " z:" + coordinates[2]);
         }
         return block;
     }
-    
+
     public bool SetBlock(GameObject block) {
         // add to coordinates->block dictionary
         BlockState bs = block.GetComponent<BaseBlockScript>().blockState;
@@ -81,7 +83,8 @@ public class BlockManager : MonoBehaviour
     public bool UnsetBlock(GameObject block) {
         // remove from coordinates->block dictionary if possible
         BlockState bs = block.GetComponent<BaseBlockScript>().blockState;
-        // print("Attempting to unset block on block manager at position: " + bs.position.ToString());
+        // print("Attempting to unset block on block manager at position: " +
+        //     bs.position.ToString());
         if(BlockExists(bs.position)) {
             string formattedCoords = GetFormattedCoordinateFromBlockState(bs);
             coordsToBlockDict.Remove(formattedCoords);

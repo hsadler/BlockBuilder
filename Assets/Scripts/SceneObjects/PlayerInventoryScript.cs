@@ -10,7 +10,7 @@ public class PlayerInventoryScript : MonoBehaviour
 
     public GameObject currentSelected;
 
-    
+
     void Start() {
         // do initializations
         InitInventorySelection();

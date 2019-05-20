@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControlScript : MonoBehaviour {
+public class PlayerControlScript : MonoBehaviour
+{
 
     // RESPONSIBLE FOR PLAYER CONTROL FROM USER INPUT
 
@@ -11,12 +12,12 @@ public class PlayerControlScript : MonoBehaviour {
     public float maxSpeed;
     public float rotationSpeed;
 
+
     private Transform playerHeadTransform;
     private Transform playerCameraTransform;
     private Camera playerCameraComponent;
 
 
-    // Start is called before the first frame update
     void Start() {
         // hide cursor on screen
         Cursor.visible = false;
@@ -26,16 +27,12 @@ public class PlayerControlScript : MonoBehaviour {
         playerCameraComponent = playerCameraTransform.GetComponent<Camera>();
     }
 
-    // Update is called once per frame
     void Update() {
         CheckLookInput();
         CheckBlockInteraction();
         CheckGhostBlockInput();
     }
 
-    /// <summary>
-    /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
-    /// </summary>
     void FixedUpdate() {
         CheckMoveInput();
     }
@@ -80,26 +77,26 @@ public class PlayerControlScript : MonoBehaviour {
             PlayerToBlockMessage payload = new PlayerToBlockMessage(gameObject, objectHit);
             // send standard ray hit message
             objectHit.SendMessageUpwards(
-                "PlayerRayHitInteraction", 
-                payload, 
+                "PlayerRayHitInteraction",
+                payload,
                 SendMessageOptions.DontRequireReceiver
             );
             if(Input.GetMouseButtonDown(0)) {
                 objectHit.SendMessageUpwards(
-                    "PlayerLeftClickInteraction", 
-                    payload, 
+                    "PlayerLeftClickInteraction",
+                    payload,
                     SendMessageOptions.DontRequireReceiver
                 );
             } else if(Input.GetMouseButtonDown(1)) {
                 objectHit.SendMessageUpwards(
-                    "PlayerRightClickInteraction", 
-                    payload, 
+                    "PlayerRightClickInteraction",
+                    payload,
                     SendMessageOptions.DontRequireReceiver
                 );
             } else if(Input.GetKeyDown(KeyCode.F)) {
                 objectHit.SendMessageUpwards(
-                    "PlayerFKeyInteraction", 
-                    payload, 
+                    "PlayerFKeyInteraction",
+                    payload,
                     SendMessageOptions.DontRequireReceiver
                 );
             }

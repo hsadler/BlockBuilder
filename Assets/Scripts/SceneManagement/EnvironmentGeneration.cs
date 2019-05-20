@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnvironmentGeneration : MonoBehaviour {
+public class EnvironmentGeneration : MonoBehaviour
+{
 
 	// RESPONSIBLE FOR PROCEDURAL ENVIRONMENT GENERATION
 
@@ -25,7 +26,7 @@ public class EnvironmentGeneration : MonoBehaviour {
 		// GenerateTestCubeEnvironment();
         GenerateFlatLandEnvironment();
 	}
-	
+
     private void GenerateTestCubeEnvironment() {
         int size = 10;
         Vector3 dimensions = new Vector3(size, size, size);
@@ -42,16 +43,23 @@ public class EnvironmentGeneration : MonoBehaviour {
         GenerateBlockChunk(BlockTypes.instance.baseBlock, dimensions, pos);
     }
 
-    private void GenerateRectangularRoomEnvironment(Vector3 dimensions, Vector3 position) {
+    private void GenerateRectangularRoomEnvironment(
+        Vector3 dimensions,
+        Vector3 position
+    ) {
         // TODO
     }
 
-    public GameObject CreateBlock(GameObject blockPrefab, Vector3 position, Quaternion rotation) {
+    public GameObject CreateBlock(
+        GameObject blockPrefab,
+        Vector3 position,
+        Quaternion rotation
+    ) {
         // create block from prefab and register on block manager
         if(!BlockManager.instance.BlockExists(position)) {
             GameObject newBlock = Instantiate(
-                blockPrefab, 
-                position, 
+                blockPrefab,
+                position,
                 rotation,
                 BlockManager.instance.blocksContainer.transform
             );
@@ -62,7 +70,11 @@ public class EnvironmentGeneration : MonoBehaviour {
         return null;
     }
 
-    private void GenerateBlockChunk(GameObject blockPrefab, Vector3 dimensions, Vector3 position) {
+    private void GenerateBlockChunk(
+        GameObject blockPrefab,
+        Vector3 dimensions,
+        Vector3 position
+    ) {
         float width = dimensions[0];
         float depth = dimensions[1];
         float height = dimensions[2];
@@ -70,7 +82,11 @@ public class EnvironmentGeneration : MonoBehaviour {
             for (float j = position[1]; j < position[1] + depth; j++) {
                 for (float k = position[2]; k < position[2] + height; k++) {
                     Vector3 blockPosition = new Vector3(i, j, k);
-                    CreateBlock(blockPrefab, blockPosition, Quaternion.Euler(Vector3.zero));
+                    CreateBlock(
+                        blockPrefab,
+                        blockPosition,
+                        Quaternion.Euler(Vector3.zero)
+                    );
                 }
             }
         }
