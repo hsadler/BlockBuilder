@@ -101,12 +101,22 @@ public class BlockManager : MonoBehaviour
 
     private void EvaluateBlocks() {
         List<GameObject> gos = new List<GameObject>(coordsToBlockDict.Values);
+        // foreach (GameObject go in gos) {
+        //     BaseBlockScript bs = go.GetComponent<BaseBlockScript>();
+        //     bs.BeforeEvaluateAtTick();
+        // }
         foreach (GameObject go in gos) {
             BaseBlockScript bs = go.GetComponent<BaseBlockScript>();
-            bs.BeforeEvaluateAtTick();
             bs.EvaluateAtTick();
-            bs.AfterEvaluateAtTick();
         }
+        foreach (GameObject go in gos) {
+            BaseBlockScript bs = go.GetComponent<BaseBlockScript>();
+            bs.CommitMutationsAtTick();
+        }
+        // foreach (GameObject go in gos) {
+        //     BaseBlockScript bs = go.GetComponent<BaseBlockScript>();
+        //     bs.AfterEvaluateAtTick();
+        // }
     }
 
     // GHOST BLOCK METHODS
