@@ -7,6 +7,7 @@ public class BaseBlockScript : MonoBehaviour
 
 
 	public BlockState blockState;
+	public BlockStateMutation blockStateMutation;
 	public float ghostBlockColorAlpha = 0.5f;
 
 
@@ -35,6 +36,7 @@ public class BaseBlockScript : MonoBehaviour
 
 	public void Awake() {
 		blockState = new BlockState(transform.position, transform.rotation);
+		blockStateMutation = new BlockStateMutation();
 	}
 
 	public void Start() {}
@@ -57,19 +59,56 @@ public class BaseBlockScript : MonoBehaviour
 		// calculate vector to add
 		Vector3 vectorToMove;
 		if(relativeToRotation) {
-        	vectorToMove = (transform.rotation * direction) * distance;
+			vectorToMove = (transform.rotation * direction) * distance;
 		} else {
-        	vectorToMove = direction * distance;
+			vectorToMove = direction * distance;
 		}
 		// make sure we start at discrete position
 		transform.position = blockState.position;
 		// calculate what position to move to
-        Vector3 newPosition = blockState.position + vectorToMove;
+		Vector3 newPosition = blockState.position + vectorToMove;
 		// print("curr Pos: " + transform.position.ToString());
 		// print("new Pos: " + newPosition.ToString());
-        if(!bm.BlockExists(newPosition)) {
-            // attempt to unset block on manager
-            bool unsetStatus = bm.UnsetBlock(gameObject);
+		if(!bm.BlockExists(newPosition)) {
+			// attempt to unset block on manager
+			bool unsetStatus = bm.UnsetBlock(gameObject);
+			if(unsetStatus) {
+				blockState.position = newPosition;
+				// set block on manager
+				bm.SetBlock(gameObject);
+				// stop previous coroutine
+				if(moveCoroutine != null) {
+					StopCoroutine(moveCoroutine);
+				}
+				// lerp move with new coroutine
+				moveCoroutine = StartCoroutine(
+					MoveBlockOverTime(
+						transform.position,
+						newPosition,
+						duration
+					)
+				);
+			} else {
+				Debug.Log("unable to unset block at position: " +
+					blockState.position.ToString());
+			}
+		}
+	}
+
+	public void MoveBlock2(
+		Vector3 moveVector,
+		float duration
+	) {
+		BlockManager bm = BlockManager.instance;
+		// make sure we start at discrete position
+		transform.position = blockState.position;
+		// calculate what position to move to
+		Vector3 newPosition = blockState.position + moveVector;
+		// print("curr Pos: " + transform.position.ToString());
+		// print("new Pos: " + newPosition.ToString());
+		if(!bm.BlockExists(newPosition)) {
+			// attempt to unset block on manager
+			bool unsetStatus = bm.UnsetBlock(gameObject);
 			if(unsetStatus) {
 				blockState.position = newPosition;
 				// set block on manager
@@ -118,7 +157,7 @@ public class BaseBlockScript : MonoBehaviour
 		// make sure we start at discrete rotation
 		transform.rotation = blockState.rotation;
 		// calculate what rotation to rotate to
-        Quaternion newRotation = blockState.rotation * Quaternion.Euler(addRotation);
+		Quaternion newRotation = blockState.rotation * Quaternion.Euler(addRotation);
 		// print("curr Rotation: " + transform.rotation.eulerAngles.ToString());
 		// print("new Rotation: " + newRotation.eulerAngles.ToString());
 		// TODO: this may have a condition in the future if rotation not possible

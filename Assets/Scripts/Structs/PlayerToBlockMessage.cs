@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct PlayerToBlockMessage
+public class PlayerToBlockMessage
 {
 
     public GameObject objectHit;
