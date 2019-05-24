@@ -28,12 +28,8 @@ public class ConveyorBlockScript : BaseBlockScript
         if(BlockManager.instance.BlockExists(neighborCoords)) {
             GameObject neighborBlock = BlockManager.instance.GetBlock(neighborCoords);
             moveDirection = transform.rotation * moveDirection;
-            neighborBlock.GetComponent<BaseBlockScript>().MoveBlock(
-                moveDirection,
-                conveyorSpeed,
-                SceneConfig.instance.tickDurationSeconds,
-                false
-            );
+            BlockStateMutation bsm = neighborBlock.GetComponent<BaseBlockScript>().blockStateMutation;
+            bsm.AddMoveVector(moveDirection * conveyorSpeed);
         }
     }
 

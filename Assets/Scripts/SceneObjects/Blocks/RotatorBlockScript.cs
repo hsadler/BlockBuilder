@@ -19,14 +19,6 @@ public class RotatorBlockScript : BaseBlockScript
         blockStateMutation.AddRotation(r);
     }
 
-    public override void CommitMutationsAtTick() {
-        RotateBlock(
-            blockStateMutation.GetCombinedRotations(),
-            SceneConfig.instance.tickDurationSeconds
-        );
-        blockStateMutation.Init();
-    }
-
     public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {
 		base.PlayerFKeyInteraction(message);
 	}

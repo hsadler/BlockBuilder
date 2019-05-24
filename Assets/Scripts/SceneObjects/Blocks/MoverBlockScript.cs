@@ -19,14 +19,6 @@ public class MoverBlockScript : BaseBlockScript
         blockStateMutation.AddMoveVector(moveVector);
     }
 
-    public override void CommitMutationsAtTick() {
-        MoveBlock2(
-            blockStateMutation.GetCombinedMoveVectors(),
-            SceneConfig.instance.tickDurationSeconds
-        );
-        blockStateMutation.Init();
-    }
-
     public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {
 		base.PlayerFKeyInteraction(message);
 	}

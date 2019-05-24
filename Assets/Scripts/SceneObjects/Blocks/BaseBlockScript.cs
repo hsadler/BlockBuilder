@@ -45,57 +45,22 @@ public class BaseBlockScript : MonoBehaviour
 	public virtual void OnPlacement() {}
 	public virtual void BeforeEvaluateAtTick() {}
 	public virtual void EvaluateAtTick() {}
-	public virtual void CommitMutationsAtTick() {}
 	public virtual void AfterEvaluateAtTick() {}
 	public virtual void PowerOn() {}
 
-	public void MoveBlock(
-		Vector3 direction,
-		float distance,
-		float duration,
-		bool relativeToRotation=true
-	) {
-		BlockManager bm = BlockManager.instance;
-		// calculate vector to add
-		Vector3 vectorToMove;
-		if(relativeToRotation) {
-			vectorToMove = (transform.rotation * direction) * distance;
-		} else {
-			vectorToMove = direction * distance;
-		}
-		// make sure we start at discrete position
-		transform.position = blockState.position;
-		// calculate what position to move to
-		Vector3 newPosition = blockState.position + vectorToMove;
-		// print("curr Pos: " + transform.position.ToString());
-		// print("new Pos: " + newPosition.ToString());
-		if(!bm.BlockExists(newPosition)) {
-			// attempt to unset block on manager
-			bool unsetStatus = bm.UnsetBlock(gameObject);
-			if(unsetStatus) {
-				blockState.position = newPosition;
-				// set block on manager
-				bm.SetBlock(gameObject);
-				// stop previous coroutine
-				if(moveCoroutine != null) {
-					StopCoroutine(moveCoroutine);
-				}
-				// lerp move with new coroutine
-				moveCoroutine = StartCoroutine(
-					MoveBlockOverTime(
-						transform.position,
-						newPosition,
-						duration
-					)
-				);
-			} else {
-				Debug.Log("unable to unset block at position: " +
-					blockState.position.ToString());
-			}
-		}
-	}
+	public void CommitMutationsAtTick() {
+		MoveBlock(
+            blockStateMutation.GetCombinedMoveVectors(),
+            SceneConfig.instance.tickDurationSeconds
+        );
+        RotateBlock(
+            blockStateMutation.GetCombinedRotations(),
+            SceneConfig.instance.tickDurationSeconds
+        );
+        blockStateMutation.Init();
+    }
 
-	public void MoveBlock2(
+	public void MoveBlock(
 		Vector3 moveVector,
 		float duration
 	) {
