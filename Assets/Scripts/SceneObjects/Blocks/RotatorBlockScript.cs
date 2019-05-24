@@ -6,7 +6,7 @@ public class RotatorBlockScript : BaseBlockScript
 {
 
 
-    public float rotationPerTick = 90.0f;
+    public float degreesPerTick = 90.0f;
 
 
     public new void Start() {
@@ -14,11 +14,17 @@ public class RotatorBlockScript : BaseBlockScript
     }
 
 	public override void EvaluateAtTick() {
+        Vector3 localAxis = Vector3.up;
+        Quaternion r = Quaternion.Euler(localAxis * degreesPerTick);
+        blockStateMutation.AddRotation(r);
+    }
+
+    public override void CommitMutationsAtTick() {
         RotateBlock(
-            Vector3.up,
-            rotationPerTick,
+            blockStateMutation.GetCombinedRotations(),
             SceneConfig.instance.tickDurationSeconds
         );
+        blockStateMutation.Init();
     }
 
     public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {

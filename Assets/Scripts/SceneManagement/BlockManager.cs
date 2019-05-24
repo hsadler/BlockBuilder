@@ -141,7 +141,8 @@ public class BlockManager : MonoBehaviour
         // rotation should be done where origin is current orientation
         if(ghostBlock.activeSelf) {
             BaseBlockScript bs = ghostBlock.GetComponent<BaseBlockScript>();
-            bs.RotateBlock(direction, 90.0f, ghostBlockRotateDuration);
+            Quaternion r = Quaternion.Euler(direction * 90.0f);
+            bs.RotateBlock(r, ghostBlockRotateDuration);
         }
     }
 

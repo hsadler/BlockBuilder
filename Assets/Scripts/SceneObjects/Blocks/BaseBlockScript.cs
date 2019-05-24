@@ -152,28 +152,24 @@ public class BaseBlockScript : MonoBehaviour
 		}
 	}
 
-	public void RotateBlock(Vector3 axis, float degrees, float duration) {
-		Vector3 addRotation = axis * degrees;
+	public void RotateBlock(Quaternion addRotation, float duration) {
 		// make sure we start at discrete rotation
 		transform.rotation = blockState.rotation;
 		// calculate what rotation to rotate to
-		Quaternion newRotation = blockState.rotation * Quaternion.Euler(addRotation);
+		Quaternion newRotation = blockState.rotation * addRotation;
 		// print("curr Rotation: " + transform.rotation.eulerAngles.ToString());
 		// print("new Rotation: " + newRotation.eulerAngles.ToString());
-		// TODO: this may have a condition in the future if rotation not possible
-		if(true) {
-			blockState.rotation = newRotation;
-			if(rotateCoroutine != null) {
-				StopCoroutine(rotateCoroutine);
-			}
-			rotateCoroutine = StartCoroutine(
-				RotateBlockOverTime(
-					transform.rotation,
-					newRotation,
-					duration
-				)
-			);
+		blockState.rotation = newRotation;
+		if(rotateCoroutine != null) {
+			StopCoroutine(rotateCoroutine);
 		}
+		rotateCoroutine = StartCoroutine(
+			RotateBlockOverTime(
+				transform.rotation,
+				newRotation,
+				duration
+			)
+		);
 	}
 
 	private IEnumerator RotateBlockOverTime(

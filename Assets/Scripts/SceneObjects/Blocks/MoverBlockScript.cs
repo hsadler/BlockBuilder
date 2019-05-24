@@ -16,12 +16,12 @@ public class MoverBlockScript : BaseBlockScript
     
     public override void EvaluateAtTick() {
         Vector3 moveVector = (transform.rotation * moveDirection) * distancePerTick; 
-        blockStateMutation.moveVectors.Add(moveVector);
+        blockStateMutation.AddMoveVector(moveVector);
     }
 
     public override void CommitMutationsAtTick() {
         MoveBlock2(
-            blockStateMutation.getCombinedMoveVectors(),
+            blockStateMutation.GetCombinedMoveVectors(),
             SceneConfig.instance.tickDurationSeconds
         );
         blockStateMutation.Init();
