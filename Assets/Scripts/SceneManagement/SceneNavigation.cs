@@ -5,10 +5,10 @@ using UnityEngine;
 public class SceneNavigation : MonoBehaviour
 {
 
-    void Update() {
-        if(Input.GetKeyDown(KeyCode.Escape)) {
-            Application.Quit();
-        }
-    }
+	void Update() {
+		if(Input.GetKeyDown(KeyCode.Escape)) {
+			Application.Quit();
+		}
+	}
 
 }

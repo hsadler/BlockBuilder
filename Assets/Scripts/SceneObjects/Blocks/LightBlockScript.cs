@@ -6,58 +6,58 @@ public class LightBlockScript : BaseBlockScript
 {
 
 
-    private bool acceptsPower = true;
+	private bool acceptsPower = true;
 	public override bool AcceptsPower { get { return acceptsPower; } }
-    public bool lightOn = false;
-    public float colorAlpha = 0.7f;
+	public bool lightOn = false;
+	public float colorAlpha = 0.7f;
 
 
-    private Light blockLight;
+	private Light blockLight;
 
 
-    public new void Start() {
-        base.Start();
-        blockLight = GetComponentInChildren<Light>();
-        TurnOffBlockLight();
-    }
+	public new void Start() {
+		base.Start();
+		blockLight = GetComponentInChildren<Light>();
+		TurnOffBlockLight();
+	}
 
-    public override void OnPlacement() {
-        SetAllMaterialColorAlphas(colorAlpha);
-    }
+	public override void OnPlacement() {
+		SetAllMaterialColorAlphas(colorAlpha);
+	}
 
-    public override void BeforeEvaluateAtTick() {
-        TurnOffBlockLight();
-    }
+	public override void BeforeEvaluateAtTick() {
+		TurnOffBlockLight();
+	}
 
 	public override void EvaluateAtTick() {}
 
-    public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {
+	public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {
 		base.PlayerFKeyInteraction(message);
 	}
 
-    public override void PowerOn() {
-        TurnOnBlockLight();
-    }
+	public override void PowerOn() {
+		TurnOnBlockLight();
+	}
 
-    public bool GetBlockLightStatus() {
-        return lightOn;
-    }
+	public bool GetBlockLightStatus() {
+		return lightOn;
+	}
 
-    public void TurnOnBlockLight() {
-        lightOn = true;
-        blockLight.enabled = true;
-    }
+	public void TurnOnBlockLight() {
+		lightOn = true;
+		blockLight.enabled = true;
+	}
 
-    public void TurnOffBlockLight() {
-        lightOn = false;
-        blockLight.enabled = false;
-    }
+	public void TurnOffBlockLight() {
+		lightOn = false;
+		blockLight.enabled = false;
+	}
 
-    public void ToggleBlockLight() {
-        lightOn = !lightOn;
-        blockLight.enabled = lightOn;
-    }
+	public void ToggleBlockLight() {
+		lightOn = !lightOn;
+		blockLight.enabled = lightOn;
+	}
 
-    // IMPLEMENTATION METHODS
+	// IMPLEMENTATION METHODS
 
 }

@@ -2,91 +2,91 @@
 
 TODO NEXT:
 
-    X update block snaps per tick to lerps
-    X fix updates per tick to preserve before-tick states so that block
-        evaluations are consistent
-    X mark blocks that have had mutations so that only those have calculations
-        done per evaluation tick
-    - fix block placement against blocks that are tranlating or rotating (prob
-        require rearchitecture of side colliders)
-    - start menu (new game, load save, exit)
-    - in-game options (save, load, exit)
-    - ability to save game
+	X update block snaps per tick to lerps
+	X fix updates per tick to preserve before-tick states so that block
+		evaluations are consistent
+	X mark blocks that have had mutations so that only those have calculations
+		done per evaluation tick
+	- fix block placement against blocks that are tranlating or rotating (prob
+		require rearchitecture of side colliders)
+	- start menu (new game, load save, exit)
+	- in-game options (save, load, exit)
+	- ability to save game
 
 
 GAMEPLAY TODO:
 
-    X procedural generation of flat map (for testing)
-    X placement and removal of blocks
-    X walking mode for player
-    X blocks of different types
-    X player current selected block switching
-    X block orientation:
-        X ghost placement
-        X contols for altering orientation of ghost block
-        X place real block as same orientation as ghost block
-        X fix block sensor system to work with new block rotations
-    X block interaction with key 'F'
-    X behavior for different block types:
-        X move discrete spaces
-        X rotate
-        X on/off light
-    X block-to-block interaction:
-        X power block turns on light block
-        X conveyor block moves block
-    - UI:
-        - start menu (new game, load save, exit)
-        - in-game options (save, load, exit)
-    - ability to save game
-    - flying mode for player
-    - player sprint mode
-    - rendering optimizations
+	X procedural generation of flat map (for testing)
+	X placement and removal of blocks
+	X walking mode for player
+	X blocks of different types
+	X player current selected block switching
+	X block orientation:
+		X ghost placement
+		X contols for altering orientation of ghost block
+		X place real block as same orientation as ghost block
+		X fix block sensor system to work with new block rotations
+	X block interaction with key 'F'
+	X behavior for different block types:
+		X move discrete spaces
+		X rotate
+		X on/off light
+	X block-to-block interaction:
+		X power block turns on light block
+		X conveyor block moves block
+	- UI:
+		- start menu (new game, load save, exit)
+		- in-game options (save, load, exit)
+	- ability to save game
+	- flying mode for player
+	- player sprint mode
+	- rendering optimizations
 
 
 SYSTEMS TODO:
 
-    X block types registry
-    X player inventory (blocks available to player)
-    X scene config
-    X evaluations-per-tick (for block evaluations)
-    - game save
+	X block types registry
+	X player inventory (blocks available to player)
+	X scene config
+	X evaluations-per-tick (for block evaluations)
+	- game save
 
 
 REFACTORS TODO:
 
-    - (maybe) move ghost block instance inside player instance instead of global
-        block manager or its own manager
-    - (maybe) move EnvironmentGeneration.CreateBlock() method to BlockManager
+	- (maybe) move ghost block instance inside player instance instead of global
+		block manager or its own manager
+	- (maybe) move EnvironmentGeneration.CreateBlock() method to BlockManager
 
 
 CLEANUP/FIXES:
 
-    X update block snaps per tick to lerps
-    - fix jumping when in grounded mode
-    - fix slowdown of player when not moving
-    - fix camera pan jittering while moving
-    - fix ghost block orientation control to be more intuitive
-    - fix updates per tick to preserve before-tick states so that block
-        evaluations are consistent
-    - fix block placement against blocks that are tranlating or rotating (prob
-        require rearchitecture of side colliders)
+	X update block snaps per tick to lerps
+	- fix jumping when in grounded mode
+	- fix slowdown of player when not moving
+	- fix camera pan jittering while moving
+	- fix ghost block orientation control to be more intuitive
+	- fix updates per tick to preserve before-tick states so that block
+		evaluations are consistent
+	- fix block placement against blocks that are tranlating or rotating (prob
+		require rearchitecture of side colliders)
 
 
 OPTIMIZATIONS:
-    - mark blocks that have had mutations so that only those have calculations
-        done per evaluation tick
+	- mark blocks that have had mutations so that only those have calculations
+		done per evaluation tick
 
 
 DEFER:
 
-    - UI: inventory for selecting block types
+	- UI: inventory for selecting block types
 
 
 UNITY RESOURCES:
 
-    https://unity3d.com/learn/tutorials/topics/scripting/introduction-saving-and-loading
-    https://unity3d.com/learn/tutorials/topics/scripting/update-and-fixedupdate
-    https://docs.unity3d.com/Manual/QuaternionAndEulerRotationsInUnity.html
-    https://docs.unity3d.com/ScriptReference/Transform.Rotate.html
+	https://unity3d.com/learn/tutorials/topics/scripting/introduction-saving-and-loading
+	https://unity3d.com/learn/tutorials/topics/scripting/update-and-fixedupdate
+	https://docs.unity3d.com/Manual/QuaternionAndEulerRotationsInUnity.html
+	https://docs.unity3d.com/ScriptReference/Transform.Rotate.html
 
 
