@@ -49,16 +49,18 @@ public class BaseBlockScript : MonoBehaviour
 	public virtual void PowerOn() {}
 
 	public void CommitMutationsAtTick() {
-		MoveBlock(
-            blockStateMutation.GetCombinedMoveVectors(),
-            SceneConfig.instance.tickDurationSeconds
-        );
-        RotateBlock(
-            blockStateMutation.GetCombinedRotations(),
-            SceneConfig.instance.tickDurationSeconds
-        );
-        blockStateMutation.Init();
-    }
+		if(blockStateMutation.dirty) {
+			MoveBlock(
+				blockStateMutation.GetCombinedMoveVectors(),
+				SceneConfig.instance.tickDurationSeconds
+			);
+			RotateBlock(
+				blockStateMutation.GetCombinedRotations(),
+				SceneConfig.instance.tickDurationSeconds
+			);
+			blockStateMutation.Init();
+		}
+	}
 
 	public void MoveBlock(
 		Vector3 moveVector,

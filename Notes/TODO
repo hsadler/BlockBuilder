@@ -3,8 +3,10 @@
 TODO NEXT:
 
     X update block snaps per tick to lerps
-    - fix updates per tick to preserve before-tick states so that block
+    X fix updates per tick to preserve before-tick states so that block
         evaluations are consistent
+    X mark blocks that have had mutations so that only those have calculations
+        done per evaluation tick
     - fix block placement against blocks that are tranlating or rotating (prob
         require rearchitecture of side colliders)
     - start menu (new game, load save, exit)
@@ -68,6 +70,11 @@ CLEANUP/FIXES:
         evaluations are consistent
     - fix block placement against blocks that are tranlating or rotating (prob
         require rearchitecture of side colliders)
+
+
+OPTIMIZATIONS:
+    - mark blocks that have had mutations so that only those have calculations
+        done per evaluation tick
 
 
 DEFER:
