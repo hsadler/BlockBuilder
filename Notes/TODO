@@ -7,8 +7,9 @@ TODO NEXT:
 		evaluations are consistent
 	X mark blocks that have had mutations so that only those have calculations
 		done per evaluation tick
-	- fix block placement against blocks that are tranlating or rotating (prob
-		require rearchitecture of side colliders)
+	X fix block placement against blocks that are translating or rotating
+	- do block evaluation processes on a coroutine, and the mutation commits
+		sychronously
 	- start menu (new game, load save, exit)
 	- in-game options (save, load, exit)
 	- ability to save game
@@ -62,19 +63,20 @@ REFACTORS TODO:
 CLEANUP/FIXES:
 
 	X update block snaps per tick to lerps
+	X fix updates per tick to preserve before-tick states so that block
+		evaluations are consistent
+	X fix block placement against blocks that are translating or rotating
 	- fix jumping when in grounded mode
 	- fix slowdown of player when not moving
 	- fix camera pan jittering while moving
 	- fix ghost block orientation control to be more intuitive
-	- fix updates per tick to preserve before-tick states so that block
-		evaluations are consistent
-	- fix block placement against blocks that are tranlating or rotating (prob
-		require rearchitecture of side colliders)
 
 
 OPTIMIZATIONS:
-	- mark blocks that have had mutations so that only those have calculations
+	X mark blocks that have had mutations so that only those have calculations
 		done per evaluation tick
+	- do block evaluation processes on a coroutine, and the mutation commits
+		sychronously
 
 
 DEFER:

@@ -55,6 +55,9 @@ public class EnvironmentGeneration : MonoBehaviour
 		Vector3 position,
 		Quaternion rotation
 	) {
+		// round position and rotation
+		position = Functions.RoundVector3ToDiscrete(position);
+		rotation = Functions.RoundQuaternionToDiscrete(rotation);
 		// create block from prefab and register on block manager
 		if(!BlockManager.instance.BlockExists(position)) {
 			GameObject newBlock = Instantiate(
