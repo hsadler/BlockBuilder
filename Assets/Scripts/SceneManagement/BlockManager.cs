@@ -15,6 +15,9 @@ public class BlockManager : MonoBehaviour
 	public float ghostBlockRotateDuration = 0.25f;
 
 
+	private bool evalRunning = false;
+
+
 	// the static reference to the singleton instance
 	public static BlockManager instance { get; private set; }
 
@@ -29,10 +32,53 @@ public class BlockManager : MonoBehaviour
 	}
 
 	void Start() {
-		InvokeRepeating("EvaluateBlocks", 0, SceneConfig.instance.tickDurationSeconds);
+		InvokeRepeating(
+			"BlockTickEval",
+			0,
+			SceneConfig.instance.tickDurationSeconds
+		);
 	}
 
 	void Update() {}
+
+	// BLOCK EVALUATION METHODS
+
+	private void BlockTickEval() {
+		if(!evalRunning) {
+			evalRunning = true;
+			// commit the mutations from the last evaluation
+			CommitBlockMutations();
+			// do async block mutation evaluations
+			StartCoroutine(AsyncBlockEval());
+		} else {
+			Debug.Log("Skipped block evaluations at tick since on is still running");
+		}
+	}
+
+	private void CommitBlockMutations() {
+		List<GameObject> gos = new List<GameObject>(coordsToBlockDict.Values);
+		foreach (GameObject go in gos) {
+			BaseBlockScript bs = go.GetComponent<BaseBlockScript>();
+			bs.CommitMutationsAtTick();
+		}
+	}
+
+	private IEnumerator AsyncBlockEval() {
+		List<GameObject> gos = new List<GameObject>(coordsToBlockDict.Values);
+		foreach (GameObject go in gos) {
+			BaseBlockScript bs = go.GetComponent<BaseBlockScript>();
+			bs.BeforeEvaluateAtTick();
+			yield return null;
+		}
+		foreach (GameObject go in gos) {
+			BaseBlockScript bs = go.GetComponent<BaseBlockScript>();
+			bs.EvaluateAtTick();
+			yield return null;
+		}
+		evalRunning = false;
+	}
+
+	// BLOCK DATASTORE METHODS
 
 	public string GetFormattedCoordinateFromBlockState(BlockState blockState) {
 		string formattedCoordinatesString = string.Format(
@@ -95,28 +141,6 @@ public class BlockManager : MonoBehaviour
 			Debug.Log("CoordsToBlockDict: " + coordsToBlockDict.ToString());
 			return false;
 		}
-	}
-
-	// BLOCK EVALUATION METHODS
-
-	private void EvaluateBlocks() {
-		List<GameObject> gos = new List<GameObject>(coordsToBlockDict.Values);
-		// foreach (GameObject go in gos) {
-		//     BaseBlockScript bs = go.GetComponent<BaseBlockScript>();
-		//     bs.BeforeEvaluateAtTick();
-		// }
-		foreach (GameObject go in gos) {
-			BaseBlockScript bs = go.GetComponent<BaseBlockScript>();
-			bs.EvaluateAtTick();
-		}
-		foreach (GameObject go in gos) {
-			BaseBlockScript bs = go.GetComponent<BaseBlockScript>();
-			bs.CommitMutationsAtTick();
-		}
-		// foreach (GameObject go in gos) {
-		//     BaseBlockScript bs = go.GetComponent<BaseBlockScript>();
-		//     bs.AfterEvaluateAtTick();
-		// }
 	}
 
 	// GHOST BLOCK METHODS

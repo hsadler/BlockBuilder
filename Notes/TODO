@@ -8,8 +8,9 @@ TODO NEXT:
 	X mark blocks that have had mutations so that only those have calculations
 		done per evaluation tick
 	X fix block placement against blocks that are translating or rotating
-	- do block evaluation processes on a coroutine, and the mutation commits
-		sychronously
+	- do block evaluation processes on an async coroutine, and the mutation
+		commits sychronously
+	- more caching of block gameobject components
 	- start menu (new game, load save, exit)
 	- in-game options (save, load, exit)
 	- ability to save game
@@ -77,6 +78,7 @@ OPTIMIZATIONS:
 		done per evaluation tick
 	- do block evaluation processes on a coroutine, and the mutation commits
 		sychronously
+	- more caching of block gameobject components
 
 
 DEFER:

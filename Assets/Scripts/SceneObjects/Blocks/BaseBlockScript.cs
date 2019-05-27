@@ -45,7 +45,7 @@ public class BaseBlockScript : MonoBehaviour
 	public virtual void OnPlacement() {}
 	public virtual void BeforeEvaluateAtTick() {}
 	public virtual void EvaluateAtTick() {}
-	public virtual void AfterEvaluateAtTick() {}
+	public virtual void AfterEvaluateAtTick() {} // not used yet
 	public virtual void PowerOn() {}
 
 	public void CommitMutationsAtTick() {
