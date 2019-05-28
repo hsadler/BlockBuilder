@@ -49,17 +49,10 @@ public class BlockManager : MonoBehaviour
 			// commit the mutations from the last evaluation
 			CommitBlockMutations();
 			// do async block mutation evaluations
+			// TODO: figure out how to do this with threads intead of coroutines (need real threading)
 			StartCoroutine(AsyncBlockEval());
 		} else {
 			Debug.Log("Skipped block evaluations at tick since on is still running");
-		}
-	}
-
-	private void CommitBlockMutations() {
-		List<GameObject> gos = new List<GameObject>(coordsToBlockDict.Values);
-		foreach (GameObject go in gos) {
-			BaseBlockScript bs = go.GetComponent<BaseBlockScript>();
-			bs.CommitMutationsAtTick();
 		}
 	}
 
@@ -68,14 +61,23 @@ public class BlockManager : MonoBehaviour
 		foreach (GameObject go in gos) {
 			BaseBlockScript bs = go.GetComponent<BaseBlockScript>();
 			bs.BeforeEvaluateAtTick();
-			yield return null;
+			// yield return null;
 		}
 		foreach (GameObject go in gos) {
 			BaseBlockScript bs = go.GetComponent<BaseBlockScript>();
 			bs.EvaluateAtTick();
-			yield return null;
+			// yield return null;
 		}
 		evalRunning = false;
+		yield return null;
+	}
+	
+	private void CommitBlockMutations() {
+		List<GameObject> gos = new List<GameObject>(coordsToBlockDict.Values);
+		foreach (GameObject go in gos) {
+			BaseBlockScript bs = go.GetComponent<BaseBlockScript>();
+			bs.CommitMutationsAtTick();
+		}
 	}
 
 	// BLOCK DATASTORE METHODS
