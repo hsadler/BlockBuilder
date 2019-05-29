@@ -6,6 +6,7 @@ public class BaseBlockScript : MonoBehaviour
 {
 
 
+	public Block selfBlock;
 	public BlockState blockState;
 	public BlockStateMutation blockStateMutation;
 	public float ghostBlockColorAlpha = 0.5f;
@@ -41,6 +42,10 @@ public class BaseBlockScript : MonoBehaviour
 
 	public void Start() {}
 
+	public void SetSelfBlock(Block block) {
+		selfBlock = block;
+	}
+
 	// overridden by subclasses
 	public virtual void OnPlacement() {}
 	public virtual void BeforeEvaluateAtTick() {}
@@ -75,11 +80,11 @@ public class BaseBlockScript : MonoBehaviour
 		// print("new Pos: " + newPosition.ToString());
 		if(!bm.BlockExists(newPosition)) {
 			// attempt to unset block on manager
-			bool unsetStatus = bm.UnsetBlock(gameObject);
+			bool unsetStatus = bm.UnsetBlock(selfBlock);
 			if(unsetStatus) {
 				blockState.position = newPosition;
 				// set block on manager
-				bm.SetBlock(gameObject);
+				bm.SetBlock(selfBlock);
 				// stop previous coroutine
 				if(moveCoroutine != null) {
 					StopCoroutine(moveCoroutine);
@@ -161,7 +166,7 @@ public class BaseBlockScript : MonoBehaviour
 	}
 
 	public void DestroyBlock() {
-		BlockManager.instance.UnsetBlock(gameObject);
+		BlockManager.instance.UnsetBlock(selfBlock);
 		Destroy(gameObject);
 	}
 

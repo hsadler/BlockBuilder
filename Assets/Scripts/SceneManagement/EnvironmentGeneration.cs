@@ -50,7 +50,7 @@ public class EnvironmentGeneration : MonoBehaviour
 		// TODO
 	}
 
-	public GameObject CreateBlock(
+	public Block CreateBlock(
 		GameObject blockPrefab,
 		Vector3 position,
 		Quaternion rotation
@@ -60,14 +60,20 @@ public class EnvironmentGeneration : MonoBehaviour
 		rotation = Functions.RoundQuaternionToDiscrete(rotation);
 		// create block from prefab and register on block manager
 		if(!BlockManager.instance.BlockExists(position)) {
-			GameObject newBlock = Instantiate(
+			GameObject newBlockGo = Instantiate(
 				blockPrefab,
 				position,
 				rotation,
 				BlockManager.instance.blocksContainer.transform
 			);
+			BaseBlockScript newBlockScript = newBlockGo.GetComponent<BaseBlockScript>();
+			Block newBlock = new Block(
+				newBlockGo, 
+				newBlockScript
+			);
+			newBlockScript.SetSelfBlock(newBlock);
 			BlockManager.instance.SetBlock(newBlock);
-			newBlock.GetComponent<BaseBlockScript>().OnPlacement();
+			newBlockScript.OnPlacement();
 			return newBlock;
 		}
 		return null;

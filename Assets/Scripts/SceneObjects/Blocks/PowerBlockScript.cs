@@ -23,12 +23,9 @@ public class PowerBlockScript : BaseBlockScript
 		Vector3 neighborCoords =
 			transform.position + (transform.rotation * Vector3.forward);
 		if(BlockManager.instance.BlockExists(neighborCoords)) {
-			GameObject connectedBlock =
-				BlockManager.instance.GetBlock(neighborCoords);
-			BaseBlockScript connectedBlockScript =
-				connectedBlock.GetComponent<BaseBlockScript>();
-			if(connectedBlockScript.AcceptsPower) {
-				connectedBlockScript.PowerOn();
+			Block connectedBlock = BlockManager.instance.GetBlock(neighborCoords);
+			if(connectedBlock.script.AcceptsPower) {
+				connectedBlock.script.PowerOn();
 			}
 		}
 	}

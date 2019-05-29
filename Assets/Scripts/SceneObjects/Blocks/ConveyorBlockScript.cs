@@ -26,9 +26,9 @@ public class ConveyorBlockScript : BaseBlockScript
 	private void MoveNeighbor(Vector3 neighborDirection, Vector3 moveDirection) {
 		Vector3 neighborCoords = transform.position + (transform.rotation * neighborDirection);
 		if(BlockManager.instance.BlockExists(neighborCoords)) {
-			GameObject neighborBlock = BlockManager.instance.GetBlock(neighborCoords);
+			Block neighborBlock = BlockManager.instance.GetBlock(neighborCoords);
 			moveDirection = transform.rotation * moveDirection;
-			BlockStateMutation bsm = neighborBlock.GetComponent<BaseBlockScript>().blockStateMutation;
+			BlockStateMutation bsm = neighborBlock.script.blockStateMutation;
 			bsm.AddMoveVector(moveDirection * conveyorSpeed);
 		}
 	}

@@ -8,8 +8,7 @@ public class BlockManager : MonoBehaviour
 	// DATASTORE AND SERVICE FOR MANAGING GAME BLOCKS
 
 
-	public IDictionary<string, GameObject> coordsToBlockDict =
-		new Dictionary<string, GameObject>();
+	public IDictionary<string, Block> coordsToBlockDict = new Dictionary<string, Block>();
 	public GameObject blocksContainer;
 	public GameObject ghostBlock;
 	public float ghostBlockRotateDuration = 0.25f;
@@ -49,7 +48,7 @@ public class BlockManager : MonoBehaviour
 			// commit the mutations from the last evaluation
 			CommitBlockMutations();
 			// do async block mutation evaluations
-			// TODO: figure out how to do this with threads intead of coroutines (need real threading)
+			// TODO: figure out how to do this with threads instead of coroutines (need real threading)
 			StartCoroutine(AsyncBlockEval());
 		} else {
 			Debug.Log("Skipped block evaluations at tick since on is still running");
@@ -57,15 +56,13 @@ public class BlockManager : MonoBehaviour
 	}
 
 	private IEnumerator AsyncBlockEval() {
-		List<GameObject> gos = new List<GameObject>(coordsToBlockDict.Values);
-		foreach (GameObject go in gos) {
-			BaseBlockScript bs = go.GetComponent<BaseBlockScript>();
-			bs.BeforeEvaluateAtTick();
+		List<Block> blocks = new List<Block>(coordsToBlockDict.Values);
+		foreach (Block block in blocks) {
+			block.script.BeforeEvaluateAtTick();
 			// yield return null;
 		}
-		foreach (GameObject go in gos) {
-			BaseBlockScript bs = go.GetComponent<BaseBlockScript>();
-			bs.EvaluateAtTick();
+		foreach (Block block in blocks) {
+			block.script.EvaluateAtTick();
 			// yield return null;
 		}
 		evalRunning = false;
@@ -73,10 +70,9 @@ public class BlockManager : MonoBehaviour
 	}
 	
 	private void CommitBlockMutations() {
-		List<GameObject> gos = new List<GameObject>(coordsToBlockDict.Values);
-		foreach (GameObject go in gos) {
-			BaseBlockScript bs = go.GetComponent<BaseBlockScript>();
-			bs.CommitMutationsAtTick();
+		List<Block> blocks = new List<Block>(coordsToBlockDict.Values);
+		foreach (Block block in blocks) {
+			block.script.CommitMutationsAtTick();
 		}
 	}
 
@@ -107,8 +103,8 @@ public class BlockManager : MonoBehaviour
 		return coordsToBlockDict.ContainsKey(formattedCoords);
 	}
 
-	public GameObject GetBlock(Vector3 coordinates) {
-		GameObject block = null;
+	public Block GetBlock(Vector3 coordinates) {
+		Block block = null;
 		if(BlockExists(coordinates)) {
 			string formattedCoords = GetFormattedCoordinateString(coordinates);
 			block = coordsToBlockDict[formattedCoords];
@@ -119,18 +115,18 @@ public class BlockManager : MonoBehaviour
 		return block;
 	}
 
-	public bool SetBlock(GameObject block) {
+	public bool SetBlock(Block block) {
 		// add to coordinates->block dictionary
-		BlockState bs = block.GetComponent<BaseBlockScript>().blockState;
+		BlockState bs = block.script.blockState;
 		string coordsKey = GetFormattedCoordinateFromBlockState(bs);
 		// print("setting block at coordsKey: " + coordsKey);
 		coordsToBlockDict.Add(coordsKey, block);
 		return true;
 	}
 
-	public bool UnsetBlock(GameObject block) {
+	public bool UnsetBlock(Block block) {
 		// remove from coordinates->block dictionary if possible
-		BlockState bs = block.GetComponent<BaseBlockScript>().blockState;
+		BlockState bs = block.script.blockState;
 		// print("Attempting to unset block on block manager at position: " +
 		//     bs.position.ToString());
 		if(BlockExists(bs.position)) {
