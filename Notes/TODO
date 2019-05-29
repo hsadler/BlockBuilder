@@ -10,11 +10,9 @@ TODO NEXT:
 	X fix block placement against blocks that are translating or rotating
 	X do block evaluation processes on an async coroutine, and the mutation
 		commits sychronously
-	- create encapsulation class (Block.cs) for block gameobjects and scripts	
-	- update block evaluation from coroutine to multithread	
-	- keep a secondary list of blocks that need evaluation/mutation commits done
-		(maybe)
-	- more caching of block gameobject components
+	X create encapsulation class (Block.cs) for block gameobjects and scripts	
+	X update block evaluation from coroutine to multithread	
+	X more caching of block gameobject components (solved by Block encapsulation class)
 	- start menu (new game, load save, exit)
 	- in-game options (save, load, exit)
 	- ability to save game
@@ -60,7 +58,7 @@ SYSTEMS TODO:
 
 REFACTORS TODO:
 
-	- create encapsulation class for block gameobjects and scripts
+	X create encapsulation class for block gameobjects and scripts
 	- (maybe) move ghost block instance inside player instance instead of global
 		block manager or its own manager
 	- (maybe) move EnvironmentGeneration.CreateBlock() method to BlockManager
@@ -83,10 +81,9 @@ OPTIMIZATIONS:
 		done per evaluation tick
 	X do block evaluation processes on a coroutine, and the mutation commits
 		sychronously
-	- update block evaluation from coroutine to multithread
-	- keep a secondary list of blocks that need evaluation/mutation commits done
-		(maybe)
-	- more caching of block gameobject components
+	X update block evaluation from coroutine to multithread
+	X more caching of block gameobject components (solved by Block encapsulation class)
+	- keep a secondary list of blocks that need evaluation/mutation commits done (maybe)
 
 
 DEFER:

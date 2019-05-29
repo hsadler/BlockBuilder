@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class BlockManager : MonoBehaviour
@@ -44,29 +45,27 @@ public class BlockManager : MonoBehaviour
 
 	private void BlockTickEval() {
 		if(!evalRunning) {
-			evalRunning = true;
 			// commit the mutations from the last evaluation
 			CommitBlockMutations();
+			// CODE EXAMPLE: multithreading
 			// do async block mutation evaluations
-			// TODO: figure out how to do this with threads instead of coroutines (need real threading)
-			StartCoroutine(AsyncBlockEval());
+			Thread workerThread = new Thread(AsyncBlockEval);
+			workerThread.Start();
 		} else {
-			Debug.Log("Skipped block evaluations at tick since on is still running");
+			Debug.Log("Skipped block evaluations at tick since one is still running");
 		}
 	}
 
-	private IEnumerator AsyncBlockEval() {
+	private void AsyncBlockEval() {
+		evalRunning = true;
 		List<Block> blocks = new List<Block>(coordsToBlockDict.Values);
 		foreach (Block block in blocks) {
 			block.script.BeforeEvaluateAtTick();
-			// yield return null;
 		}
 		foreach (Block block in blocks) {
 			block.script.EvaluateAtTick();
-			// yield return null;
 		}
 		evalRunning = false;
-		yield return null;
 	}
 	
 	private void CommitBlockMutations() {
