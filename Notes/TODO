@@ -13,7 +13,7 @@ TODO NEXT:
 	X create encapsulation class (Block.cs) for block gameobjects and scripts	
 	X update block evaluation from coroutine to multithread	
 	X more caching of block gameobject components (solved by Block encapsulation class)
-	- start menu (new game, load save, exit)
+	- start menu (new game, load, save, exit)
 	- in-game options (save, load, exit)
 	- ability to save game
 
