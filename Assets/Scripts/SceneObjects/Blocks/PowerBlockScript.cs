@@ -10,7 +10,7 @@ public class PowerBlockScript : BaseBlockScript
 	}
 
 	public override void EvaluateAtTick() {
-		PowerForwardConnectedBlock();
+		EvalPowerForwardConnectedBlock();
 	}
 
 	public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {
@@ -19,9 +19,9 @@ public class PowerBlockScript : BaseBlockScript
 
 	// IMPLEMENTATION METHODS
 
-	private void PowerForwardConnectedBlock() {
+	private void EvalPowerForwardConnectedBlock() {
 		Vector3 neighborCoords =
-			transform.position + (transform.rotation * Vector3.forward);
+			blockState.position + (blockState.rotation * Vector3.forward);
 		if(BlockManager.instance.BlockExists(neighborCoords)) {
 			Block connectedBlock = BlockManager.instance.GetBlock(neighborCoords);
 			if(connectedBlock.script.AcceptsPower) {

@@ -45,6 +45,8 @@ public class BlockManager : MonoBehaviour
 
 	private void BlockTickEval() {
 		if(!evalRunning) {
+			// run the 'before evaluatate' operations on all blocks
+			DoBeforeEvals();
 			// commit the mutations from the last evaluation
 			CommitBlockMutations();
 			// CODE EXAMPLE: multithreading
@@ -56,12 +58,16 @@ public class BlockManager : MonoBehaviour
 		}
 	}
 
-	private void AsyncBlockEval() {
-		evalRunning = true;
+	private void DoBeforeEvals() {
 		List<Block> blocks = new List<Block>(coordsToBlockDict.Values);
 		foreach (Block block in blocks) {
 			block.script.BeforeEvaluateAtTick();
 		}
+	}
+
+	private void AsyncBlockEval() {
+		evalRunning = true;
+		List<Block> blocks = new List<Block>(coordsToBlockDict.Values);
 		foreach (Block block in blocks) {
 			block.script.EvaluateAtTick();
 		}
