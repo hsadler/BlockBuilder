@@ -8,6 +8,7 @@ public class PlayerControlScript : MonoBehaviour
 	// RESPONSIBLE FOR PLAYER CONTROL FROM USER INPUT
 
 
+	public bool playerActive;
 	public float thrust;
 	public float maxSpeed;
 	public float rotationSpeed;
@@ -19,8 +20,8 @@ public class PlayerControlScript : MonoBehaviour
 
 
 	void Start() {
-		// hide cursor on screen
-		Cursor.visible = false;
+		// activate player
+		ActivatePlayer();
 		// set references to body parts for movement
 		playerHeadTransform = transform.Find("Head");
 		playerCameraTransform = transform.Find("Head/PlayerCamera");
@@ -28,13 +29,25 @@ public class PlayerControlScript : MonoBehaviour
 	}
 
 	void Update() {
-		CheckLookInput();
-		CheckBlockInteraction();
-		CheckGhostBlockInput();
+		if(playerActive) {
+			CheckLookInput();
+			CheckBlockInteraction();
+			CheckGhostBlockInput();
+		}
 	}
 
 	void FixedUpdate() {
 		CheckMoveInput();
+	}
+
+	public void ActivatePlayer() {
+		playerActive = true;
+		Cursor.visible = false;
+	}
+
+	public void DeactivatePlayer() {
+		playerActive = false;
+		Cursor.visible = true;
 	}
 
 	private void CheckMoveInput() {

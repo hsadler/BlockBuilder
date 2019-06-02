@@ -13,9 +13,10 @@ TODO NEXT:
 	X create encapsulation class (Block.cs) for block gameobjects and scripts	
 	X update block evaluation from coroutine to multithread	
 	X more caching of block gameobject components (solved by Block encapsulation class)
-	- start menu (new game, load, save, exit)
-	- in-game options (save, load, exit)
+	X start menu (new game, load, exit)
+	X in-game options (save, load, exit)
 	- ability to save game
+	- ability to load saved game
 
 
 GAMEPLAY TODO:
@@ -38,10 +39,11 @@ GAMEPLAY TODO:
 	X block-to-block interaction:
 		X power block turns on light block
 		X conveyor block moves block
-	- UI:
-		- start menu (new game, load save, exit)
-		- in-game options (save, load, exit)
+	X UI:
+		X start menu (new game, load save, exit)
+		X in-game options (save, load, exit)
 	- ability to save game
+	- ability to load saved game
 	- flying mode for player
 	- player sprint mode
 	- rendering optimizations
@@ -54,6 +56,7 @@ SYSTEMS TODO:
 	X scene config
 	X evaluations-per-tick (for block evaluations)
 	- game save
+	- game load
 
 
 REFACTORS TODO:
