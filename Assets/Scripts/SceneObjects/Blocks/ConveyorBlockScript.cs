@@ -14,7 +14,7 @@ public class ConveyorBlockScript : BaseBlockScript
 	}
 
 	public override void EvaluateAtTick() {
-		MoveNeighbor(Vector3.up, Vector3.forward);
+		EvalMoveNeighbor(Vector3.up, Vector3.forward);
 	}
 
 	public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {
@@ -23,11 +23,11 @@ public class ConveyorBlockScript : BaseBlockScript
 
 	// IMPLEMENTATION METHODS
 
-	private void MoveNeighbor(Vector3 neighborDirection, Vector3 moveDirection) {
-		Vector3 neighborCoords = transform.position + (transform.rotation * neighborDirection);
+	private void EvalMoveNeighbor(Vector3 neighborDirection, Vector3 moveDirection) {
+		Vector3 neighborCoords = blockState.position + (blockState.rotation * neighborDirection);
 		if(BlockManager.instance.BlockExists(neighborCoords)) {
 			Block neighborBlock = BlockManager.instance.GetBlock(neighborCoords);
-			moveDirection = transform.rotation * moveDirection;
+			moveDirection = blockState.rotation * moveDirection;
 			BlockStateMutation bsm = neighborBlock.script.blockStateMutation;
 			bsm.AddMoveVector(moveDirection * conveyorSpeed);
 		}
