@@ -15,7 +15,7 @@ public class MoverBlockScript : BaseBlockScript
 	}
 
 	public override void EvaluateAtTick() {
-		Vector3 moveVector = (transform.rotation * moveDirection) * distancePerTick;
+		Vector3 moveVector = (blockState.rotation * moveDirection) * distancePerTick;
 		blockStateMutation.AddMoveVector(moveVector);
 	}
 
