@@ -25,7 +25,7 @@ public class PowerBlockScript : BaseBlockScript
 		if(BlockManager.instance.BlockExists(neighborCoords)) {
 			Block connectedBlock = BlockManager.instance.GetBlock(neighborCoords);
 			if(connectedBlock.script.AcceptsPower) {
-				connectedBlock.script.PowerOn();
+				connectedBlock.script.blockStateMutation.AddPower(1);
 			}
 		}
 	}

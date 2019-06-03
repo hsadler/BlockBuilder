@@ -25,9 +25,10 @@ public class LightBlockScript : BaseBlockScript
 		SetAllMaterialColorAlphas(colorAlpha);
 	}
 
-	public override void BeforeEvaluateAtTick() {
-		TurnOffBlockLight();
-	}
+	// NOT USING
+	// public override void BeforeEvaluateAtTick() {
+	// 	TurnOffBlockLight();
+	// }
 
 	public override void EvaluateAtTick() {}
 
@@ -37,6 +38,10 @@ public class LightBlockScript : BaseBlockScript
 
 	public override void PowerOn() {
 		TurnOnBlockLight();
+	}
+
+	public override void PowerOff() {
+		TurnOffBlockLight();
 	}
 
 	public bool GetBlockLightStatus() {

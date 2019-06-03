@@ -48,10 +48,11 @@ public class BaseBlockScript : MonoBehaviour
 
 	// overridden by subclasses
 	public virtual void OnPlacement() {}
-	public virtual void BeforeEvaluateAtTick() {}
+	public virtual void BeforeEvaluateAtTick() {} // NOT USED, MIGHT NOT BE NEEDED
 	public virtual void EvaluateAtTick() {}
-	public virtual void AfterEvaluateAtTick() {} // not used yet
+	public virtual void AfterEvaluateAtTick() {} // NOT USED, MIGHT NOT BE NEEDED
 	public virtual void PowerOn() {}
+	public virtual void PowerOff() {}
 
 	public void CommitMutationsAtTick() {
 		if(blockStateMutation.dirty) {
@@ -63,6 +64,11 @@ public class BaseBlockScript : MonoBehaviour
 				blockStateMutation.GetCombinedRotations(),
 				SceneConfig.instance.tickDurationSeconds
 			);
+			if(blockStateMutation.power > 0) {
+				PowerOn();
+			} else {
+				PowerOff();
+			}
 			blockStateMutation.Init();
 		}
 	}

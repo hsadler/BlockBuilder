@@ -8,6 +8,7 @@ public class BlockStateMutation
 
 	public List<Vector3> moveVectors;
 	public List<Quaternion> rotations;
+	public float power;
 	public bool dirty = false;
 
 
@@ -18,6 +19,7 @@ public class BlockStateMutation
 	public void Init() {
 		moveVectors = new List<Vector3>();
 		rotations = new List<Quaternion>();
+		power = 0;
 		dirty = false;
 	}
 
@@ -45,6 +47,11 @@ public class BlockStateMutation
 			combinedRotations *= q;
 		}
 		return combinedRotations;
+	}
+
+	public void AddPower(float power) {
+		this.power += power;
+		dirty = true;
 	}
 
 }
