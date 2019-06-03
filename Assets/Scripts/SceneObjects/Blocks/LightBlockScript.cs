@@ -25,11 +25,6 @@ public class LightBlockScript : BaseBlockScript
 		SetAllMaterialColorAlphas(colorAlpha);
 	}
 
-	// NOT USING
-	// public override void BeforeEvaluateAtTick() {
-	// 	TurnOffBlockLight();
-	// }
-
 	public override void EvaluateAtTick() {}
 
 	public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {
