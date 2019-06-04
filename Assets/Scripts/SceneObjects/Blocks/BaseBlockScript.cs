@@ -53,7 +53,7 @@ public class BaseBlockScript : MonoBehaviour
 	public virtual void PowerOff() {}
 
 	public void CommitMutationsAtTick() {
-		if(blockStateMutation.dirty) {
+		if(blockStateMutation.dirty || AcceptsPower) {
 			MoveBlock(
 				blockStateMutation.GetCombinedMoveVectors(),
 				SceneConfig.instance.tickDurationSeconds
