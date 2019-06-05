@@ -227,7 +227,9 @@ public class BaseBlockScript : MonoBehaviour
 		AddNewBlockAsNeighbor(blockPrefab);
 	}
 
-	public virtual void PlayerFKeyInteraction(PlayerToBlockMessage message) {}
+	public virtual void PlayerFKeyInteraction(PlayerToBlockMessage message) {
+		print("block coordinates: " + blockState.position.ToString());
+	}
 
 	// IMPLEMENTATION METHODS
 

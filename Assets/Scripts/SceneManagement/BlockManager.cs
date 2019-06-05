@@ -75,22 +75,12 @@ public class BlockManager : MonoBehaviour
 	// BLOCK DATASTORE METHODS
 
 	public string GetFormattedCoordinateFromBlockState(BlockState blockState) {
-		string formattedCoordinatesString = string.Format(
-			"{0},{1},{2}",
-			blockState.position.x,
-			blockState.position.y,
-			blockState.position.z
-		);
+		string formattedCoordinatesString = blockState.position.ToString();
 		return formattedCoordinatesString;
 	}
 
 	public string GetFormattedCoordinateString(Vector3 coordinates) {
-		string formattedCoordinatesString = string.Format(
-			"{0},{1},{2}",
-			coordinates[0],
-			coordinates[1],
-			coordinates[2]
-		);
+		string formattedCoordinatesString = coordinates.ToString();
 		return formattedCoordinatesString;
 	}
 

@@ -31,25 +31,25 @@ public class PlayerInventoryScript : MonoBehaviour
 		// TODO: come up with a better system for this
 		GameObject oldSelected = currentSelected;
 		if(Input.GetKey(KeyCode.Alpha1)) {
-			currentSelected = BlockTypes.instance.testBlock;
-		} else if(Input.GetKey(KeyCode.Alpha2)) {
 			currentSelected = BlockTypes.instance.plainBlock;
-		} else if(Input.GetKey(KeyCode.Alpha3)) {
+		} else if(Input.GetKey(KeyCode.Alpha2)) {
 			currentSelected = BlockTypes.instance.moverBlock;
-		} else if(Input.GetKey(KeyCode.Alpha4)) {
+		} else if(Input.GetKey(KeyCode.Alpha3)) {
 			currentSelected = BlockTypes.instance.rotatorBlock;
+		} else if(Input.GetKey(KeyCode.Alpha4)) {
+			currentSelected = BlockTypes.instance.conveyorBlock;
 		} else if(Input.GetKey(KeyCode.Alpha5)) {
-			currentSelected = BlockTypes.instance.lightBlock;
-		} else if(Input.GetKey(KeyCode.Alpha6)) {
-			currentSelected = BlockTypes.instance.conveyorBlock;
-		} else if(Input.GetKey(KeyCode.Alpha7)) {
 			currentSelected = BlockTypes.instance.powerBlock;
+		} else if(Input.GetKey(KeyCode.Alpha6)) {
+			currentSelected = BlockTypes.instance.lightBlock;
+		} else if(Input.GetKey(KeyCode.Alpha7)) {
+			currentSelected = BlockTypes.instance.testBlock;
 		} else if(Input.GetKey(KeyCode.Alpha8)) {
-			currentSelected = BlockTypes.instance.conveyorBlock;
+			// currentSelected = BlockTypes.instance.conveyorBlock;
 		} else if(Input.GetKey(KeyCode.Alpha9)) {
-			currentSelected = BlockTypes.instance.conveyorBlock;
+			// currentSelected = BlockTypes.instance.conveyorBlock;
 		} else if(Input.GetKey(KeyCode.Alpha0)) {
-			currentSelected = BlockTypes.instance.conveyorBlock;
+			// currentSelected = BlockTypes.instance.testBlock;
 		}
 		// if inventory item was changed, update the current ghost block type
 		if(oldSelected != currentSelected) {

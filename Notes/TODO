@@ -15,8 +15,8 @@ TODO NEXT:
 	X more caching of block gameobject components (solved by Block encapsulation class)
 	X start menu (new game, load, exit)
 	X in-game options (save, load, exit)
-	- fix removal of power block from light block (light block should turn off)
-	- fix power block face down (doesn't power lower light block)
+	X fix removal of power block from light block (light block should turn off)
+	X fix power block face down (doesn't power lower light block)
 	- ability to save game
 	- ability to load saved game
 
@@ -75,8 +75,8 @@ CLEANUP/FIXES:
 	X fix updates per tick to preserve before-tick states so that block
 		evaluations are consistent
 	X fix block placement against blocks that are translating or rotating
-	- fix removal of power block from light block (light block should turn off)
-	- fix power block face down (doesn't power lower light block)
+	X fix removal of power block from light block (light block should turn off)
+	X fix power block face down (doesn't power lower light block)
 	- fix jumping when in grounded mode
 	- fix slowdown of player when not moving
 	- fix camera pan jittering while moving

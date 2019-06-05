@@ -20,8 +20,7 @@ public class PowerBlockScript : BaseBlockScript
 	// IMPLEMENTATION METHODS
 
 	private void EvalPowerForwardConnectedBlock() {
-		Vector3 neighborCoords =
-			blockState.position + (blockState.rotation * Vector3.forward);
+		Vector3 neighborCoords = blockState.position + (blockState.rotation * Vector3.forward);
 		if(BlockManager.instance.BlockExists(neighborCoords)) {
 			Block connectedBlock = BlockManager.instance.GetBlock(neighborCoords);
 			if(connectedBlock.script.AcceptsPower) {
