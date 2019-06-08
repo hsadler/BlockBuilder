@@ -10,8 +10,8 @@ TODO NEXT:
 	X fix block placement against blocks that are translating or rotating
 	X do block evaluation processes on an async coroutine, and the mutation
 		commits sychronously
-	X create encapsulation class (Block.cs) for block gameobjects and scripts	
-	X update block evaluation from coroutine to multithread	
+	X create encapsulation class (Block.cs) for block gameobjects and scripts
+	X update block evaluation from coroutine to multithread
 	X more caching of block gameobject components (solved by Block encapsulation class)
 	X start menu (new game, load, exit)
 	X in-game options (save, load, exit)

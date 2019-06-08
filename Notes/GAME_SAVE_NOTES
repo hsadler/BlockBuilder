@@ -1,0 +1,41 @@
+
+GAME SAVE NOTES
+
+problem:
+	- game needs to be able to be saved and loaded
+
+solution:
+	- for save: serialize game data to json and write to file
+	- for load: read json from save file and restore game data
+	- game data to persist:
+		- Player:
+			- position
+			- rotation
+		- Block:
+			- type
+			- position
+			- rotation
+	- scene managers that need init on game load:
+		- BlockManager
+		- PlayerManager
+
+implementation:
+	- data types:
+		- Vector3Struct { x:<int>, y:<int>, z:<int> }
+		- PlayerStruct
+			{
+				type: <str>,
+				position: <Vector3Struct>,
+				rotation: <Vector3Struct>
+			}
+		- BlockStruct
+			{
+				position: <Vector3Struct>,
+				rotation: <Vector3Struct>
+			}
+	- serializable GameSave object:
+		{
+			player: <PlayerStruct>
+			blocks: <BlockStruct>[]
+		}
+

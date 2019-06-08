@@ -64,7 +64,7 @@ public class BlockManager : MonoBehaviour
 		}
 		evalRunning = false;
 	}
-	
+
 	private void CommitBlockMutations() {
 		List<Block> blocks = new List<Block>(coordsToBlockDict.Values);
 		foreach (Block block in blocks) {
