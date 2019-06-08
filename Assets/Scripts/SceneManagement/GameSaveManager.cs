@@ -26,7 +26,11 @@ public class GameSaveManager : MonoBehaviour
     void Update() {}
 
     public void TestSave() {
-        // stub
+        print("Testing Save");
+        int saveVal = 99;
+        TestSave ts = new TestSave(saveVal);
+        string json = JsonUtility.ToJson(ts);
+        print("json to save: " + json);
     }
 
     public void TestLoad() {

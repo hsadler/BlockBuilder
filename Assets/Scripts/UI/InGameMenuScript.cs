@@ -38,4 +38,8 @@ public class InGameMenuScript : MonoBehaviour
 		SceneManager.LoadScene("StartMenu");
 	}
 
+    public void SaveGame() {
+        GameSaveManager.instance.TestSave();
+    }
+
 }
