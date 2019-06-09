@@ -46,21 +46,46 @@ public class GameSaveManager : MonoBehaviour
 	}
 
 	public void TestSave() {
-		print("Testing Save");
+		print("Testing Save...");
 		int saveVal = 99;
 		TestSave ts = new TestSave(saveVal);
 		string json = JsonUtility.ToJson(ts);
 		print("json to save: " + json);
-		print("path to save: " + GetSavePath());
-		File.WriteAllText(GetSavePath(), json, Encoding.UTF8);
+		print("path to save: " + GetTestSavePath());
+		File.WriteAllText(GetTestSavePath(), json, Encoding.UTF8);
 	}
 
 	public void TestLoad() {
-		// stub
+		print("Testing Load...");
+		print("reading from file at path: " + GetTestSavePath());
+		string json = File.ReadAllText(GetTestSavePath());
+		print("json read from file: " + json);
+		TestSave ts = new TestSave(0);
+		ts = JsonUtility.FromJson(json, ts);
+		print("myVal from TestSave object: " + ts.myVal);
 	}
 
 	public void SaveGameToJsonFile() {
-		// stub
+		// get player data and set to serializable structs
+		GameObject player = PlayerManager.instance.player;
+		Vector3Struct playerPositionStruct = new Vector3Struct(
+			player.transform.position
+		);
+		Vector3Struct playerRotationStruct = new Vector3Struct(
+			player.transform.rotation.eulerAngles
+		);
+		PlayerStruct playerStruct = new PlayerStruct(
+			playerPositionStruct,
+			playerRotationStruct
+		);
+		// commit the save data
+		print("save game to file...");
+		GameSave gameSave = new GameSave();
+		gameSave.SetPlayer(playerStruct);
+		string json = JsonUtility.ToJson(gameSave);
+		print("json to save: " + json);
+		print("path to save: " + GetSavePath());
+		File.WriteAllText(GetSavePath(), json, Encoding.UTF8);
 	}
 
 	public void LoadGameFromJsonFile() {
