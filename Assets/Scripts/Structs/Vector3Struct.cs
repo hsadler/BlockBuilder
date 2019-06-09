@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
+[System.Serializable]
 public struct Vector3Struct
 {
 
 	// SERIALIZABLE VECTOR3 DATA STRUCTURE
 
 
-	private float x;
-	private float y;
-	private float z;
+	public float x;
+	public float y;
+	public float z;
 
 
 	public Vector3Struct(Vector3 v) {

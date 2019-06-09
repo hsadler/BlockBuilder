@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
 public struct BlockStruct
 {
 
 	// SERIALIZABLE BLOCK DATA STRUCTURE
 
 
-	private string type;
-	private Vector3Struct position;
-	private Vector3Struct rotation;
+	public string type;
+	public Vector3Struct position;
+	public Vector3Struct rotation;
 
 
 	public BlockStruct(

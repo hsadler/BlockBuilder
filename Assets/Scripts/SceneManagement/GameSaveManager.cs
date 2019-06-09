@@ -60,17 +60,24 @@ public class GameSaveManager : MonoBehaviour
 		print("reading from file at path: " + GetTestSavePath());
 		string json = File.ReadAllText(GetTestSavePath());
 		print("json read from file: " + json);
-		TestSave ts = new TestSave(0);
-		ts = JsonUtility.FromJson(json, ts);
+		TestSave ts = JsonUtility.FromJson<TestSave>(json);
 		print("myVal from TestSave object: " + ts.myVal);
 	}
 
 	public void SaveGameToJsonFile() {
 		// get player data and set to serializable structs
+		// print("getting player data for save...");
 		GameObject player = PlayerManager.instance.player;
+		// print("player position: " + player.transform.position.ToString());
 		Vector3Struct playerPositionStruct = new Vector3Struct(
 			player.transform.position
 		);
+		// print(string.Format(
+		// 	"player position struct x:{0}, y:{1}, z:{2}",
+		// 	playerPositionStruct.x,
+		// 	playerPositionStruct.y,
+		// 	playerPositionStruct.z
+		// ));
 		Vector3Struct playerRotationStruct = new Vector3Struct(
 			player.transform.rotation.eulerAngles
 		);
@@ -90,6 +97,7 @@ public class GameSaveManager : MonoBehaviour
 
 	public void LoadGameFromJsonFile() {
 		// stub
+		print("Load Game is not implemented yet...");
 	}
 
 	private string GetTestSavePath() {

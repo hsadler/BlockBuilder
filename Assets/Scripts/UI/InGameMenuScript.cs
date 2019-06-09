@@ -34,12 +34,17 @@ public class InGameMenuScript : MonoBehaviour
         PlayerManager.instance.ActivatePlayer();
     }
 
+    public void SaveGame() {
+        GameSaveManager.instance.SaveGameToJsonFile();
+    }
+
+    public void LoadGame() {
+        GameSaveManager.instance.LoadGameFromJsonFile();
+    }
+
     public void NavToStartMenu() {
 		SceneManager.LoadScene("StartMenu");
 	}
 
-    public void SaveGame() {
-        GameSaveManager.instance.TestSave();
-    }
 
 }

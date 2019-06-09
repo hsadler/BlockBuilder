@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
 public struct PlayerStruct
 {
 
 	// SERIALIZABLE PLAYER DATA STRUCTURE
 
 
-	private Vector3Struct position;
-	private Vector3Struct rotation;
+	public Vector3Struct position;
+	public Vector3Struct rotation;
 
 
 	public PlayerStruct(

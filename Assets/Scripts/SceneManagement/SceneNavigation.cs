@@ -5,18 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class SceneNavigation : MonoBehaviour 
 {
+	
+	// (TODO: may not be needed)
+	// RESPONSIBLE FOR PROVIDING SCENE NAVIGATION METHODS
 
 
 	public GameObject inGameMenu;
 	public GameObject player;
 	
-	
-	private PlayerControlScript playerControlScript;
 
-
-	void Start() {
-		playerControlScript = player.GetComponent<PlayerControlScript>();
-	}
+	void Start() {}
 
 	void Update() {}
 

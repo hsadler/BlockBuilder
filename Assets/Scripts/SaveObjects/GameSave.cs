@@ -9,8 +9,8 @@ public class GameSave
 	// SERIALIZABLE DATA STRUCTURE FOR GAME SAVE
 
 
-	private PlayerStruct player;
-	// private List<BlockStruct> blocks = new List<BlockStruct>;
+	public PlayerStruct player;
+	// public List<BlockStruct> blocks = new List<BlockStruct>;
 
 
 	public GameSave() {}
