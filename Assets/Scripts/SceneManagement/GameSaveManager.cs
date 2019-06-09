@@ -10,11 +10,11 @@ public class GameSaveManager : MonoBehaviour
 	// RESPONSIBLE FOR GAME SAVING AND LOADING
 
 
-    private const string TEST_SAVE_DIR = "/saves/";
-    private const string TEST_SAVE_FILENAME = "test_save.json";
-    
-    private const string SAVE_DIR = "/saves/";
-    private const string SAVE_FILENAME = "save.json";
+	private const string TEST_SAVE_DIR = "/saves/";
+	private const string TEST_SAVE_FILENAME = "test_save.json";
+
+	private const string SAVE_DIR = "/saves/";
+	private const string SAVE_FILENAME = "save.json";
 
 
 	// the static reference to the singleton instance
@@ -31,48 +31,48 @@ public class GameSaveManager : MonoBehaviour
 	}
 
 	void Start () {
-        Init();
-    }
-    
-    void Update() {}
+		Init();
+	}
 
-    public void Init() {
-        if(!Directory.Exists(Application.persistentDataPath + TEST_SAVE_DIR)) {
-            Directory.CreateDirectory(Application.persistentDataPath + TEST_SAVE_DIR);
-        }
-        if(!Directory.Exists(Application.persistentDataPath + SAVE_DIR)) {
-            Directory.CreateDirectory(Application.persistentDataPath + SAVE_DIR);
-        }
-    }
+	void Update() {}
 
-    public void TestSave() {
-        print("Testing Save");
-        int saveVal = 99;
-        TestSave ts = new TestSave(saveVal);
-        string json = JsonUtility.ToJson(ts);
-        print("json to save: " + json);
-        print("path to save: " + GetSavePath());
-        File.WriteAllText(GetSavePath(), json, Encoding.UTF8);
-    }
+	public void Init() {
+		if(!Directory.Exists(Application.persistentDataPath + TEST_SAVE_DIR)) {
+			Directory.CreateDirectory(Application.persistentDataPath + TEST_SAVE_DIR);
+		}
+		if(!Directory.Exists(Application.persistentDataPath + SAVE_DIR)) {
+			Directory.CreateDirectory(Application.persistentDataPath + SAVE_DIR);
+		}
+	}
 
-    public void TestLoad() {
-        // stub
-    }
+	public void TestSave() {
+		print("Testing Save");
+		int saveVal = 99;
+		TestSave ts = new TestSave(saveVal);
+		string json = JsonUtility.ToJson(ts);
+		print("json to save: " + json);
+		print("path to save: " + GetSavePath());
+		File.WriteAllText(GetSavePath(), json, Encoding.UTF8);
+	}
 
-    public void LoadGameFromJsonFile() {
-        // stub
-    }
+	public void TestLoad() {
+		// stub
+	}
 
-    public void SaveGameToJsonFile() {
-        // stub
-    }
+	public void SaveGameToJsonFile() {
+		// stub
+	}
 
-    private string GetTestSavePath() {
-        return Application.persistentDataPath + TEST_SAVE_DIR + TEST_SAVE_FILENAME;
-    }
+	public void LoadGameFromJsonFile() {
+		// stub
+	}
 
-    private string GetSavePath() {
-        return Application.persistentDataPath + SAVE_DIR + SAVE_FILENAME;
-    }
+	private string GetTestSavePath() {
+		return Application.persistentDataPath + TEST_SAVE_DIR + TEST_SAVE_FILENAME;
+	}
+
+	private string GetSavePath() {
+		return Application.persistentDataPath + SAVE_DIR + SAVE_FILENAME;
+	}
 
 }

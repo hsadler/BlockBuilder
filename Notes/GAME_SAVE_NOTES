@@ -21,7 +21,7 @@ solution:
 
 implementation:
 	- data types:
-		- Vector3Struct { x:<int>, y:<int>, z:<int> }
+		- Vector3Struct { x:<float>, y:<float>, z:<float> }
 		- PlayerStruct
 			{
 				type: <str>,
