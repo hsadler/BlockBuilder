@@ -10,10 +10,13 @@ public class LightBlockScript : BaseBlockScript
 	public override bool AcceptsPower { get { return acceptsPower; } }
 	public bool lightOn = false;
 	public float colorAlpha = 0.7f;
-
-
 	private Light blockLight;
 
+
+	public new void Awake() {
+		base.Awake();
+		blockType = BlockTypes.instance.LIGHT_BLOCK;
+	}
 
 	public new void Start() {
 		base.Start();

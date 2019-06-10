@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using System.Linq;
 using UnityEngine;
 
 public class BlockManager : MonoBehaviour
@@ -40,6 +41,10 @@ public class BlockManager : MonoBehaviour
 	}
 
 	void Update() {}
+
+	public List<Block> GetBlocksAsList() {
+		return coordsToBlockDict.Values.ToList();
+	}
 
 	// BLOCK EVALUATION METHODS
 
@@ -124,6 +129,12 @@ public class BlockManager : MonoBehaviour
 			Debug.Log("Unable to unset block at formatted coordinates: " + formattedCoords);
 			Debug.Log("CoordsToBlockDict: " + coordsToBlockDict.ToString());
 			return false;
+		}
+	}
+
+	public void ClearAllBlocks() {
+		foreach (Block b in GetBlocksAsList()) {
+			b.script.DestroyBlock();
 		}
 	}
 

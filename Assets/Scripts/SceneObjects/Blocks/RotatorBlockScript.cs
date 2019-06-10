@@ -9,6 +9,11 @@ public class RotatorBlockScript : BaseBlockScript
 	public float degreesPerTick = 90.0f;
 
 
+	public new void Awake() {
+		base.Awake();
+		blockType = BlockTypes.instance.ROTATOR_BLOCK;
+	}
+
 	public new void Start() {
 		base.Start();
 	}
@@ -24,5 +29,6 @@ public class RotatorBlockScript : BaseBlockScript
 	}
 
 	// IMPLEMENTATION METHODS
+	
 
 }

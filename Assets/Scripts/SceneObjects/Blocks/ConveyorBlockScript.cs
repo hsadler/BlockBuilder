@@ -8,6 +8,11 @@ public class ConveyorBlockScript : BaseBlockScript
 
 	public float conveyorSpeed = 1.0f;
 
+	
+	public new void Awake() {
+		base.Awake();
+		blockType = BlockTypes.instance.CONVEYOR_BLOCK;
+	}
 
 	public new void Start() {
 		base.Start();

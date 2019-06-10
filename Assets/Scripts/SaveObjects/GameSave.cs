@@ -10,7 +10,7 @@ public class GameSave
 
 
 	public PlayerStruct player;
-	// public List<BlockStruct> blocks = new List<BlockStruct>;
+	public List<BlockStruct> blocks = new List<BlockStruct>();
 
 
 	public GameSave() {}
@@ -19,9 +19,9 @@ public class GameSave
 		this.player = player;
 	}
 
-	// public void AddBlock(BlockStruct block) {
-	// 	this.blocks.Add(block);
-	// }
+	public void AddBlock(BlockStruct block) {
+		this.blocks.Add(block);
+	}
 
 
 }

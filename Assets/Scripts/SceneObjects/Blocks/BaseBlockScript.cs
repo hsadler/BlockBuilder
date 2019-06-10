@@ -5,13 +5,14 @@ using UnityEngine;
 public class BaseBlockScript : MonoBehaviour
 {
 
+	
+	public string blockType;
 
 	public Block selfBlock;
 	public BlockState blockState;
 	public BlockStateMutation blockStateMutation;
 	public float ghostBlockColorAlpha = 0.5f;
-
-
+	
 	// CODE EXAMPLE: how to handle instance variable overrides
 	// (fields exposed via properties)
 	// overridden by subclasses
@@ -36,6 +37,7 @@ public class BaseBlockScript : MonoBehaviour
 
 
 	public void Awake() {
+		blockType = BlockTypes.instance.BASE_BLOCK;
 		blockState = new BlockState(transform.position, transform.rotation);
 		blockStateMutation = new BlockStateMutation();
 	}

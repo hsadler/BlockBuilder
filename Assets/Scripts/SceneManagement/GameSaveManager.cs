@@ -65,6 +65,7 @@ public class GameSaveManager : MonoBehaviour
 	}
 
 	public void SaveGameToJsonFile() {
+		GameSave gameSave = new GameSave();
 		// get player data and set to serializable structs
 		// print("getting player data for save...");
 		GameObject player = PlayerManager.instance.player;
@@ -85,9 +86,13 @@ public class GameSaveManager : MonoBehaviour
 			playerPositionStruct,
 			playerRotationStruct
 		);
+		// get block data and set to serializable structs
+		foreach (Block b in BlockManager.instance.GetBlocksAsList()) {
+			BlockStruct blockStruct = b.ToBlockStruct();
+			gameSave.AddBlock(blockStruct);
+		}
 		// commit the save data
 		print("save game to file...");
-		GameSave gameSave = new GameSave();
 		gameSave.SetPlayer(playerStruct);
 		string json = JsonUtility.ToJson(gameSave);
 		print("json to save: " + json);
@@ -101,6 +106,7 @@ public class GameSaveManager : MonoBehaviour
 		string json = File.ReadAllText(GetSavePath());
 		print("json read from file: " + json);
 		GameSave gameSave = JsonUtility.FromJson<GameSave>(json);
+		// get player data from save data 
 		Vector3 playerPosition = new Vector3(
 			gameSave.player.position.x,
 			gameSave.player.position.y,
@@ -115,6 +121,28 @@ public class GameSaveManager : MonoBehaviour
 		GameObject player = PlayerManager.instance.player;
 		player.transform.position = playerPosition;
 		player.transform.rotation = Quaternion.Euler(playerRotation);
+		// clear all blocks from scene first
+		BlockManager.instance.ClearAllBlocks();
+		foreach (BlockStruct blockStruct in gameSave.blocks) {
+			// get block data from save data
+			GameObject blockPrefab = BlockTypes.instance.GetBlockGameObjectFromType(blockStruct.type);
+			Vector3 blockPosition = new Vector3(
+				blockStruct.position.x,
+				blockStruct.position.y,
+				blockStruct.position.z
+			);
+			Vector3 blockRotation = new Vector3(
+				blockStruct.rotation.x,
+				blockStruct.rotation.y,
+				blockStruct.rotation.z
+			);
+			// create block from save data
+			EnvironmentGeneration.instance.CreateBlock(
+				blockPrefab,
+				blockPosition,
+				Quaternion.Euler(blockRotation)
+			);
+		}
 	}
 
 	private string GetTestSavePath() {

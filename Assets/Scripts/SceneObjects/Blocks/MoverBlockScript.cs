@@ -10,6 +10,11 @@ public class MoverBlockScript : BaseBlockScript
 	public float distancePerTick = 1.0f;
 
 
+	public new void Awake() {
+		base.Awake();
+		blockType = BlockTypes.instance.MOVER_BLOCK;
+	}
+
 	public new void Start() {
 		base.Start();
 	}

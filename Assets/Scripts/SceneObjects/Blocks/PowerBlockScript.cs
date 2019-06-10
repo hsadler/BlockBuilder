@@ -5,6 +5,12 @@ using UnityEngine;
 public class PowerBlockScript : BaseBlockScript
 {
 
+
+	public new void Awake() {
+		base.Awake();
+		blockType = BlockTypes.instance.POWER_BLOCK;
+	}
+
 	public new void Start() {
 		base.Start();
 	}
