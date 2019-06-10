@@ -96,8 +96,25 @@ public class GameSaveManager : MonoBehaviour
 	}
 
 	public void LoadGameFromJsonFile() {
-		// stub
-		print("Load Game is not implemented yet...");
+		print("loading game from save file...");
+		print("reading from file at path: " + GetSavePath());
+		string json = File.ReadAllText(GetSavePath());
+		print("json read from file: " + json);
+		GameSave gameSave = JsonUtility.FromJson<GameSave>(json);
+		Vector3 playerPosition = new Vector3(
+			gameSave.player.position.x,
+			gameSave.player.position.y,
+			gameSave.player.position.z
+		);
+		Vector3 playerRotation = new Vector3(
+			gameSave.player.rotation.x,
+			gameSave.player.rotation.y,
+			gameSave.player.rotation.z
+		);
+		// set player position and rotation from save data
+		GameObject player = PlayerManager.instance.player;
+		player.transform.position = playerPosition;
+		player.transform.rotation = Quaternion.Euler(playerRotation);
 	}
 
 	private string GetTestSavePath() {
