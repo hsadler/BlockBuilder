@@ -10,9 +10,6 @@ public class GameSaveManager : MonoBehaviour
 	// RESPONSIBLE FOR GAME SAVING AND LOADING
 
 
-	private const string TEST_SAVE_DIR = "/saves/";
-	private const string TEST_SAVE_FILENAME = "test_save.json";
-
 	private const string SAVE_DIR = "/saves/";
 	private const string SAVE_FILENAME = "save.json";
 
@@ -37,31 +34,9 @@ public class GameSaveManager : MonoBehaviour
 	void Update() {}
 
 	public void Init() {
-		if(!Directory.Exists(Application.persistentDataPath + TEST_SAVE_DIR)) {
-			Directory.CreateDirectory(Application.persistentDataPath + TEST_SAVE_DIR);
-		}
 		if(!Directory.Exists(Application.persistentDataPath + SAVE_DIR)) {
 			Directory.CreateDirectory(Application.persistentDataPath + SAVE_DIR);
 		}
-	}
-
-	public void TestSave() {
-		print("Testing Save...");
-		int saveVal = 99;
-		TestSave ts = new TestSave(saveVal);
-		string json = JsonUtility.ToJson(ts);
-		print("json to save: " + json);
-		print("path to save: " + GetTestSavePath());
-		File.WriteAllText(GetTestSavePath(), json, Encoding.UTF8);
-	}
-
-	public void TestLoad() {
-		print("Testing Load...");
-		print("reading from file at path: " + GetTestSavePath());
-		string json = File.ReadAllText(GetTestSavePath());
-		print("json read from file: " + json);
-		TestSave ts = JsonUtility.FromJson<TestSave>(json);
-		print("myVal from TestSave object: " + ts.myVal);
 	}
 
 	public void SaveGameToJsonFile() {
@@ -73,12 +48,6 @@ public class GameSaveManager : MonoBehaviour
 		Vector3Struct playerPositionStruct = new Vector3Struct(
 			player.transform.position
 		);
-		// print(string.Format(
-		// 	"player position struct x:{0}, y:{1}, z:{2}",
-		// 	playerPositionStruct.x,
-		// 	playerPositionStruct.y,
-		// 	playerPositionStruct.z
-		// ));
 		Vector3Struct playerRotationStruct = new Vector3Struct(
 			player.transform.rotation.eulerAngles
 		);
@@ -92,19 +61,19 @@ public class GameSaveManager : MonoBehaviour
 			gameSave.AddBlock(blockStruct);
 		}
 		// commit the save data
-		print("save game to file...");
+		// print("save game to file...");
 		gameSave.SetPlayer(playerStruct);
 		string json = JsonUtility.ToJson(gameSave);
-		print("json to save: " + json);
-		print("path to save: " + GetSavePath());
+		// print("json to save: " + json);
+		// print("path to save: " + GetSavePath());
 		File.WriteAllText(GetSavePath(), json, Encoding.UTF8);
 	}
 
 	public void LoadGameFromJsonFile() {
-		print("loading game from save file...");
-		print("reading from file at path: " + GetSavePath());
+		// print("loading game from save file...");
+		// print("reading from file at path: " + GetSavePath());
 		string json = File.ReadAllText(GetSavePath());
-		print("json read from file: " + json);
+		// print("json read from file: " + json);
 		GameSave gameSave = JsonUtility.FromJson<GameSave>(json);
 		// get player data from save data 
 		Vector3 playerPosition = new Vector3(
@@ -145,12 +114,9 @@ public class GameSaveManager : MonoBehaviour
 		}
 	}
 
-	private string GetTestSavePath() {
-		return Application.persistentDataPath + TEST_SAVE_DIR + TEST_SAVE_FILENAME;
-	}
-
 	private string GetSavePath() {
 		return Application.persistentDataPath + SAVE_DIR + SAVE_FILENAME;
 	}
+
 
 }

@@ -110,7 +110,6 @@ public class BlockManager : MonoBehaviour
 		// add to coordinates->block dictionary
 		BlockState bs = block.script.blockState;
 		string coordsKey = GetFormattedCoordinateFromBlockState(bs);
-		// print("setting block at coordsKey: " + coordsKey);
 		coordsToBlockDict.Add(coordsKey, block);
 		return true;
 	}
@@ -118,8 +117,6 @@ public class BlockManager : MonoBehaviour
 	public bool UnsetBlock(Block block) {
 		// remove from coordinates->block dictionary if possible
 		BlockState bs = block.script.blockState;
-		// print("Attempting to unset block on block manager at position: " +
-		//     bs.position.ToString());
 		if(BlockExists(bs.position)) {
 			string formattedCoords = GetFormattedCoordinateFromBlockState(bs);
 			coordsToBlockDict.Remove(formattedCoords);

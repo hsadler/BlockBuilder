@@ -2,23 +2,16 @@
 
 TODO NEXT:
 
-	X update block snaps per tick to lerps
-	X fix updates per tick to preserve before-tick states so that block
-		evaluations are consistent
-	X mark blocks that have had mutations so that only those have calculations
-		done per evaluation tick
-	X fix block placement against blocks that are translating or rotating
-	X do block evaluation processes on an async coroutine, and the mutation
-		commits sychronously
-	X create encapsulation class (Block.cs) for block gameobjects and scripts
-	X update block evaluation from coroutine to multithread
-	X more caching of block gameobject components (solved by Block encapsulation class)
-	X start menu (new game, load, exit)
-	X in-game options (save, load, exit)
-	X fix removal of power block from light block (light block should turn off)
-	X fix power block face down (doesn't power lower light block)
-	- ability to save game
-	- ability to load saved game
+	- move player gameobject and scripts inside Player class
+	- add load game from start-menu	
+	- cleanup save and load systems
+	- add more info to game-info UI:
+		- total blocks in scene
+	- move ghost block instance inside player instance instead of global
+		block manager or its own manager
+	- move EnvironmentGeneration.CreateBlock() method to BlockManager
+	- fix block evaluations regarding movement to query move-to space for vacancy
+	- fix player-not-found bug in PlayerManager
 
 
 GAMEPLAY TODO:
@@ -44,8 +37,8 @@ GAMEPLAY TODO:
 	X UI:
 		X start menu (new game, load save, exit)
 		X in-game options (save, load, exit)
-	- ability to save game
-	- ability to load saved game
+	X ability to save game
+	X ability to load saved game
 	- flying mode for player
 	- player sprint mode
 	- rendering optimizations
@@ -57,16 +50,17 @@ SYSTEMS TODO:
 	X player inventory (blocks available to player)
 	X scene config
 	X evaluations-per-tick (for block evaluations)
-	- game save
-	- game load
+	X game save
+	X game load
 
 
 REFACTORS TODO:
 
 	X create encapsulation class for block gameobjects and scripts
-	- (maybe) move ghost block instance inside player instance instead of global
+	- move player gameobject and scripts inside Player class
+	- move ghost block instance inside player instance instead of global
 		block manager or its own manager
-	- (maybe) move EnvironmentGeneration.CreateBlock() method to BlockManager
+	- move EnvironmentGeneration.CreateBlock() method to BlockManager
 
 
 CLEANUP/FIXES:
@@ -77,6 +71,12 @@ CLEANUP/FIXES:
 	X fix block placement against blocks that are translating or rotating
 	X fix removal of power block from light block (light block should turn off)
 	X fix power block face down (doesn't power lower light block)
+	- add load game from start-menu
+	- add more info to game-info UI:
+		- total blocks in scene
+	- fix block evaluations regarding movement to query move-to space for vacancy
+	- cleanup save and load systems
+	- fix player-not-found bug in PlayerManager
 	- fix jumping when in grounded mode
 	- fix slowdown of player when not moving
 	- fix camera pan jittering while moving
