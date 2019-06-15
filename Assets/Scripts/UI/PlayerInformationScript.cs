@@ -7,14 +7,14 @@ public class PlayerInformationScript : MonoBehaviour
 {
 
 
-	public GameObject player;
 	private Rigidbody playerRb;
 	private PlayerInventoryScript playerInventoryScript;
 
 
 	void Start() {
-		playerRb = player.GetComponent<Rigidbody>();
-		playerInventoryScript = player.GetComponent<PlayerInventoryScript>();
+		GameObject playerGO = PlayerManager.instance.player.gameObject; 
+		playerRb = playerGO.GetComponent<Rigidbody>();
+		playerInventoryScript = playerGO.GetComponent<PlayerInventoryScript>();
 	}
 
 	void Update() {

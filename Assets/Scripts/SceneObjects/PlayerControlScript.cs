@@ -16,7 +16,7 @@ public class PlayerControlScript : MonoBehaviour
 
 	private Transform playerHeadTransform;
 	private Transform playerCameraTransform;
-	private Camera playerCameraComponent;
+	public Camera playerCameraComponent;
 
 
 	void Start() {

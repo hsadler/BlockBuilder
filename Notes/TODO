@@ -2,7 +2,8 @@
 
 TODO NEXT:
 
-	- move player gameobject and scripts inside Player class
+	X move player gameobject and scripts inside Player class
+	X add player to scene at runtime with PlayerManager
 	- add load game from start-menu	
 	- cleanup save and load systems
 	- add more info to game-info UI:
@@ -58,6 +59,7 @@ REFACTORS TODO:
 
 	X create encapsulation class for block gameobjects and scripts
 	- move player gameobject and scripts inside Player class
+	- add player to scene at runtime with PlayerManager
 	- move ghost block instance inside player instance instead of global
 		block manager or its own manager
 	- move EnvironmentGeneration.CreateBlock() method to BlockManager

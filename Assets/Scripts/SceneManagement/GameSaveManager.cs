@@ -42,28 +42,16 @@ public class GameSaveManager : MonoBehaviour
 	public void SaveGameToJsonFile() {
 		GameSave gameSave = new GameSave();
 		// get player data and set to serializable structs
-		// print("getting player data for save...");
-		GameObject player = PlayerManager.instance.player;
-		// print("player position: " + player.transform.position.ToString());
-		Vector3Struct playerPositionStruct = new Vector3Struct(
-			player.transform.position
-		);
-		Vector3Struct playerRotationStruct = new Vector3Struct(
-			player.transform.rotation.eulerAngles
-		);
-		PlayerStruct playerStruct = new PlayerStruct(
-			playerPositionStruct,
-			playerRotationStruct
-		);
+		PlayerStruct playerStruct = PlayerManager.instance.player.ToPlayerStruct(); 
+		gameSave.SetPlayer(playerStruct);
 		// get block data and set to serializable structs
 		foreach (Block b in BlockManager.instance.GetBlocksAsList()) {
 			BlockStruct blockStruct = b.ToBlockStruct();
 			gameSave.AddBlock(blockStruct);
 		}
 		// commit the save data
-		// print("save game to file...");
-		gameSave.SetPlayer(playerStruct);
 		string json = JsonUtility.ToJson(gameSave);
+		// print("save game to file...");
 		// print("json to save: " + json);
 		// print("path to save: " + GetSavePath());
 		File.WriteAllText(GetSavePath(), json, Encoding.UTF8);
@@ -87,9 +75,9 @@ public class GameSaveManager : MonoBehaviour
 			gameSave.player.rotation.z
 		);
 		// set player position and rotation from save data
-		GameObject player = PlayerManager.instance.player;
-		player.transform.position = playerPosition;
-		player.transform.rotation = Quaternion.Euler(playerRotation);
+		GameObject playerGO = PlayerManager.instance.player.gameObject;
+		playerGO.transform.position = playerPosition;
+		playerGO.transform.rotation = Quaternion.Euler(playerRotation);
 		// clear all blocks from scene first
 		BlockManager.instance.ClearAllBlocks();
 		foreach (BlockStruct blockStruct in gameSave.blocks) {

@@ -8,12 +8,13 @@ public class PlayerManager : MonoBehaviour
 
 	// SERVICE FOR MANAGING PLAYER
 
-
-    public GameObject player;
+	
+    public Player player;
+	public GameObject playerPrefab;
 	public GameObject playerReticle;
 
-
-    private PlayerControlScript playerControlScript;
+	private Vector3 defaultPlayerPosition = new Vector3(0, 2, 0);
+	private Vector3 defaultPlayerRotation = new Vector3(0, 0, 0);
 
 
 	// the static reference to the singleton instance
@@ -27,21 +28,34 @@ public class PlayerManager : MonoBehaviour
 		} else {
 			Destroy(gameObject);
 		}
+		AddPlayerToScene();
 	}
 
-	void Start() {
-        playerControlScript = player.GetComponent<PlayerControlScript>();
-    }
+	void Start() {}
 
 	void Update() {}
 
+	private void AddPlayerToScene() {
+		GameObject playerGO = Instantiate(
+			playerPrefab,
+			defaultPlayerPosition,
+			Quaternion.Euler(defaultPlayerRotation)
+		);
+		player = new Player(
+			playerGO,
+			playerGO.GetComponent<PlayerControlScript>(),
+			playerGO.GetComponent<PlayerInventoryScript>()
+		);
+		player.controlScript.playerCameraComponent.gameObject.SetActive(true);
+	}
+
     public void ActivatePlayer() {
-		playerControlScript.ActivatePlayer();
+		player.controlScript.ActivatePlayer();
 		playerReticle.SetActive(true);
 	}
 
     public void DeactivatePlayer() {
-		playerControlScript.DeactivatePlayer();
+		player.controlScript.DeactivatePlayer();
 		playerReticle.SetActive(false);
 	}
 
