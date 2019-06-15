@@ -16,7 +16,7 @@ public class PlayerControlScript : MonoBehaviour
 
 	private Transform playerHeadTransform;
 	private Transform playerCameraTransform;
-	public Camera playerCameraComponent;
+	private Camera playerCameraComponent;
 
 
 	void Start() {
@@ -48,6 +48,10 @@ public class PlayerControlScript : MonoBehaviour
 	public void DeactivatePlayer() {
 		playerActive = false;
 		Cursor.visible = true;
+	}
+
+	public Camera GetCameraComponent() {
+		return playerCameraComponent;
 	}
 
 	private void CheckMoveInput() {

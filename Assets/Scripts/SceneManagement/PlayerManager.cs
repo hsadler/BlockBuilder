@@ -46,7 +46,7 @@ public class PlayerManager : MonoBehaviour
 			playerGO.GetComponent<PlayerControlScript>(),
 			playerGO.GetComponent<PlayerInventoryScript>()
 		);
-		player.controlScript.playerCameraComponent.gameObject.SetActive(true);
+		player.controlScript.GetCameraComponent().gameObject.SetActive(true);
 	}
 
     public void ActivatePlayer() {
