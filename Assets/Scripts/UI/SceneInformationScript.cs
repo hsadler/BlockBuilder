@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerInformationScript : MonoBehaviour
+public class SceneInformationScript : MonoBehaviour
 {
 
 
@@ -19,9 +19,10 @@ public class PlayerInformationScript : MonoBehaviour
 
 	void Update() {
 		GetComponent<Text>().text = string.Format(
-			"Player velocity magnitude: {0}\nSelected block: {1}",
+			"Player velocity: {0}\nSelected block: {1}\nBlock count: {2}",
 			Mathf.Round(playerRb.velocity.magnitude),
-			playerInventoryScript.currentSelected.name
+			playerInventoryScript.currentSelected.name,
+			BlockManager.instance.coordsToBlockDict.Count
 		);
 
 	}

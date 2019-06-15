@@ -10,6 +10,11 @@ public class StartMenuMenuScript : MonoBehaviour
         SceneManager.LoadScene("Main");
     }
 
+    public void NavToLoadGame() {
+        GameManagement.instance.startSceneFromLoad = true;
+        SceneManager.LoadScene("Main");
+    }
+
     public void QuitGame() {
         Application.Quit();
     }

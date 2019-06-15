@@ -4,10 +4,10 @@ TODO NEXT:
 
 	X move player gameobject and scripts inside Player class
 	X add player to scene at runtime with PlayerManager
-	- add load game from start-menu	
-	- cleanup save and load systems
-	- add more info to game-info UI:
-		- total blocks in scene
+	X add load game from start-menu	
+	X cleanup save and load systems
+	X add more info to game-info UI:
+		X total blocks in scene
 	- move ghost block instance inside player instance instead of global
 		block manager or its own manager
 	- move EnvironmentGeneration.CreateBlock() method to BlockManager
@@ -58,8 +58,8 @@ SYSTEMS TODO:
 REFACTORS TODO:
 
 	X create encapsulation class for block gameobjects and scripts
-	- move player gameobject and scripts inside Player class
-	- add player to scene at runtime with PlayerManager
+	X move player gameobject and scripts inside Player class
+	X add player to scene at runtime with PlayerManager
 	- move ghost block instance inside player instance instead of global
 		block manager or its own manager
 	- move EnvironmentGeneration.CreateBlock() method to BlockManager
@@ -73,11 +73,11 @@ CLEANUP/FIXES:
 	X fix block placement against blocks that are translating or rotating
 	X fix removal of power block from light block (light block should turn off)
 	X fix power block face down (doesn't power lower light block)
-	- add load game from start-menu
-	- add more info to game-info UI:
-		- total blocks in scene
+	X add load game from start-menu
+	X cleanup save and load systems
+	X add more info to game-info UI:
+		X total blocks in scene
 	- fix block evaluations regarding movement to query move-to space for vacancy
-	- cleanup save and load systems
 	- fix player-not-found bug in PlayerManager
 	- fix jumping when in grounded mode
 	- fix slowdown of player when not moving

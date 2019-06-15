@@ -23,8 +23,12 @@ public class EnvironmentGeneration : MonoBehaviour
 
 	// Use this for initialization
 	void Start () {
-		// GenerateTestCubeEnvironment();
-		GenerateFlatLandEnvironment();
+		if(GameManagement.instance.startSceneFromLoad) {
+			GameSaveManager.instance.LoadGameFromJsonFile();
+			GameManagement.instance.startSceneFromLoad = false;
+		} else {
+			GenerateFlatLandEnvironment();
+		}
 	}
 
 	private void GenerateTestCubeEnvironment() {
