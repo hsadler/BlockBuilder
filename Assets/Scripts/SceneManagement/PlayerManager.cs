@@ -24,7 +24,6 @@ public class PlayerManager : MonoBehaviour
 		// singleton pattern
 		if(instance == null) {
 			instance = this;
-			// DontDestroyOnLoad(gameObject);
 		} else {
 			Destroy(gameObject);
 		}

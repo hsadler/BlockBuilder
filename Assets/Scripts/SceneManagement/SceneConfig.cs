@@ -5,7 +5,7 @@ using UnityEngine;
 public class SceneConfig : MonoBehaviour
 {
 
-	// REGISTRY FOR GENERAL SCENE VARIABLES
+	// REGISTRY FOR SCENE CONFIG VARIABLES
 
 
 	public float tickDurationSeconds = 1.0f;
@@ -18,7 +18,6 @@ public class SceneConfig : MonoBehaviour
 		// singleton pattern
 		if(instance == null) {
 			instance = this;
-			// DontDestroyOnLoad(gameObject);
 		} else {
 			Destroy(gameObject);
 		}
