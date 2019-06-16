@@ -51,36 +51,7 @@ public class EnvironmentGeneration : MonoBehaviour
 		Vector3 dimensions,
 		Vector3 position
 	) {
-		// TODO
-	}
-
-	public Block CreateBlock(
-		GameObject blockPrefab,
-		Vector3 position,
-		Quaternion rotation
-	) {
-		// round position and rotation
-		position = Functions.RoundVector3ToDiscrete(position);
-		rotation = Functions.RoundQuaternionToDiscrete(rotation);
-		// create block from prefab and register on block manager
-		if(!BlockManager.instance.BlockExists(position)) {
-			GameObject newBlockGo = Instantiate(
-				blockPrefab,
-				position,
-				rotation,
-				BlockManager.instance.blocksContainer.transform
-			);
-			BaseBlockScript newBlockScript = newBlockGo.GetComponent<BaseBlockScript>();
-			Block newBlock = new Block(
-				newBlockGo, 
-				newBlockScript
-			);
-			newBlockScript.SetSelfBlock(newBlock);
-			BlockManager.instance.SetBlock(newBlock);
-			newBlockScript.OnPlacement();
-			return newBlock;
-		}
-		return null;
+		// TODO: implement stub
 	}
 
 	private void GenerateBlockChunk(
@@ -95,7 +66,7 @@ public class EnvironmentGeneration : MonoBehaviour
 			for (float j = position[1]; j < position[1] + depth; j++) {
 				for (float k = position[2]; k < position[2] + height; k++) {
 					Vector3 blockPosition = new Vector3(i, j, k);
-					CreateBlock(
+					BlockManager.instance.CreateBlock(
 						blockPrefab,
 						blockPosition,
 						Quaternion.Euler(Vector3.zero)

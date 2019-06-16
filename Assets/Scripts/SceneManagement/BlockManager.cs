@@ -129,6 +129,35 @@ public class BlockManager : MonoBehaviour
 		}
 	}
 
+	public Block CreateBlock(
+		GameObject blockPrefab,
+		Vector3 position,
+		Quaternion rotation
+	) {
+		// round position and rotation
+		position = Functions.RoundVector3ToDiscrete(position);
+		rotation = Functions.RoundQuaternionToDiscrete(rotation);
+		// create block from prefab and register on block manager
+		if(!BlockExists(position)) {
+			GameObject newBlockGO = Instantiate(
+				blockPrefab,
+				position,
+				rotation,
+				blocksContainer.transform
+			);
+			BaseBlockScript newBlockScript = newBlockGO.GetComponent<BaseBlockScript>();
+			Block newBlock = new Block(
+				newBlockGO, 
+				newBlockScript
+			);
+			newBlockScript.SetSelfBlock(newBlock);
+			SetBlock(newBlock);
+			newBlockScript.OnPlacement();
+			return newBlock;
+		}
+		return null;
+	}
+
 	public void ClearAllBlocks() {
 		foreach (Block b in GetBlocksAsList()) {
 			b.script.DestroyBlock();

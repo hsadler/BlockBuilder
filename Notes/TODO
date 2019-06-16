@@ -8,9 +8,9 @@ TODO NEXT:
 	X cleanup save and load systems
 	X add more info to game-info UI:
 		X total blocks in scene
+	X move EnvironmentGeneration.CreateBlock() method to BlockManager
 	- move ghost block instance inside player instance instead of global
 		block manager or its own manager
-	- move EnvironmentGeneration.CreateBlock() method to BlockManager
 	- fix block evaluations regarding movement to query move-to space for vacancy
 	- fix player-not-found bug in PlayerManager
 
@@ -60,9 +60,9 @@ REFACTORS TODO:
 	X create encapsulation class for block gameobjects and scripts
 	X move player gameobject and scripts inside Player class
 	X add player to scene at runtime with PlayerManager
+	X move EnvironmentGeneration.CreateBlock() method to BlockManager
 	- move ghost block instance inside player instance instead of global
 		block manager or its own manager
-	- move EnvironmentGeneration.CreateBlock() method to BlockManager
 
 
 CLEANUP/FIXES:

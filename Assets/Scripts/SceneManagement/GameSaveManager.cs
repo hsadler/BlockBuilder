@@ -94,7 +94,7 @@ public class GameSaveManager : MonoBehaviour
 				blockStruct.rotation.z
 			);
 			// create block from save data
-			EnvironmentGeneration.instance.CreateBlock(
+			BlockManager.instance.CreateBlock(
 				blockPrefab,
 				blockPosition,
 				Quaternion.Euler(blockRotation)

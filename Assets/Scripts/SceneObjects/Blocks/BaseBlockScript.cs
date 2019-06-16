@@ -185,7 +185,7 @@ public class BaseBlockScript : MonoBehaviour
 	}
 
 	public void AddNewBlockAsNeighbor(GameObject blockPrefab) {
-		EnvironmentGeneration.instance.CreateBlock(
+		BlockManager.instance.CreateBlock(
 			blockPrefab,
 			BlockManager.instance.ghostBlock.transform.position,
 			BlockManager.instance.ghostBlock.transform.rotation
