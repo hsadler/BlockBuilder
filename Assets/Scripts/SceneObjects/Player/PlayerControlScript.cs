@@ -118,7 +118,7 @@ public class PlayerControlScript : MonoBehaviour
 				);
 			}
 		} else {
-			BlockManager.instance.DeactivateGhostBlock();
+			PlayerManager.instance.player.inventoryScript.DeactivateGhostBlock();
 		}
 	}
 
@@ -137,7 +137,7 @@ public class PlayerControlScript : MonoBehaviour
 			direction = Vector3.up;
 		}
 		if(direction != Vector3.zero) {
-			BlockManager.instance.RotateGhostBlock(direction);
+			PlayerManager.instance.player.inventoryScript.RotateGhostBlock(direction);
 		}
 	}
 

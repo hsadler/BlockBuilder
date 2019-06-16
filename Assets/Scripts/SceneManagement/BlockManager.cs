@@ -12,9 +12,6 @@ public class BlockManager : MonoBehaviour
 
 	public IDictionary<string, Block> coordsToBlockDict = new Dictionary<string, Block>();
 	public GameObject blocksContainer;
-	public GameObject ghostBlock;
-	public float ghostBlockRotateDuration = 0.25f;
-
 
 	private bool evalRunning = false;
 
@@ -161,41 +158,6 @@ public class BlockManager : MonoBehaviour
 		foreach (Block b in GetBlocksAsList()) {
 			b.script.DestroyBlock();
 		}
-	}
-
-	// GHOST BLOCK METHODS
-
-	public void UpdateGhostBlockType(GameObject blockPrefab) {
-		Destroy(ghostBlock);
-		ghostBlock = Instantiate(
-			blockPrefab,
-			Vector3.zero,
-			transform.rotation,
-			blocksContainer.transform
-		);
-		ghostBlock.GetComponent<BaseBlockScript>().TransformToGhostBlock();
-	}
-
-	public void UpdateGhostBlockPosition(Vector3 position) {
-		ghostBlock.transform.position = position;
-	}
-
-	public void RotateGhostBlock(Vector3 direction) {
-		// TODO: rotates based on initial orientation, so not intuitive
-		// rotation should be done where origin is current orientation
-		if(ghostBlock.activeSelf) {
-			BaseBlockScript bs = ghostBlock.GetComponent<BaseBlockScript>();
-			Quaternion r = Quaternion.Euler(direction * 90.0f);
-			bs.RotateBlock(r, ghostBlockRotateDuration);
-		}
-	}
-
-	public void ActivateGhostBlock() {
-		ghostBlock.SetActive(true);
-	}
-
-	public void DeactivateGhostBlock() {
-		ghostBlock.SetActive(false);
 	}
 
 

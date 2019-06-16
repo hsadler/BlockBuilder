@@ -9,6 +9,8 @@ public class PlayerInventoryScript : MonoBehaviour
 
 
 	public GameObject currentSelected;
+	public GameObject ghostBlockGO;
+	public float ghostBlockRotateDuration = 0.25f;
 
 
 	void Start() {
@@ -23,8 +25,8 @@ public class PlayerInventoryScript : MonoBehaviour
 	private void InitInventorySelection() {
 		// set default block selection
 		currentSelected = BlockTypes.instance.testBlock;
-		BlockManager.instance.UpdateGhostBlockType(currentSelected);
-		BlockManager.instance.ActivateGhostBlock();
+		UpdateGhostBlockType(currentSelected);
+		ActivateGhostBlock();
 	}
 
 	private void CheckInventorySelection() {
@@ -53,8 +55,57 @@ public class PlayerInventoryScript : MonoBehaviour
 		}
 		// if inventory item was changed, update the current ghost block type
 		if(oldSelected != currentSelected) {
-			BlockManager.instance.UpdateGhostBlockType(currentSelected);
+			UpdateGhostBlockType(currentSelected);
 		}
 	}
+
+	// GHOST BLOCK METHODS
+
+	public void UpdateGhostBlockType(GameObject blockPrefab) {
+		Vector3 position = Vector3.zero;
+		Quaternion rotation = Quaternion.Euler(Vector3.zero);
+		if(ghostBlockGO != null) {
+			position = ghostBlockGO.transform.position;
+			rotation = ghostBlockGO.transform.rotation;
+		}
+		Destroy(ghostBlockGO);
+		ghostBlockGO = Instantiate(
+			blockPrefab,
+			position,
+			rotation,
+			BlockManager.instance.blocksContainer.transform
+		);
+		ghostBlockGO.GetComponent<BaseBlockScript>().TransformToGhostBlock();
+	}
+
+	public void UpdateGhostBlockPosition(Vector3 position) {
+		ghostBlockGO.transform.position = position;
+	}
+
+	public void RotateGhostBlock(Vector3 direction) {
+		// TODO: rotates based on initial orientation, so not intuitive
+		// rotation should be done where origin is current orientation
+		if(ghostBlockGO.activeSelf) {
+			BaseBlockScript bs = ghostBlockGO.GetComponent<BaseBlockScript>();
+			Quaternion r = Quaternion.Euler(direction * 90.0f);
+			bs.RotateBlock(r, ghostBlockRotateDuration);
+		}
+	}
+
+	public void ActivateGhostBlock() {
+		ghostBlockGO.SetActive(true);
+		// fix position and rotation to be discrete
+		ghostBlockGO.transform.position = Functions.RoundVector3ToDiscrete(
+			ghostBlockGO.transform.position
+		);
+		ghostBlockGO.transform.rotation = Functions.RoundQuaternionToDiscrete(
+			ghostBlockGO.transform.rotation
+		);
+	}
+
+	public void DeactivateGhostBlock() {
+		ghostBlockGO.SetActive(false);
+	}
+
 
 }

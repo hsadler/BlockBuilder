@@ -9,8 +9,7 @@ TODO NEXT:
 	X add more info to game-info UI:
 		X total blocks in scene
 	X move EnvironmentGeneration.CreateBlock() method to BlockManager
-	- move ghost block instance inside player instance instead of global
-		block manager or its own manager
+	X move GhostBlock inside PlayerInventory instead of BlockManager
 	- fix block evaluations regarding movement to query move-to space for vacancy
 	- fix player-not-found bug in PlayerManager
 
@@ -61,8 +60,8 @@ REFACTORS TODO:
 	X move player gameobject and scripts inside Player class
 	X add player to scene at runtime with PlayerManager
 	X move EnvironmentGeneration.CreateBlock() method to BlockManager
-	- move ghost block instance inside player instance instead of global
-		block manager or its own manager
+	X move GhostBlock inside PlayerInventory instead of BlockManager
+
 
 
 CLEANUP/FIXES:
@@ -86,6 +85,7 @@ CLEANUP/FIXES:
 
 
 OPTIMIZATIONS:
+	
 	X mark blocks that have had mutations so that only those have calculations
 		done per evaluation tick
 	X do block evaluation processes on a coroutine, and the mutation commits

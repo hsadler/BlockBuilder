@@ -185,10 +185,11 @@ public class BaseBlockScript : MonoBehaviour
 	}
 
 	public void AddNewBlockAsNeighbor(GameObject blockPrefab) {
+		Player p = PlayerManager.instance.player;
 		BlockManager.instance.CreateBlock(
 			blockPrefab,
-			BlockManager.instance.ghostBlock.transform.position,
-			BlockManager.instance.ghostBlock.transform.rotation
+			p.inventoryScript.ghostBlockGO.transform.position,
+			p.inventoryScript.ghostBlockGO.transform.rotation
 		);
 	}
 
@@ -196,8 +197,9 @@ public class BaseBlockScript : MonoBehaviour
 
 	private void SetGhostBlockAsNeighbor(Vector3 direction) {
 		Vector3 ghostBlockPosition = transform.position + direction;
-		BlockManager.instance.UpdateGhostBlockPosition(ghostBlockPosition);
-		BlockManager.instance.ActivateGhostBlock();
+		Player p = PlayerManager.instance.player;
+		p.inventoryScript.UpdateGhostBlockPosition(ghostBlockPosition);
+		p.inventoryScript.ActivateGhostBlock();
 	}
 
 	public void TransformToGhostBlock() {
