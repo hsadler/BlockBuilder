@@ -4,7 +4,7 @@ TODO NEXT:
 
 	X move player gameobject and scripts inside Player class
 	X add player to scene at runtime with PlayerManager
-	X add load game from start-menu	
+	X add load game from start-menu
 	X cleanup save and load systems
 	X add more info to game-info UI:
 		X total blocks in scene
@@ -41,7 +41,6 @@ GAMEPLAY TODO:
 	X ability to load saved game
 	- flying mode for player
 	- player sprint mode
-	- rendering optimizations
 
 
 SYSTEMS TODO:
@@ -82,10 +81,11 @@ CLEANUP/FIXES:
 	- fix slowdown of player when not moving
 	- fix camera pan jittering while moving
 	- fix ghost block orientation control to be more intuitive
+	- fix blocks flush against each other visual bug
 
 
 OPTIMIZATIONS:
-	
+
 	X mark blocks that have had mutations so that only those have calculations
 		done per evaluation tick
 	X do block evaluation processes on a coroutine, and the mutation commits

@@ -5,14 +5,14 @@ using UnityEngine;
 public class BaseBlockScript : MonoBehaviour
 {
 
-	
+
 	public string blockType;
 
 	public Block selfBlock;
 	public BlockState blockState;
 	public BlockStateMutation blockStateMutation;
 	public float ghostBlockColorAlpha = 0.5f;
-	
+
 	// CODE EXAMPLE: how to handle instance variable overrides
 	// (fields exposed via properties)
 	// overridden by subclasses

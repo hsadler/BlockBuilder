@@ -59,16 +59,20 @@ public class BlockManager : MonoBehaviour
 
 	private void AsyncBlockEval() {
 		evalRunning = true;
-		List<Block> blocks = new List<Block>(coordsToBlockDict.Values);
-		foreach (Block block in blocks) {
+		List<Block> blockList = GetBlocksAsList();
+		foreach (Block block in blockList) {
 			block.script.EvaluateAtTick();
 		}
+		// TODO: implement stateMutation post-processing/pre-commit
+		// foreach (Block block in blockList) {
+		// 	Vector3 moveVector =
+		// 		block.script.blockStateMutation.GetCombinedMoveVectors();
+		// }
 		evalRunning = false;
 	}
 
 	private void CommitBlockMutations() {
-		List<Block> blocks = new List<Block>(coordsToBlockDict.Values);
-		foreach (Block block in blocks) {
+		foreach (Block block in GetBlocksAsList()) {
 			block.script.CommitMutationsAtTick();
 		}
 	}
@@ -143,7 +147,7 @@ public class BlockManager : MonoBehaviour
 			);
 			BaseBlockScript newBlockScript = newBlockGO.GetComponent<BaseBlockScript>();
 			Block newBlock = new Block(
-				newBlockGO, 
+				newBlockGO,
 				newBlockScript
 			);
 			newBlockScript.SetSelfBlock(newBlock);

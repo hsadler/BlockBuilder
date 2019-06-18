@@ -1,0 +1,7 @@
+
+BLOCK TRANSLATION RULES
+
+1. blocks can translate a maximum of 1 unit distance per tick
+2. space must be vacant in order for a block to move into it
+3. TODO: multiple blocks fighting over space???
+4. TODO: diagonal movement??? allow? how to keep discrete?
