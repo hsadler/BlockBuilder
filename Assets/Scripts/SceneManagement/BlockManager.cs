@@ -47,8 +47,7 @@ public class BlockManager : MonoBehaviour
 	private void BlockTickEval() {
 		if(!evalRunning) {
 			// commit the mutations from the last evaluation
-			CommitBlockMutations();
-			// CODE EXAMPLE: multithreading
+			CommitBlockMutationsToUI();
 			// do async block mutation evaluations
 			Thread workerThread = new Thread(AsyncBlockEval);
 			workerThread.Start();
@@ -58,22 +57,24 @@ public class BlockManager : MonoBehaviour
 	}
 
 	private void AsyncBlockEval() {
+		// TODO: WORKING ON BLOCK STATE CHANGES HERE...
 		evalRunning = true;
 		List<Block> blockList = GetBlocksAsList();
 		foreach (Block block in blockList) {
-			block.script.EvaluateAtTick();
+			block.script.AsyncEvalInteractions();
 		}
-		// TODO: implement stateMutation post-processing/pre-commit
-		// foreach (Block block in blockList) {
-		// 	Vector3 moveVector =
-		// 		block.script.blockStateMutation.GetCombinedMoveVectors();
-		// }
+		foreach (Block block in blockList) {
+			block.script.AsyncValidateMutations();
+		}
+		foreach (Block block in blockList) {
+			block.script.AsyncCommitMutations();
+		}
 		evalRunning = false;
 	}
 
-	private void CommitBlockMutations() {
+	private void CommitBlockMutationsToUI() {
 		foreach (Block block in GetBlocksAsList()) {
-			block.script.CommitMutationsAtTick();
+			block.script.CommitBlockStateToUI();
 		}
 	}
 

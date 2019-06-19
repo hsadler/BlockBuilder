@@ -18,7 +18,7 @@ public class ConveyorBlockScript : BaseBlockScript
 		base.Start();
 	}
 
-	public override void EvaluateAtTick() {
+	public override void AsyncEvalInteractions() {
 		EvalMoveNeighbor(Vector3.up, Vector3.forward);
 	}
 

@@ -18,7 +18,7 @@ public class RotatorBlockScript : BaseBlockScript
 		base.Start();
 	}
 
-	public override void EvaluateAtTick() {
+	public override void AsyncEvalInteractions() {
 		Vector3 localAxis = Vector3.up;
 		Quaternion r = Quaternion.Euler(localAxis * degreesPerTick);
 		blockStateMutation.AddRotation(r);

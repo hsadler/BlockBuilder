@@ -15,7 +15,7 @@ public class PowerBlockScript : BaseBlockScript
 		base.Start();
 	}
 
-	public override void EvaluateAtTick() {
+	public override void AsyncEvalInteractions() {
 		EvalPowerForwardConnectedBlock();
 	}
 

@@ -19,7 +19,7 @@ public class MoverBlockScript : BaseBlockScript
 		base.Start();
 	}
 
-	public override void EvaluateAtTick() {
+	public override void AsyncEvalInteractions() {
 		Vector3 moveVector = (blockState.rotation * moveDirection) * distancePerTick;
 		blockStateMutation.AddMoveVector(moveVector);
 	}

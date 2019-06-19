@@ -28,7 +28,7 @@ public class LightBlockScript : BaseBlockScript
 		SetAllMaterialColorAlphas(colorAlpha);
 	}
 
-	public override void EvaluateAtTick() {}
+	public override void AsyncEvalInteractions() {}
 
 	public override void PlayerFKeyInteraction(PlayerToBlockMessage message) {
 		base.PlayerFKeyInteraction(message);

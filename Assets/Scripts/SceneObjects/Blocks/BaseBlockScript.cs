@@ -10,6 +10,8 @@ public class BaseBlockScript : MonoBehaviour
 
 	public Block selfBlock;
 	public BlockState blockState;
+	public BlockState onDeckBlockState;
+	public BlockState lastBlockState;
 	public BlockStateMutation blockStateMutation;
 	public float ghostBlockColorAlpha = 0.5f;
 
@@ -39,6 +41,8 @@ public class BaseBlockScript : MonoBehaviour
 	public void Awake() {
 		blockType = BlockTypes.instance.BASE_BLOCK;
 		blockState = new BlockState(transform.position, transform.rotation);
+		onDeckBlockState = new BlockState(transform.position, transform.rotation);
+		lastBlockState = new BlockState(transform.position, transform.rotation);
 		blockStateMutation = new BlockStateMutation();
 	}
 
@@ -50,16 +54,41 @@ public class BaseBlockScript : MonoBehaviour
 
 	// overridden by subclasses
 	public virtual void OnPlacement() {}
-	public virtual void EvaluateAtTick() {}
+	public virtual void AsyncEvalInteractions() {}
 	public virtual void PowerOn() {}
 	public virtual void PowerOff() {}
 
-	public void CommitMutationsAtTick() {
+	public void AsyncValidateMutations() {
+		Vector3 moveVector = blockStateMutation.GetCombinedMoveVectors();
+		// TODO: THIS CLAMP IS NOT GOING TO WORK SINCE DIAGONAL MOVEMENTS RESULT IN NON-DISCRETE POSITIONS
+		// TODO: THIS IS WORKING FOR TRANSLATIONS (MOVES), APPLY TO OTHER MUTATIONS
+		// limit move length to 1
+		moveVector = Vector3.ClampMagnitude(moveVector, 1);
+		Vector3 newPosition = blockState.position + moveVector;
+		if(!BlockManager.instance.BlockExists(newPosition)) {
+			// update block state to be committed
+			onDeckBlockState.position = newPosition;
+		}
+	}
+
+	public void AsyncCommitMutations() {
+		// TODO: THIS IS WORKING FOR TRANSLATIONS (MOVES), APPLY TO OTHER MUTATIONS
+		bool unsetStatus = BlockManager.instance.UnsetBlock(selfBlock);
+		if(unsetStatus) {
+			blockState.position = onDeckBlockState.position;
+			BlockManager.instance.SetBlock(selfBlock);
+		}
+	}
+
+	public void CommitBlockStateToUI() {
+		// TODO: THIS IS WORKING FOR TRANSLATIONS (MOVES), APPLY TO OTHER MUTATIONS
 		if(blockStateMutation.dirty || AcceptsPower) {
 			MoveBlock(
-				blockStateMutation.GetCombinedMoveVectors(),
+				lastBlockState.position,
+				blockState.position,
 				SceneConfig.instance.tickDurationSeconds
 			);
+			lastBlockState.position = blockState.position;
 			RotateBlock(
 				blockStateMutation.GetCombinedRotations(),
 				SceneConfig.instance.tickDurationSeconds
@@ -74,40 +103,23 @@ public class BaseBlockScript : MonoBehaviour
 	}
 
 	public void MoveBlock(
-		Vector3 moveVector,
+		Vector3 startPosition,
+		Vector3 endPosition,
 		float duration
 	) {
-		BlockManager bm = BlockManager.instance;
-		// make sure we start at discrete position
-		transform.position = blockState.position;
-		// calculate what position to move to
-		Vector3 newPosition = blockState.position + moveVector;
-		// print("curr Pos: " + transform.position.ToString());
-		// print("new Pos: " + newPosition.ToString());
-		if(!bm.BlockExists(newPosition)) {
-			// attempt to unset block on manager
-			bool unsetStatus = bm.UnsetBlock(selfBlock);
-			if(unsetStatus) {
-				blockState.position = newPosition;
-				// set block on manager
-				bm.SetBlock(selfBlock);
-				// stop previous coroutine
-				if(moveCoroutine != null) {
-					StopCoroutine(moveCoroutine);
-				}
-				// lerp move with new coroutine
-				moveCoroutine = StartCoroutine(
-					MoveBlockOverTime(
-						transform.position,
-						newPosition,
-						duration
-					)
-				);
-			} else {
-				Debug.Log("unable to unset block at position: " +
-					blockState.position.ToString());
-			}
+		transform.position = startPosition;
+		// stop previous coroutine
+		if(moveCoroutine != null) {
+			StopCoroutine(moveCoroutine);
 		}
+		// lerp move with new coroutine
+		moveCoroutine = StartCoroutine(
+			MoveBlockOverTime(
+				startPosition,
+				endPosition,
+				duration
+			)
+		);
 	}
 
 	private IEnumerator MoveBlockOverTime(
