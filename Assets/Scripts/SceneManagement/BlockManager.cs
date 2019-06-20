@@ -57,7 +57,6 @@ public class BlockManager : MonoBehaviour
 	}
 
 	private void AsyncBlockEval() {
-		// TODO: WORKING ON BLOCK STATE CHANGES HERE...
 		evalRunning = true;
 		List<Block> blockList = GetBlocksAsList();
 		foreach (Block block in blockList) {

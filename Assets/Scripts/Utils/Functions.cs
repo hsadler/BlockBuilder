@@ -21,4 +21,11 @@ public class Functions
 		return q;
 	}
 
+	public static Vector3 ApplyBoundsToVector3(Vector3 v, int min, int max) {
+		v.x = Mathf.Round(Mathf.Clamp(v.x, min, max));
+		v.y = Mathf.Round(Mathf.Clamp(v.y, min, max));
+		v.z = Mathf.Round(Mathf.Clamp(v.z, min, max));
+		return v;	
+	}
+
 }

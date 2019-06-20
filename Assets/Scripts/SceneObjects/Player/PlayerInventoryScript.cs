@@ -86,9 +86,13 @@ public class PlayerInventoryScript : MonoBehaviour
 		// TODO: rotates based on initial orientation, so not intuitive
 		// rotation should be done where origin is current orientation
 		if(ghostBlockGO.activeSelf) {
-			BaseBlockScript bs = ghostBlockGO.GetComponent<BaseBlockScript>();
-			Quaternion r = Quaternion.Euler(direction * 90.0f);
-			bs.RotateBlock(r, ghostBlockRotateDuration);
+			Quaternion addRotation = Quaternion.Euler(direction * 90.0f);
+			Quaternion newRotation = ghostBlockGO.transform.rotation * addRotation;
+			ghostBlockGO.GetComponent<BaseBlockScript>().RotateBlock(
+				ghostBlockGO.transform.rotation, 
+				newRotation, 
+				ghostBlockRotateDuration
+			);
 		}
 	}
 

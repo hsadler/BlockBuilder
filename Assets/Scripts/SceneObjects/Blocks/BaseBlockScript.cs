@@ -15,8 +15,6 @@ public class BaseBlockScript : MonoBehaviour
 	public BlockStateMutation blockStateMutation;
 	public float ghostBlockColorAlpha = 0.5f;
 
-	// CODE EXAMPLE: how to handle instance variable overrides
-	// (fields exposed via properties)
 	// overridden by subclasses
 	private bool acceptsPower = false;
 	public virtual bool AcceptsPower { get { return acceptsPower; } }
@@ -58,30 +56,35 @@ public class BaseBlockScript : MonoBehaviour
 	public virtual void PowerOn() {}
 	public virtual void PowerOff() {}
 
+	// currently handles position and rotation
 	public void AsyncValidateMutations() {
+		// handle move mutation
 		Vector3 moveVector = blockStateMutation.GetCombinedMoveVectors();
-		// TODO: THIS CLAMP IS NOT GOING TO WORK SINCE DIAGONAL MOVEMENTS RESULT IN NON-DISCRETE POSITIONS
-		// TODO: THIS IS WORKING FOR TRANSLATIONS (MOVES), APPLY TO OTHER MUTATIONS
 		// limit move length to 1
-		moveVector = Vector3.ClampMagnitude(moveVector, 1);
+		moveVector = Functions.ApplyBoundsToVector3(moveVector, -1, 1);
 		Vector3 newPosition = blockState.position + moveVector;
+		// is the new position vacant?
 		if(!BlockManager.instance.BlockExists(newPosition)) {
 			// update block state to be committed
 			onDeckBlockState.position = newPosition;
 		}
+		// handle rotation mutation
+		Quaternion newRotation = blockState.rotation * blockStateMutation.GetCombinedRotations();
+		onDeckBlockState.rotation = newRotation;
 	}
 
+	// currently handles position and rotation
 	public void AsyncCommitMutations() {
-		// TODO: THIS IS WORKING FOR TRANSLATIONS (MOVES), APPLY TO OTHER MUTATIONS
+		// unset on Block Manager dictionary
 		bool unsetStatus = BlockManager.instance.UnsetBlock(selfBlock);
 		if(unsetStatus) {
 			blockState.position = onDeckBlockState.position;
 			BlockManager.instance.SetBlock(selfBlock);
 		}
+		blockState.rotation = onDeckBlockState.rotation;
 	}
 
 	public void CommitBlockStateToUI() {
-		// TODO: THIS IS WORKING FOR TRANSLATIONS (MOVES), APPLY TO OTHER MUTATIONS
 		if(blockStateMutation.dirty || AcceptsPower) {
 			MoveBlock(
 				lastBlockState.position,
@@ -90,9 +93,11 @@ public class BaseBlockScript : MonoBehaviour
 			);
 			lastBlockState.position = blockState.position;
 			RotateBlock(
-				blockStateMutation.GetCombinedRotations(),
+				lastBlockState.rotation,
+				blockState.rotation,
 				SceneConfig.instance.tickDurationSeconds
 			);
+			lastBlockState.rotation = blockState.rotation;
 			if(blockStateMutation.power > 0) {
 				PowerOn();
 			} else {
@@ -136,27 +141,24 @@ public class BaseBlockScript : MonoBehaviour
 				endPosition,
 				timeCounter / duration
 			);
-			// print("setting new lerp position: " + newLerpPos.ToString());
 			transform.position = newLerpPos;
 			yield return null;
 		}
 	}
 
-	public void RotateBlock(Quaternion addRotation, float duration) {
-		// make sure we start at discrete rotation
-		transform.rotation = blockState.rotation;
-		// calculate what rotation to rotate to
-		Quaternion newRotation = blockState.rotation * addRotation;
-		// print("curr Rotation: " + transform.rotation.eulerAngles.ToString());
-		// print("new Rotation: " + newRotation.eulerAngles.ToString());
-		blockState.rotation = newRotation;
+	public void RotateBlock(
+		Quaternion startRotation, 
+		Quaternion endRotation, 
+		float duration
+	) {
+		transform.rotation = startRotation;
 		if(rotateCoroutine != null) {
 			StopCoroutine(rotateCoroutine);
 		}
 		rotateCoroutine = StartCoroutine(
 			RotateBlockOverTime(
-				transform.rotation,
-				newRotation,
+				startRotation,
+				endRotation,
 				duration
 			)
 		);
@@ -176,8 +178,6 @@ public class BaseBlockScript : MonoBehaviour
 				endRotation,
 				timeCounter / duration
 			);
-			// print("setting new lerp rotation: " +
-			// 	newLerpQuaternion.eulerAngles.ToString());
 			transform.rotation = newLerpQuaternion;
 			yield return null;
 		}
