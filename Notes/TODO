@@ -11,7 +11,11 @@ TODO NEXT:
 	X move EnvironmentGeneration.CreateBlock() method to BlockManager
 	X move GhostBlock inside PlayerInventory instead of BlockManager
 	X fix block evaluations regarding movement to query move-to space for vacancy
-	- fix blocks flush against each other visual bug
+	X fix blocks flush against each other visual bug
+	- fix ghost block orientation control to be more intuitive
+	- fix camera pan jittering while moving
+	- fix jumping when in grounded mode
+	- fix slowdown of player when not moving
 	- fix player-not-found bug in PlayerManager
 
 
@@ -77,12 +81,12 @@ CLEANUP/FIXES:
 	X add more info to game-info UI:
 		X total blocks in scene
 	X fix block evaluations regarding movement to query move-to space for vacancy
-	- fix blocks flush against each other visual bug
-	- fix player-not-found bug in PlayerManager
+	X fix blocks flush against each other visual bug
+	- fix ghost block orientation control to be more intuitive
+	- fix camera pan jittering while moving
 	- fix jumping when in grounded mode
 	- fix slowdown of player when not moving
-	- fix camera pan jittering while moving
-	- fix ghost block orientation control to be more intuitive
+	- fix player-not-found bug in PlayerManager
 
 
 OPTIMIZATIONS:

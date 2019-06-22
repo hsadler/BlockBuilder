@@ -7,14 +7,15 @@ public class BaseBlockScript : MonoBehaviour
 
 
 	public string blockType;
-
 	public Block selfBlock;
 	public BlockState blockState;
 	public BlockState onDeckBlockState;
 	public BlockState lastBlockState;
 	public BlockStateMutation blockStateMutation;
 	public float ghostBlockColorAlpha = 0.5f;
+	public Material fadeMaterial;
 
+	
 	// overridden by subclasses
 	private bool acceptsPower = false;
 	public virtual bool AcceptsPower { get { return acceptsPower; } }
@@ -216,7 +217,18 @@ public class BaseBlockScript : MonoBehaviour
 
 	public void TransformToGhostBlock() {
 		DisableAllColliders();
-		SetAllMaterialColorAlphas(ghostBlockColorAlpha);
+
+		// TODO: WORKING HERE....................................
+		
+		// OLD:
+		// SetAllMaterialColorAlphas(ghostBlockColorAlpha);
+
+		// NEW:
+		Renderer r = GetComponent<Renderer>();
+		r.material = fadeMaterial;
+		Color c = r.material.color;
+		c.a = ghostBlockColorAlpha;
+		r.material.color = c;
 	}
 
 	// PLAYER INTERACTION METHODS

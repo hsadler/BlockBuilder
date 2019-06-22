@@ -17,6 +17,7 @@ public class BlockTypes : MonoBehaviour
 	public string LIGHT_BLOCK = "light_block";
 	public string CONVEYOR_BLOCK = "conveyor_block";
 	public string POWER_BLOCK = "power_block";
+	public string SCRATCH_BLOCK = "scratch_block";
 
 
 	public GameObject baseBlock;
@@ -28,6 +29,8 @@ public class BlockTypes : MonoBehaviour
 	public GameObject lightBlock;
 	public GameObject conveyorBlock;
 	public GameObject powerBlock;
+	public GameObject scratchBlock;
+
 
 	public IDictionary<string, GameObject> blockTypeToGameObject = new Dictionary<string, GameObject>();
 
@@ -55,6 +58,7 @@ public class BlockTypes : MonoBehaviour
 		blockTypeToGameObject.Add(LIGHT_BLOCK, lightBlock);
 		blockTypeToGameObject.Add(CONVEYOR_BLOCK, conveyorBlock);
 		blockTypeToGameObject.Add(POWER_BLOCK, powerBlock);
+		blockTypeToGameObject.Add(SCRATCH_BLOCK, scratchBlock);
 	}
 
 	public GameObject GetBlockGameObjectFromType(string type) {
