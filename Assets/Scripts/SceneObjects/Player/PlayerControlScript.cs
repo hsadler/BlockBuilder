@@ -15,7 +15,6 @@ public class PlayerControlScript : MonoBehaviour
 
 
 	private Transform playerHeadTransform;
-	private Transform playerCameraTransform;
 	private Camera playerCameraComponent;
 
 
@@ -24,8 +23,7 @@ public class PlayerControlScript : MonoBehaviour
 		ActivatePlayer();
 		// set references to body parts for movement
 		playerHeadTransform = transform.Find("Head");
-		playerCameraTransform = transform.Find("Head/PlayerCamera");
-		playerCameraComponent = playerCameraTransform.GetComponent<Camera>();
+		playerCameraComponent = transform.Find("Head/PlayerCamera").GetComponent<Camera>();
 	}
 
 	void Update() {

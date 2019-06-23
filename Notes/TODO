@@ -12,10 +12,10 @@ TODO NEXT:
 	X move GhostBlock inside PlayerInventory instead of BlockManager
 	X fix block evaluations regarding movement to query move-to space for vacancy
 	X fix blocks flush against each other visual bug
-	- fix ghost block orientation control to be more intuitive
 	- fix camera pan jittering while moving
 	- fix jumping when in grounded mode
 	- fix slowdown of player when not moving
+	- fix ghost block orientation control to be more intuitive
 	- fix player-not-found bug in PlayerManager
 
 
