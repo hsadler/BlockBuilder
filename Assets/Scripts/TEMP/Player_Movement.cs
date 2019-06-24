@@ -21,9 +21,7 @@ public class Player_Movement : MonoBehaviour {
 		Vector3 movement = new Vector3 (deltaX, 0, deltaZ);
         // Limits the max speed of the player
 		movement = Vector3.ClampMagnitude (movement, speed); 
-
         movement.y = gravity;
-        
         // Ensures the speed the player moves does not change based on frame rate
 		movement *= Time.deltaTime;		
 		movement = transform.TransformDirection(movement);

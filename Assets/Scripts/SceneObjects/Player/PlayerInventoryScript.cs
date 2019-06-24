@@ -12,6 +12,8 @@ public class PlayerInventoryScript : MonoBehaviour
 	public GameObject ghostBlockGO;
 	public float ghostBlockRotateDuration = 0.25f;
 
+    private Player selfPlayer;
+
 
 	void Start() {
 		// do initializations
@@ -20,6 +22,10 @@ public class PlayerInventoryScript : MonoBehaviour
 
 	void Update() {
 		CheckInventorySelection();
+	}
+
+	public void SetSelfPlayer(Player player) {
+		selfPlayer = player;
 	}
 
 	private void InitInventorySelection() {

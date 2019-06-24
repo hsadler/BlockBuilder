@@ -12,9 +12,11 @@ TODO NEXT:
 	X move GhostBlock inside PlayerInventory instead of BlockManager
 	X fix block evaluations regarding movement to query move-to space for vacancy
 	X fix blocks flush against each other visual bug
-	- fix camera pan jittering while moving
-	- fix jumping when in grounded mode
-	- fix slowdown of player when not moving
+	X fix camera pan jittering while moving
+	X fix slowdown of player when not moving
+	- fix block removal async thread bug
+	- fix jumping
+	- fix player move controls to be separated from block orientation control
 	- fix ghost block orientation control to be more intuitive
 	- fix player-not-found bug in PlayerManager
 
@@ -82,10 +84,12 @@ CLEANUP/FIXES:
 		X total blocks in scene
 	X fix block evaluations regarding movement to query move-to space for vacancy
 	X fix blocks flush against each other visual bug
+	X fix camera pan jittering while moving
+	X fix slowdown of player when not moving
+	- fix block removal async thread bug
+	- fix jumping
+	- fix player move controls to be separated from block orientation control
 	- fix ghost block orientation control to be more intuitive
-	- fix camera pan jittering while moving
-	- fix jumping when in grounded mode
-	- fix slowdown of player when not moving
 	- fix player-not-found bug in PlayerManager
 
 

@@ -122,6 +122,7 @@ public class BlockManager : MonoBehaviour
 			coordsToBlockDict.Remove(formattedCoords);
 			return true;
 		} else {
+			// BUG TODO: BUG HERE WHEN REMOVING BLOCKS DURING ASYNC CALCULATIONS
 			string formattedCoords = GetFormattedCoordinateFromBlockState(bs);
 			Debug.Log("Unable to unset block at formatted coordinates: " + formattedCoords);
 			Debug.Log("CoordsToBlockDict: " + coordsToBlockDict.ToString());

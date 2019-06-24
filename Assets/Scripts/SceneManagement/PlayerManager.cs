@@ -42,20 +42,25 @@ public class PlayerManager : MonoBehaviour
 		);
 		player = new Player(
 			playerGO,
-			playerGO.GetComponent<PlayerControlScript>(),
-			playerGO.GetComponent<PlayerInventoryScript>()
+			playerGO.GetComponent<PlayerMovementScript>(),
+			playerGO.GetComponent<PlayerLookScript>(),
+			playerGO.GetComponent<PlayerInventoryScript>(),
+			playerGO.GetComponent<PlayerBlockInteractionScript>()
+
 		);
-		player.controlScript.GetCameraComponent().gameObject.SetActive(true);
+		playerGO.transform.Find("PlayerCamera").gameObject.SetActive(true);
 	}
 
     public void ActivatePlayer() {
-		player.controlScript.ActivatePlayer();
+		player.playerActive = true;
 		playerReticle.SetActive(true);
+		Cursor.visible = true;
 	}
 
     public void DeactivatePlayer() {
-		player.controlScript.DeactivatePlayer();
+		player.playerActive = false;		
 		playerReticle.SetActive(false);
+		Cursor.visible = false;
 	}
 
 }
