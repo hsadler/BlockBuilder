@@ -63,16 +63,16 @@ public class PlayerBlockInteractionScript : MonoBehaviour
     
     private void CheckGhostBlockInput() {
 		Vector3 direction = Vector3.zero;
-		if(Input.GetKeyDown(KeyCode.UpArrow)) {
+		if(Input.GetKeyDown(KeyCode.X)) {
 			direction = Vector3.right;
 		}
-		if(Input.GetKeyDown(KeyCode.DownArrow)) {
+		if(Input.GetKeyDown(KeyCode.Z)) {
 			direction = Vector3.left;
 		}
-		if(Input.GetKeyDown(KeyCode.LeftArrow)) {
+		if(Input.GetKeyDown(KeyCode.Q)) {
 			direction = Vector3.down;
 		}
-		if(Input.GetKeyDown(KeyCode.RightArrow)) {
+		if(Input.GetKeyDown(KeyCode.E)) {
 			direction = Vector3.up;
 		}
 		if(direction != Vector3.zero) {

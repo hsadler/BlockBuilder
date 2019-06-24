@@ -20,26 +20,6 @@ public class PlayerMovementScript : MonoBehaviour
 	}
 	
 	void Update() {
-		// OLD:
-		// arrow keys
-		// if(Input.GetKey(KeyCode.W)) {
-		// 	rb.AddForce(transform.forward * thrust);
-		// }
-		// if(Input.GetKey(KeyCode.S)) {
-		// 	rb.AddForce(transform.forward * -thrust);
-		// }
-		// if(Input.GetKey(KeyCode.D)) {
-		// 	rb.AddForce(transform.right * thrust);
-		// }
-		// if(Input.GetKey(KeyCode.A)) {
-		// 	rb.AddForce(transform.right * -thrust);
-		// }
-		// // jump pack
-		// if(Input.GetKey(KeyCode.Space)) {
-		// 	rb.AddForce(transform.up * thrust);
-		// }
-
-		// NEW:
 		float deltaX = Input.GetAxis("Horizontal") * speed;
 		float deltaZ = Input.GetAxis("Vertical") * speed;
 		Vector3 movement = new Vector3 (deltaX, 0, deltaZ);

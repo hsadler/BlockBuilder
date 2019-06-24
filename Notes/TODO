@@ -15,10 +15,10 @@ TODO NEXT:
 	X fix camera pan jittering while moving
 	X fix slowdown of player when not moving
 	X fix mouse hide/show
+	X fix player move controls to be separated from block orientation control
 	- fix jumping
 	- dial-in player speed/movement
 	- fix block removal async thread bug
-	- fix player move controls to be separated from block orientation control
 	- fix ghost block orientation control to be more intuitive
 	- fix player-not-found bug in PlayerManager
 
@@ -88,11 +88,11 @@ CLEANUP/FIXES:
 	X fix blocks flush against each other visual bug
 	X fix camera pan jittering while moving
 	X fix slowdown of player when not moving
-	- fix mouse hide/show
+	X fix mouse hide/show
+	X fix player move controls to be separated from block orientation control
 	- fix jumping
 	- dial-in player speed/movement
 	- fix block removal async thread bug
-	- fix player move controls to be separated from block orientation control
 	- fix ghost block orientation control to be more intuitive
 	- fix player-not-found bug in PlayerManager
 
