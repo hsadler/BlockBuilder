@@ -15,8 +15,8 @@ public class PlayerLookScript : MonoBehaviour
 
 	public RotationAxis axes = RotationAxis.MouseX;
 
-	public float minimumVert = -45.0f;
-	public float maximumVert = 45.0f;
+	public float minimumVert = -85.0f;
+	public float maximumVert = 85.0f;
 
 	public float sensHorizontal = 10.0f;
 	public float sensVertical = 10.0f;

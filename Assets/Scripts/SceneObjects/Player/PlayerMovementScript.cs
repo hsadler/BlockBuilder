@@ -8,32 +8,50 @@ public class PlayerMovementScript : MonoBehaviour
     // TAKEN FROM: https://drive.google.com/drive/folders/0B6SCkaV_VaTyaG1DZ2phOU1Yekk
     
 
-	public float speed = 4.0f;
-	public float gravity = -9.8f;
-
+	public float moveSpeed = 10.0f;
+    public float jumpSpeed = 4.0f;
+	public float gravity = 9.8f;
+	public float terminalVelocity = 100f;
+    
+	private Player _selfPlayer;
 	private CharacterController _charCont;
-    private Player selfPlayer;
+	private Rigidbody _rb;
+	private Vector3 _moveDirection = Vector3.zero;
 
 
 	void Start() {
 		_charCont = GetComponent<CharacterController>();
+		_rb = GetComponent<Rigidbody>();
 	}
 	
 	void Update() {
-		float deltaX = Input.GetAxis("Horizontal") * speed;
-		float deltaZ = Input.GetAxis("Vertical") * speed;
-		Vector3 movement = new Vector3 (deltaX, 0, deltaZ);
-        // Limits the max speed of the player
-		movement = Vector3.ClampMagnitude(movement, speed); 
-        movement.y = gravity;
-        // Ensures the speed the player moves does not change based on frame rate
-		movement *= Time.deltaTime;		
-		movement = transform.TransformDirection(movement);
-		_charCont.Move(movement);
+		HandlePlayerMove();
 	}
 
     public void SetSelfPlayer(Player player) {
-		selfPlayer = player;
+		_selfPlayer = player;
+	}
+
+	private void HandlePlayerMove() {
+		// Move direction directly from axes
+		float deltaX = Input.GetAxis("Horizontal") * moveSpeed;
+		float deltaZ = Input.GetAxis("Vertical") * moveSpeed;
+		_moveDirection = new Vector3(deltaX, _moveDirection.y, deltaZ);
+		// Accept jump input if grounded
+		if (_charCont.isGrounded) {
+            if (Input.GetButton("Jump")) {
+                _moveDirection.y = jumpSpeed;
+            } else {
+				_moveDirection.y = 0f;
+			}
+        }
+		_moveDirection = transform.TransformDirection(_moveDirection);
+        // Apply gravity. Gravity is multiplied by deltaTime twice (once here, and once below
+        // when the moveDirection is multiplied by deltaTime). This is because gravity should be applied
+        // as an acceleration (ms^-2)
+        _moveDirection.y -= gravity * Time.deltaTime;
+        // Move the controller
+        _charCont.Move(_moveDirection * Time.deltaTime);
 	}
 
 
