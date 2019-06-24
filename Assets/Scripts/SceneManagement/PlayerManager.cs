@@ -54,13 +54,13 @@ public class PlayerManager : MonoBehaviour
     public void ActivatePlayer() {
 		player.playerActive = true;
 		playerReticle.SetActive(true);
-		Cursor.visible = true;
+		Cursor.visible = false;
 	}
 
     public void DeactivatePlayer() {
 		player.playerActive = false;		
 		playerReticle.SetActive(false);
-		Cursor.visible = false;
+		Cursor.visible = true;
 	}
 
 }

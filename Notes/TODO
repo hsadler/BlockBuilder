@@ -14,7 +14,7 @@ TODO NEXT:
 	X fix blocks flush against each other visual bug
 	X fix camera pan jittering while moving
 	X fix slowdown of player when not moving
-	- fix mouse hide/show
+	X fix mouse hide/show
 	- fix jumping
 	- dial-in player speed/movement
 	- fix block removal async thread bug
