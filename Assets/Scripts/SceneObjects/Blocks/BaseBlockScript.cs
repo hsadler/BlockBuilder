@@ -59,30 +59,34 @@ public class BaseBlockScript : MonoBehaviour
 
 	// currently handles position and rotation
 	public void AsyncValidateMutations() {
-		// handle move mutation
-		Vector3 moveVector = blockStateMutation.GetCombinedMoveVectors();
-		// limit move length to 1
-		moveVector = Functions.ApplyBoundsToVector3(moveVector, -1, 1);
-		Vector3 newPosition = blockState.position + moveVector;
-		// is the new position vacant?
-		if(!BlockManager.instance.BlockExists(newPosition)) {
-			// update block state to be committed
-			onDeckBlockState.position = newPosition;
+		if(blockStateMutation.dirty) {
+			// handle move mutation
+			Vector3 moveVector = blockStateMutation.GetCombinedMoveVectors();
+			// limit move length to 1
+			moveVector = Functions.ApplyBoundsToVector3(moveVector, -1, 1);
+			Vector3 newPosition = blockState.position + moveVector;
+			// is the new position vacant?
+			if(!BlockManager.instance.BlockExists(newPosition)) {
+				// update block state to be committed
+				onDeckBlockState.position = newPosition;
+			}
+			// handle rotation mutation
+			Quaternion newRotation = blockState.rotation * blockStateMutation.GetCombinedRotations();
+			onDeckBlockState.rotation = newRotation;
 		}
-		// handle rotation mutation
-		Quaternion newRotation = blockState.rotation * blockStateMutation.GetCombinedRotations();
-		onDeckBlockState.rotation = newRotation;
 	}
 
 	// currently handles position and rotation
 	public void AsyncCommitMutations() {
-		// unset on Block Manager dictionary
-		bool unsetStatus = BlockManager.instance.UnsetBlock(selfBlock);
-		if(unsetStatus) {
-			blockState.position = onDeckBlockState.position;
-			BlockManager.instance.SetBlock(selfBlock);
+		if(blockStateMutation.dirty) {
+			// unset on Block Manager dictionary
+			bool unsetStatus = BlockManager.instance.UnsetBlock(selfBlock);
+			if(unsetStatus) {
+				blockState.position = onDeckBlockState.position;
+				BlockManager.instance.SetBlock(selfBlock);
+			}
+			blockState.rotation = onDeckBlockState.rotation;
 		}
-		blockState.rotation = onDeckBlockState.rotation;
 	}
 
 	public void CommitBlockStateToUI() {
@@ -217,13 +221,6 @@ public class BaseBlockScript : MonoBehaviour
 
 	public void TransformToGhostBlock() {
 		DisableAllColliders();
-
-		// TODO: WORKING HERE....................................
-		
-		// OLD:
-		// SetAllMaterialColorAlphas(ghostBlockColorAlpha);
-
-		// NEW:
 		Renderer r = GetComponent<Renderer>();
 		r.material = fadeMaterial;
 		Color c = r.material.color;

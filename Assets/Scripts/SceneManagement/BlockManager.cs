@@ -60,12 +60,16 @@ public class BlockManager : MonoBehaviour
 		evalRunning = true;
 		List<Block> blockList = GetBlocksAsList();
 		foreach (Block block in blockList) {
+			// Registers block state mutations per block.
 			block.script.AsyncEvalInteractions();
 		}
 		foreach (Block block in blockList) {
+			// Validates aggregated block state mutations and puts them on-deck.
 			block.script.AsyncValidateMutations();
 		}
 		foreach (Block block in blockList) {
+			// Commits the on-deck mutations to the block states. 
+			// Also handles updates to the Block Manager dictionary.
 			block.script.AsyncCommitMutations();
 		}
 		evalRunning = false;

@@ -16,11 +16,12 @@ TODO NEXT:
 	X fix slowdown of player when not moving
 	X fix mouse hide/show
 	X fix player move controls to be separated from block orientation control
-	- fix jumping
-	- dial-in player speed/movement
-	- fix block removal async thread bug
+	X fix jumping
+	X dial-in player speed/movement
+	X fix block removal async thread bug (fixed for now)
+	X fix LightBlock transparency
 	- fix ghost block orientation control to be more intuitive
-	- fix player-not-found bug in PlayerManager
+	- fix 'playerCameraComponent' not found BUG in PlayerLookScript.Start()
 
 
 GAMEPLAY TODO:
@@ -90,11 +91,12 @@ CLEANUP/FIXES:
 	X fix slowdown of player when not moving
 	X fix mouse hide/show
 	X fix player move controls to be separated from block orientation control
-	- fix jumping
-	- dial-in player speed/movement
-	- fix block removal async thread bug
+	X fix jumping
+	X dial-in player speed/movement
+	X fix block removal async thread bug (fixed for now)
+	X fix LightBlock transparency
 	- fix ghost block orientation control to be more intuitive
-	- fix player-not-found bug in PlayerManager
+	- fix 'playerCameraComponent' not found BUG in PlayerLookScript.Start()
 
 
 OPTIMIZATIONS:

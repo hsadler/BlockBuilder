@@ -28,6 +28,7 @@ public class PlayerLookScript : MonoBehaviour
 
     
     private void Start() {
+		// BUG: not found, error thrown 'playerCameraComponent' set to NULL
 		playerCameraComponent = transform.Find("PlayerCamera").GetComponent<Camera>();
     }
 
