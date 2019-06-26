@@ -20,6 +20,7 @@ TODO NEXT:
 	X dial-in player speed/movement
 	X fix block removal async thread bug (fixed for now)
 	X fix LightBlock transparency
+	X bugfix more then one block attempting to enter the same space
 	- fix ghost block orientation control to be more intuitive
 	- fix 'playerCameraComponent' not found BUG in PlayerLookScript.Start()
 
@@ -95,8 +96,9 @@ CLEANUP/FIXES:
 	X dial-in player speed/movement
 	X fix block removal async thread bug (fixed for now)
 	X fix LightBlock transparency
+	X bugfix more then one block attempting to enter the same space
 	- fix ghost block orientation control to be more intuitive
-	- fix 'playerCameraComponent' not found BUG in PlayerLookScript.Start()
+	- bugfix 'playerCameraComponent' not found in PlayerLookScript.Start()
 
 
 OPTIMIZATIONS:

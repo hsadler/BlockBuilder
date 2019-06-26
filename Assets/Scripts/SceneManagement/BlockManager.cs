@@ -10,7 +10,8 @@ public class BlockManager : MonoBehaviour
 	// DATASTORE AND SERVICE FOR MANAGING GAME BLOCKS
 
 
-	public IDictionary<string, Block> coordsToBlockDict = new Dictionary<string, Block>();
+	public IDictionary<string, Block> blockDict = new Dictionary<string, Block>();
+	public IDictionary<string, Block> onDeckBlockDict = new Dictionary<string, Block>();
 	public GameObject blocksContainer;
 
 	private bool evalRunning = false;
@@ -39,16 +40,17 @@ public class BlockManager : MonoBehaviour
 	void Update() {}
 
 	public List<Block> GetBlocksAsList() {
-		return coordsToBlockDict.Values.ToList();
+		return blockDict.Values.ToList();
 	}
 
 	// BLOCK EVALUATION METHODS
 
 	private void BlockTickEval() {
 		if(!evalRunning) {
-			// commit the mutations from the last evaluation
+			// Commit the mutations from the last evaluation using 
+			// lastBlockState and blockState
 			CommitBlockMutationsToUI();
-			// do async block mutation evaluations
+			// Do async block mutation evaluations
 			Thread workerThread = new Thread(AsyncBlockEval);
 			workerThread.Start();
 		} else {
@@ -67,6 +69,8 @@ public class BlockManager : MonoBehaviour
 			// Validates aggregated block state mutations and puts them on-deck.
 			block.script.AsyncValidateMutations();
 		}
+		// Validation is done, init on-deck block dict
+		InitOnDeckBlockDict();
 		foreach (Block block in blockList) {
 			// Commits the on-deck mutations to the block states. 
 			// Also handles updates to the Block Manager dictionary.
@@ -81,7 +85,7 @@ public class BlockManager : MonoBehaviour
 		}
 	}
 
-	// BLOCK DATASTORE METHODS
+	// FORMATTERS
 
 	public string GetFormattedCoordinateFromBlockState(BlockState blockState) {
 		string formattedCoordinatesString = blockState.position.ToString();
@@ -93,16 +97,18 @@ public class BlockManager : MonoBehaviour
 		return formattedCoordinatesString;
 	}
 
+	// BLOCK DICT DATASTORE METHODS
+	
 	public bool BlockExists(Vector3 coordinates) {
 		string formattedCoords = GetFormattedCoordinateString(coordinates);
-		return coordsToBlockDict.ContainsKey(formattedCoords);
+		return blockDict.ContainsKey(formattedCoords);
 	}
 
 	public Block GetBlock(Vector3 coordinates) {
 		Block block = null;
 		if(BlockExists(coordinates)) {
 			string formattedCoords = GetFormattedCoordinateString(coordinates);
-			block = coordsToBlockDict[formattedCoords];
+			block = blockDict[formattedCoords];
 		} else {
 			Debug.Log("block not found at coordinate x:" +
 				coordinates[0] + " y:" + coordinates[1] + " z:" + coordinates[2]);
@@ -114,7 +120,7 @@ public class BlockManager : MonoBehaviour
 		// add to coordinates->block dictionary
 		BlockState bs = block.script.blockState;
 		string coordsKey = GetFormattedCoordinateFromBlockState(bs);
-		coordsToBlockDict.Add(coordsKey, block);
+		blockDict.Add(coordsKey, block);
 		return true;
 	}
 
@@ -123,13 +129,12 @@ public class BlockManager : MonoBehaviour
 		BlockState bs = block.script.blockState;
 		if(BlockExists(bs.position)) {
 			string formattedCoords = GetFormattedCoordinateFromBlockState(bs);
-			coordsToBlockDict.Remove(formattedCoords);
+			blockDict.Remove(formattedCoords);
 			return true;
 		} else {
-			// BUG TODO: BUG HERE WHEN REMOVING BLOCKS DURING ASYNC CALCULATIONS
 			string formattedCoords = GetFormattedCoordinateFromBlockState(bs);
 			Debug.Log("Unable to unset block at formatted coordinates: " + formattedCoords);
-			Debug.Log("CoordsToBlockDict: " + coordsToBlockDict.ToString());
+			Debug.Log("blockDict: " + blockDict.ToString());
 			return false;
 		}
 	}
@@ -168,6 +173,25 @@ public class BlockManager : MonoBehaviour
 			b.script.DestroyBlock();
 		}
 	}
+
+	// ON-DECK BLOCK DICT DATASTORE METHODS
+
+	public void InitOnDeckBlockDict() {
+		onDeckBlockDict = new Dictionary<string, Block>();
+	}
+
+	public bool SetBlockOnOnDeckBlockDict(Block block) {
+		// add to coordinates->on-deck block dictionary
+		BlockState onDeckBlockState = block.script.onDeckBlockState;
+		string coordsKey = GetFormattedCoordinateFromBlockState(onDeckBlockState);
+		onDeckBlockDict.Add(coordsKey, block);
+		return true;
+	} 
+
+	public bool BlockExistsOnOnDeckBlockDict(Vector3 coordinates) {
+		string formattedCoords = GetFormattedCoordinateString(coordinates);
+		return onDeckBlockDict.ContainsKey(formattedCoords);
+	} 
 
 
 }

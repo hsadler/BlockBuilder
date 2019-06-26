@@ -22,7 +22,7 @@ public class SceneInformationScript : MonoBehaviour
 			"Player velocity: {0}\nSelected block: {1}\nBlock count: {2}",
 			Mathf.Round(playerRb.velocity.magnitude),
 			playerInventoryScript.currentSelected.name,
-			BlockManager.instance.coordsToBlockDict.Count
+			BlockManager.instance.blockDict.Count
 		);
 
 	}

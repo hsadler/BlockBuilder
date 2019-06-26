@@ -65,10 +65,16 @@ public class BaseBlockScript : MonoBehaviour
 			// limit move length to 1
 			moveVector = Functions.ApplyBoundsToVector3(moveVector, -1, 1);
 			Vector3 newPosition = blockState.position + moveVector;
-			// is the new position vacant?
-			if(!BlockManager.instance.BlockExists(newPosition)) {
-				// update block state to be committed
+			// confirm new position vacant and not yet reserved?
+			if(
+				BlockManager.instance.BlockExists(newPosition) ||
+				BlockManager.instance.BlockExistsOnOnDeckBlockDict(newPosition)
+			) {
+				// Do not move block since space already has a block or is reserved
+			} else {
+				// Update on-deck block state with new position
 				onDeckBlockState.position = newPosition;
+				BlockManager.instance.SetBlockOnOnDeckBlockDict(selfBlock);
 			}
 			// handle rotation mutation
 			Quaternion newRotation = blockState.rotation * blockStateMutation.GetCombinedRotations();
@@ -79,12 +85,13 @@ public class BaseBlockScript : MonoBehaviour
 	// currently handles position and rotation
 	public void AsyncCommitMutations() {
 		if(blockStateMutation.dirty) {
-			// unset on Block Manager dictionary
+			// Handle move mutation
 			bool unsetStatus = BlockManager.instance.UnsetBlock(selfBlock);
 			if(unsetStatus) {
 				blockState.position = onDeckBlockState.position;
 				BlockManager.instance.SetBlock(selfBlock);
 			}
+			// Handle rotate mutation
 			blockState.rotation = onDeckBlockState.rotation;
 		}
 	}
