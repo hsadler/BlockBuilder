@@ -22,7 +22,12 @@ TODO NEXT:
 	X fix LightBlock transparency
 	X bugfix more then one block attempting to enter the same space
 	X fix ghost block orientation control to be more intuitive
-	- fix 'playerCameraComponent' not found BUG in PlayerLookScript.Start()
+	- better skybox
+	- tune lighting
+	- music
+	- block sfx
+	- footsteps sfx
+	- player sprint mode
 
 
 GAMEPLAY TODO:
@@ -50,8 +55,8 @@ GAMEPLAY TODO:
 		X in-game options (save, load, exit)
 	X ability to save game
 	X ability to load saved game
-	- flying mode for player
 	- player sprint mode
+	- flying mode for player
 
 
 SYSTEMS TODO:
@@ -111,6 +116,14 @@ OPTIMIZATIONS:
 	X more caching of block gameobject components (solved by Block encapsulation class)
 	- keep a secondary list of blocks that need evaluation/mutation commits done (maybe)
 
+
+POLISH
+
+	- better skybox
+	- tune lighting
+	- music
+	- block sfx
+	- footsteps sfx
 
 DEFER:
 
