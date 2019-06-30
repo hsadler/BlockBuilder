@@ -23,7 +23,7 @@ TODO NEXT:
 	X bugfix more then one block attempting to enter the same space
 	X fix ghost block orientation control to be more intuitive
 	X better skybox
-	- tune lighting
+	X tune lighting
 	- music
 	- block sfx
 	- footsteps sfx
@@ -120,7 +120,7 @@ OPTIMIZATIONS:
 POLISH
 
 	X better skybox
-	- tune lighting
+	X tune lighting
 	- music
 	- block sfx
 	- footsteps sfx
