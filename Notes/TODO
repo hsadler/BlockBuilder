@@ -22,7 +22,7 @@ TODO NEXT:
 	X fix LightBlock transparency
 	X bugfix more then one block attempting to enter the same space
 	X fix ghost block orientation control to be more intuitive
-	- better skybox
+	X better skybox
 	- tune lighting
 	- music
 	- block sfx
@@ -119,7 +119,7 @@ OPTIMIZATIONS:
 
 POLISH
 
-	- better skybox
+	X better skybox
 	- tune lighting
 	- music
 	- block sfx
