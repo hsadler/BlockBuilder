@@ -24,7 +24,7 @@ TODO NEXT:
 	X fix ghost block orientation control to be more intuitive
 	X better skybox
 	X tune lighting
-	- music
+	X music
 	- block sfx
 	- footsteps sfx
 	- player sprint mode
@@ -121,7 +121,7 @@ POLISH
 
 	X better skybox
 	X tune lighting
-	- music
+	X music
 	- block sfx
 	- footsteps sfx
 
