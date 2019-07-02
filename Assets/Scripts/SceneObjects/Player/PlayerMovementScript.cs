@@ -44,7 +44,21 @@ public class PlayerMovementScript : MonoBehaviour
             } else {
 				_moveDirection.y = 0f;
 			}
-        }
+			// handle footsteps sfx
+			if(deltaX != 0 || deltaZ != 0) {
+				if(!SfxManager.instance.footstepsSfx.isPlaying) {
+					SfxManager.instance.footstepsSfx.Play();
+				}
+			} else if(SfxManager.instance.footstepsSfx.isPlaying) {
+				SfxManager.instance.footstepsSfx.Stop();
+			}
+        } else {
+			// always stop footsteps sfx if not grounded
+			if(SfxManager.instance.footstepsSfx.isPlaying) {
+				SfxManager.instance.footstepsSfx.Stop();
+			}
+		}
+
 		_moveDirection = transform.TransformDirection(_moveDirection);
         // Apply gravity. Gravity is multiplied by deltaTime twice (once here, and once below
         // when the moveDirection is multiplied by deltaTime). This is because gravity should be applied
