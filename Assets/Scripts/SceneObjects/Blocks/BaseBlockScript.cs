@@ -197,6 +197,7 @@ public class BaseBlockScript : MonoBehaviour
 
 	public void DestroyBlock() {
 		BlockManager.instance.UnsetBlock(selfBlock);
+		SfxManager.instance.blockDestroySfx.Play();
 		Destroy(gameObject);
 	}
 
@@ -210,11 +211,14 @@ public class BaseBlockScript : MonoBehaviour
 
 	public void AddNewBlockAsNeighbor(GameObject blockPrefab) {
 		Player p = PlayerManager.instance.player;
-		BlockManager.instance.CreateBlock(
+		Block block = BlockManager.instance.CreateBlock(
 			blockPrefab,
 			p.inventoryScript.ghostBlockGO.transform.position,
 			p.inventoryScript.ghostBlockGO.transform.rotation
 		);
+		if(block != null) {
+			SfxManager.instance.blockPlaceSfx.Play();
+		}
 	}
 
 	// GHOST BLOCK METHODS
