@@ -12,15 +12,14 @@ public class SceneInformationScript : MonoBehaviour
 
 
 	void Start() {
-		GameObject playerGO = PlayerManager.instance.player.gameObject; 
+		GameObject playerGO = PlayerManager.instance.player.gameObject;
 		playerRb = playerGO.GetComponent<Rigidbody>();
 		playerInventoryScript = playerGO.GetComponent<PlayerInventoryScript>();
 	}
 
 	void Update() {
 		GetComponent<Text>().text = string.Format(
-			"Player velocity: {0}\nSelected block: {1}\nBlock count: {2}",
-			Mathf.Round(playerRb.velocity.magnitude),
+			"Selected block: {0}\nBlock count: {1}",
 			playerInventoryScript.currentSelected.name,
 			BlockManager.instance.blockDict.Count
 		);
